@@ -1,0 +1,102 @@
+<?php
+require('klabin-agendamentos/pages/class.php');
+require('klabin-agendamentos/functions.php');
+
+$usuario = new Usuario();
+if(isset($_POST['usuario']) && $_POST['usuario'] != null){
+    if($_POST['check_senha'] != $_POST['senha']){
+        echo "<script>javascript:history.back(-1)</script>";
+    }
+    $User = new Usuario();
+    $User->setNome($_POST['usuario']);
+    $User->setUsername($_POST['username']);
+    $User->setPassword($_POST['check_senha']);
+    $User->setTipo("gerenciador");
+    $User->setUsuarioCriacao($_SESSION['nome']);
+    date_default_timezone_set('America/Sao_Paulo');
+    $data = date('Y-m-d H:i');
+    $User->setData($data);
+    if($_POST['id'] == null){
+        if($User->salvarUsuario($MySQLi)==true){
+            echo messageSuccess('Usuário Salvo com sucesso!');
+        }else{
+            messageErro('Erro ao salvar usuário!<br>Tente mais tarde!');
+        }
+    }else{
+        if($User->editarUsuario($MySQLi, $_POST['id'])==true){
+            echo messageSuccess('Usuário editado com sucesso!');
+        }else{
+            messageErro('Erro ao salvar edição!<br>Tente mais tarde!');
+        }
+    }  
+}
+
+if(isset($_GET['edit'])&& $_GET['edit'] != null){
+    $result = $usuario->buscarUsuario($_GET['edit'], $MySQLi);
+    while ($dados = $result->fetch_assoc()){ 
+        $usuario->setId($dados['id']);
+        $usuario->setNome($dados['nome']);
+        $usuario->setUsername($dados['username']);
+        $usuario->setPassword($dados['password']);
+    }
+}
+
+?>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Novo Usuário</h1>
+    </div>                
+</div>
+<div class="row">
+    <div class="col-lg-12">
+         <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <form role="form-new-user" method="post" action="#">
+                        <input  type="hidden" name="id" value="<?php echo $usuario->getId() ?>" >
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input class="form-control" name="usuario" placeholder="Nome" maxlength="100" value="<?php echo $usuario->getNome()  ?>" required>
+                                <p class="help-block">Insira o nome completo do novo usuário.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input class="form-control" name="username" maxlength="50" placeholder="Username" value="<?php echo $usuario->getUsername() ?>" required>
+                                <p class="help-block">Informe o username que usuário irá usar entrar no sistema.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Senha</label>
+                                <input class="form-control" id="senha" type="password" minlength="6" maxlength="20" placeholder="Senha" name="senha" value="<?php echo $usuario->getPassword() ?>" required>
+                                <p class="help-block">Mínimo de 6 caracteres.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Repita a senha</label>
+                                <input class="form-control" onkeyup="verificaSenha(this, 'senha')" type="password" minlength="6" maxlength="20" placeholder="Senha" name="check_senha" value="<?php echo $usuario->getPassword() ?>" required>
+                                <p id="feedback-senha" class="help-block">Mínimo de 6 caracteres.</p>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                            <button type="reset" class="btn btn-danger">Cancelar</button>
+                        </form>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var label = document.getElementById('feedback-senha');
+    function verificaSenha(senha1, el2){
+		var senha2 = document.getElementById(el2);
+		if(senha1.value == senha2.value){
+			label.innerHTML = 'Senhas iguais';
+		}
+		else{
+			label.innerHTML = 'Senhas não conferem';
+		}
+		liberaSalvar()
+	}
+</script>
+       

@@ -70,7 +70,7 @@ if(isset($_GET['conteudo'])) {
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="index.php?conteudo=trocar-senha.php">
+                            <a href="home.php?conteudo=trocar-senha.php">
                                 <i class="fa fa-pencil fa-fw"></i> Alterar senha
                             </a>
                         </li>

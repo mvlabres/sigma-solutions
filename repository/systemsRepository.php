@@ -13,8 +13,8 @@ class SystemsRepository{
         try{
             $sql = "SELECT systems.id AS systemId, name, description, systemUrl, iconPath
                     FROM systems 
-                    INNER JOIN usersystems ON systems.id = usersystems.systemsId
-                    WHERE usersystems.userId = " . $userId;  
+                    INNER JOIN userSystems ON systems.id = userSystems.systemsId
+                    WHERE userSystems.userId = " . $userId;  
                     
             $result = $this->mySql->query($sql);
 

@@ -2,6 +2,14 @@
 require('klabin-agendamentos/pages/class.php');
 require('klabin-agendamentos/functions.php');
 
+$userTypeValues = [
+    ['key'=> 'adm',         'value' => 'Administrador'],
+    ['key'=> 'client',      'value' => 'Cliente'],
+    ['key'=> 'gerenciador', 'value' => 'Gerenciador'],
+    ['key'=> 'porter',      'value' => 'Portaria'],
+    ['key'=> 'user',        'value' => 'Visitante']
+];
+
 $usuario = new Usuario();
 if(isset($_POST['usuario']) && $_POST['usuario'] != null){
     if($_POST['check_senha'] != $_POST['senha']){
@@ -11,7 +19,7 @@ if(isset($_POST['usuario']) && $_POST['usuario'] != null){
     $User->setNome($_POST['usuario']);
     $User->setUsername($_POST['username']);
     $User->setPassword($_POST['check_senha']);
-    $User->setTipo("gerenciador");
+    $User->setTipo($_POST['userType']);
     $User->setUsuarioCriacao($_SESSION['nome']);
     date_default_timezone_set('America/Sao_Paulo');
     $data = date('Y-m-d H:i');
@@ -38,7 +46,11 @@ if(isset($_GET['edit'])&& $_GET['edit'] != null){
         $usuario->setNome($dados['nome']);
         $usuario->setUsername($dados['username']);
         $usuario->setPassword($dados['password']);
+        $usuario->setTipo($dados['tipo']);
     }
+
+    echo 'tipo do usuario: ';
+    echo $usuario->getTipo();
 }
 
 ?>
@@ -65,6 +77,21 @@ if(isset($_GET['edit'])&& $_GET['edit'] != null){
                                 <label>Username</label>
                                 <input class="form-control" name="username" maxlength="50" placeholder="Username" value="<?php echo $usuario->getUsername() ?>" required>
                                 <p class="help-block">Informe o username que usuário irá usar entrar no sistema.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de acesso</label>
+                                <select name="userType" class="form-control placeholder" aria-label="Default select example" required>
+                                    <option value="">Selecione...</option>
+                                    <?php
+                                    foreach ($userTypeValues as $userTypeValue) {
+
+                                        $selected = null;
+                                        if($usuario->getTipo() == $userTypeValue['key']) $selected = 'selected';
+
+                                        echo '<option value="'.$userTypeValue['key'].'" '.$selected.' >'.$userTypeValue['value'].'</option>';
+                                    }
+                                    ?>
+                                  </select>
                             </div>
                             <div class="form-group">
                                 <label>Senha</label>

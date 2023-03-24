@@ -64,8 +64,8 @@
                                                 echo '<td>'.$user->getUsername().'</td>';
                                                 echo '<td>'.date('d/m/Y', strtotime($user->getData())).'</td>';//
                                                 echo '<td>'.$user->getUsuarioCriacao().'</td>';
-                                                echo '<td class="text-center"><a href="index.php?conteudo=new-user.php&edit='.$user->getId().'"><span class="fa fa-edit text-primary"></span></a></td>';
-                                                echo '<td class="text-center"><a href="index.php?conteudo=listarUsuarios.php&delete='.$user->getId().'"><span class="fa fa-trash-o text-danger"></span></a></td>';
+                                                echo '<td class="text-center"><a href="home.php?conteudo=new-user.php&edit='.$user->getId().'"><span class="fa fa-edit text-primary"></span></a></td>';
+                                                echo '<td class="text-center"><a href="home.php?conteudo=listarUsuarios.php&delete='.$user->getId().'"><span class="fa fa-trash-o text-danger"></span></a></td>';
                                                 echo '</tr>';
                                                 $contLin++;
                                             }

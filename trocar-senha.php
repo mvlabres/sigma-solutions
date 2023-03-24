@@ -1,6 +1,6 @@
 <?php
-require('class.php');
-require('../functions.php');
+require('klabin-agendamentos/pages/class.php');
+require('klabin-agendamentos/functions.php');
 
 $usuario = new Usuario();
 $result = $usuario->buscarUsuario($_SESSION['id'], $MySQLi);

@@ -56,11 +56,15 @@ include_once '../../session.php';
         public function getUsuarioCriacao(){
             return $this->usuarioCriacao;
         }
-       
 
         public function salvarUsuario($mysql){
             try{
                 $sql = "insert into usuario(nome, username, password, usuarioCriacao, dataInclusao, tipo) values ('".$this->getNome()."','".$this->getUsername()."','".$this->getPassword()."','".$this->getUsuarioCriacao()."', '".$this->getData()."', '".$this->getTipo()."')";
+                $mysql->query($sql);
+
+                $last_id = $mysql->insert_id;
+
+                $sql = "insert into userSystems(userId, systemsId) values (".$last_id.",  1)";
                 $mysql->query($sql);
                 return true;
             }catch(Exception $e){
@@ -87,7 +91,7 @@ include_once '../../session.php';
             }
         }
         public function listarUsuarios($mysql){
-            $sql = "select id,nome,username,password,dataInclusao,tipo,usuarioCriacao from usuario where tipo = 'gerenciador'";
+            $sql = "select id,nome,username,password,dataInclusao,tipo,usuarioCriacao from usuario where tipo IN ('gerenciador', 'user') ";
             $result = $mysql->query($sql);
             return $result;
         }

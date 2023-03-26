@@ -162,3 +162,28 @@ html, body {
 .dev-fixed-bottom > p{
     text-align: center;
 }
+.customer-master-label{
+    margin-left: 100px;
+}
+
+.invisible-disabeld-field{
+    border: none !important;
+    box-shadow:none !important;
+    font-weight: bold !important;
+}
+
+.invisible-disabeld-field:disabled{
+    background-color: transparent !important;
+}
+
+.warning-text-field{
+    color:#ffc107 !important;
+}
+
+.error-text-field{
+    color:#dc3545 !important;
+}
+
+.success-text-field{
+    color:#28a745 !important;
+}

@@ -68,5 +68,7 @@ if (isset($_SESSION['username'])) {
         <script src="assets/js/jquery-1.11.1.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/scripts.js"></script>
+        <script src="/path/to/cdn/jquery.min.js"></script>
+        <script src="jquery.datetimepicker.js"></script>
     </body>
 </html>

@@ -81,7 +81,27 @@ INSERT INTO `userSystems` (`userId`, `systemsID`) VALUES
 (119,1),
 (120,1);
 
+// até aqui já esta aplicado em produção
+
 alter table customer add column description varchar(50);
 
 insert into customer (name, description) values ('tetrapak', 'TetraPak');
 insert into customer (name, description) values ('klabin', 'Klabin');
+
+create table operation_type(
+    id int primary key auto_increment not null,
+    name varchar(50) not null,
+    label varchar(50) not null
+);
+
+alter table transportadora add column cliente_origem varchar(50);
+
+update transportadora set cliente_origem = 'klabin';
+
+ALTER TABLE transportadora CHANGE  username username varchar(50) DEFAULT NULL;
+ALTER TABLE transportadora CHANGE  cnpj cnpj varchar(50) DEFAULT NULL;
+ALTER TABLE transportadora CHANGE  email email varchar(100) DEFAULT NULL;
+ALTER TABLE transportadora CHANGE  telefone telefone varchar(20) DEFAULT NULL;
+ALTER TABLE transportadora CHANGE  password password  varchar(50) DEFAULT NULL;
+ALTER TABLE transportadora CHANGE  celular celular varchar(20) DEFAULT NULL;
+

@@ -29,15 +29,9 @@ if(isset($_GET['conteudo'])) {
     <meta name="author" content="">
     <link rel="shortcut icon" href="assets/ico/sigma.ico">
     <title>SIGMA Solutions</title>
-    <link href="vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
-
-<!-- DataTables Responsive CSS -->
-    <link href="vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+    
+    <!-- DataTables Responsive CSS -->
     <link href="vendor/morrisjs/morris.css" rel="stylesheet">
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
@@ -45,6 +39,19 @@ if(isset($_GET['conteudo'])) {
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="custom-style.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script src="vendor/raphael/raphael.min.js"></script>
+    <script src="vendor/morrisjs/morris.min.js"></script>
+    <script src="data/morris-data.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+    <script src="../jQuery-Mask-Plugin-master/"></script>
+    <script src="dist/js/sb-admin-2.js"></script>
 </head>
 
 <body>
@@ -112,21 +119,7 @@ if(isset($_GET['conteudo'])) {
         </div>
         <a class="dev-fixed-bottom" href="http://labsoft.tech/" target="_blank" ><p class="text-muted">&nbsp Desenvolvido por <span class="text-primary" style="font-size:1.2em"><b>LAB</b>soft</span></p></a>
     </div>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/raphael/raphael.min.js"></script>
-    <script src="vendor/morrisjs/morris.min.js"></script>
-    <script src="data/morris-data.js"></script>
-    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/metisMenu/metisMenu.min.js"></script>
-    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
-
-    <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+    
     <script>
         jQuery(function($){
             $('.telefone').mask('(00)0000-0000');
@@ -136,10 +129,6 @@ if(isset($_GET['conteudo'])) {
             $("#data_final").mask("99/99/9999");
         });
     </script>
-    <script src="../jQuery-Mask-Plugin-master/"></script>
-
-   
-    <script src="dist/js/sb-admin-2.js"></script>
 
     <script>
         $(document).ready(function() {

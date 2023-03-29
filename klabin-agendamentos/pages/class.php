@@ -191,7 +191,7 @@ include_once '../../session.php';
 
         public function salvarTransportadora($mysql){
             try{
-                $sql = "insert into transportadora(nome, username, cnpj, email, telefone,celular, password, data, usuario) values ('".$this->getNome()."','".$this->getUsername()."','".$this->getCNPJ()."','".$this->getEmail()."','".$this->getTelefone()."','".$this->getCelular()."','".$this->getPassword()."', '".$this->getData()."', '".$this->getUsuario()."')";
+                $sql = "insert into transportadora(nome, username, cnpj, email, telefone,celular, password, data, usuario, cliente_origem) values ('".$this->getNome()."','".$this->getUsername()."','".$this->getCNPJ()."','".$this->getEmail()."','".$this->getTelefone()."','".$this->getCelular()."','".$this->getPassword()."', '".$this->getData()."', '".$this->getUsuario()."', 'klabin')";
                 $mysql->query($sql);
                 return true;
             }catch(Exception $e){

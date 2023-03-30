@@ -14,12 +14,12 @@ if($_SESSION['nome'] == null){
 $customerName = null;
 $customerDescription = null;
 
-if(isset($_GET['customer'])) {
+if(isset($_GET['customer']) && $_GET['customer'] != null) {
 
     $customerController = new CustomerController($MySQLi);
     $customers = $customerController->findByName($_GET['customer']); 
 
-    $customerDescription = $customers[0]->getDescription();
+    $_SESSION['customerDescription'] = $customers[0]->getDescription();
     $customerName = $customers[0]->getName();
 }
 
@@ -38,7 +38,7 @@ if(isset($_GET['conteudo'])) {
     $conteudo = $_GET['conteudo'];
     if($conteudo == 'logout') {
         session_destroy();
-        header('Location:../../index.php');
+        header('Location:../index.php');
     }
 }   
 
@@ -106,8 +106,11 @@ if(isset($_GET['conteudo'])) {
                 </button>
                 <a class="navbar-brand" href="../home.php">SIGMA Solutions</a>
             </div>
+
+            <div class="navbar-brand customer-master-label">
+                <p><?=$_SESSION['customerDescription'] ?> Agendamentos</p>
+            </div>
          
-            
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -129,7 +132,7 @@ if(isset($_GET['conteudo'])) {
                             <a href="#"><i></i> Agendamentos </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?=$_SERVER['REQUEST_URI'].'&conteudo=newSchedule.php' ?>">Novo Agendamento</a>
+                                    <a href="index.php?conteudo=newSchedule.php">Novo Agendamento</a>
                                 </li>
                             </ul>
                         </li>
@@ -137,7 +140,10 @@ if(isset($_GET['conteudo'])) {
                             <a href="#"><i></i> Cadastros</a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?=$_SERVER['REQUEST_URI'].'&conteudo=newSchedule.php' ?>">Transportadoras</a>
+                                    <a href="index.php?conteudo=newTruckType.php">Tipo de veículo</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?conteudo=newSchedule.php">Transportadoras</a>
                                 </li>
                             </ul>
                         </li>
@@ -184,14 +190,13 @@ if(isset($_GET['conteudo'])) {
             $('#dataTables-example').DataTable({
                 responsive: true
             });
-    });
-        window.setTimeout(function() {
-            $(".alert").fadeTo(50000, 10).slideUp(50000, function(){
-                $(this).remove(); 
-            });
-        }, 4000);
-    </script>
-    <script type="text/javascript">
+        });
+
+        $(".alert").fadeTo(5000, 10).slideUp(500, function(){
+            $(this).remove(); 
+        });
+
+
         $(function () {
             $('#datetimepicker1').datetimepicker();
         });

@@ -25,7 +25,16 @@ function sec_session_start() {
     
 }
 
+sec_session_start();
 
+if( $_SERVER['REQUEST_METHOD'] =='POST' ){
+    
+    $request = md5(implode( $_POST ) );
+
+    if( isset( $_SESSION['last_request'] ) && $_SESSION['last_request'] == $request ) unset($_POST);
+    else $_SESSION['last_request'] = $request;
+    
+}
 
 
 function login($usuario, $senha, $mysqli) 
@@ -61,8 +70,6 @@ function login($usuario, $senha, $mysqli)
         }
     }
 }
-
-sec_session_start();
 
 function login_check($mysqli) {
     if (isset($_SESSION['username'])) 

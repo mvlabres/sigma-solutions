@@ -137,7 +137,7 @@ if(isset($_GET['conteudo'])) {
             });
     });
         
-        $(".alert").fadeTo(5000, 10).slideUp(500, function(){
+        $(".alert").fadeTo(1000, 10).slideUp(500, function(){
             $(this).remove(); 
         });
         

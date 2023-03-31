@@ -39,4 +39,20 @@ jQuery(function($){
     }
     
     bindDatePicker();
+
+    
   });
+
+const editTruckType = (id, description) => {
+
+    document.getElementById('id').value = id;
+    document.getElementById('description').value = description;
+    document.getElementById('action').value = 'edit';
+    document.getElementById('title').innerHTML = 'Tipo de Veículo - Editar';
+}
+
+const resetNewTruck = () =>{
+    document.getElementById('title').innerHTML = 'Tipo de Veículo - Novo';
+    document.getElementById('id').value = null;
+    document.getElementById('action').value = 'save';
+}

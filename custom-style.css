@@ -187,3 +187,12 @@ html, body {
 .success-text-field{
     color:#28a745 !important;
 }
+
+.clickble{
+    cursor: pointer;
+}
+
+.full-container{
+    width: 100%;
+    margin-bottom: 20px;
+}

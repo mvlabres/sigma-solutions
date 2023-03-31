@@ -1,10 +1,15 @@
 <?php
 
 require_once('../controller/shippingCompanyController.php');
+require_once('../controller/truckTypeController.php');
 
 $shippingCompanyController = new ShippingCompanyController($MySQLi);
+$truckTypeController = new TruckTypeController($MySQLi);
 
-$shippingCompanys = $shippingCompanyController->findByClient($customerName);
+$shippingCompanys = $shippingCompanyController->findByClient($_SESSION['customerName']);
+$truckTypes = $truckTypeController->findAll();
+
+
 
 ?>
 
@@ -119,15 +124,15 @@ $shippingCompanys = $shippingCompanyController->findByClient($customerName);
                             <label>Tipo de Veículo</label>
                             <select name="truckType" class="form-control placeholder" aria-label="Default select example">
                                 <option value="">Selecione...</option>
-                                <!-- <?php
-                                foreach ($userTypeValues as $userTypeValue) {
+                                <?php
+                                foreach ($truckTypes as $truckType) {
 
                                     $selected = null;
-                                    if($usuario->getTipo() == $userTypeValue['key']) $selected = 'selected';
+                                    //if($truckType->getDescription() == $userTypeValue['key']) $selected = 'selected';
 
-                                    echo '<option value="'.$userTypeValue['key'].'" '.$selected.' >'.$userTypeValue['value'].'</option>';
+                                    echo '<option value="'.$truckType->getDescription().'" '.$selected.' >'.$truckType->getDescription().'</option>';
                                 }
-                                ?> -->
+                                ?>
                               </select>
                         </div>
                         <div class="form-group">
@@ -158,8 +163,14 @@ $shippingCompanys = $shippingCompanyController->findByClient($customerName);
                             <label>Observação</label>
                             <textarea class="form-control" type="text" name="observation"></textarea>
                         </div>
-                    </div>   
+                    </div> 
                 </div>
+                <div class="full-container">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupFile01">Novo Anexo</label>
+                        <input type="file" class="form-control" id="inputGroupFile01">
+                    </div>
+                </div>  
                 <button id="btn-salvar" type="submit" class="btn btn-primary">Salvar</button>
                 <button type="reset" class="btn btn-danger">Cancelar</button> 
             </div>

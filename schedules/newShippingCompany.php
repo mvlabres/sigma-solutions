@@ -1,19 +1,23 @@
 <?php
 
-require_once('../controller/truckTypeController.php');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once('../controller/shippingCompanyController.php');
 require_once('../utils.php');
 
 $action = 'save';
 
-$truckTypeController = new TruckTypeController($MySQLi);
+$shippingCompanyController = new ShippingCompanyController($MySQLi);
 
 if(isset($_POST['action']) && $_POST['action'] == 'save'){
     
-    $result = $truckTypeController->save($_POST);
+    $result = $shippingCompanyController->save($_POST);
 
     switch ($result) {
         case 'ALREADY_EXISTS':
-            errorAlert('Já existe um tipo de veículo cadastrado com esse nome.');
+            errorAlert('Já existe uma transportadora cadastrada com esse nome.');
             break;
         
         case 'SAVE_ERROR':
@@ -21,7 +25,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'save'){
             break;
         
         case 'SAVED':
-            successAlert('Tipo de veículo salvo com sucesso!');
+            successAlert('Transportadora salva com sucesso!');
             break;
     }
 
@@ -32,7 +36,7 @@ if(isset($_GET['delete']) && $_SERVER['REQUEST_METHOD'] !='POST'){
 
     $idDelete = $_GET['delete'];
 
-    $result = $truckTypeController->deleteById($idDelete);
+    $result = $shippingCompanyController->deleteById($idDelete);
 
     switch ($result) {
         case 'DELETED':
@@ -49,7 +53,7 @@ if(isset($_GET['delete']) && $_SERVER['REQUEST_METHOD'] !='POST'){
 
 if(isset($_POST['action']) && $_POST['action'] == 'edit'){
 
-    $result = $truckTypeController->updateById($_POST['id'], $_POST['description']);
+    $result = $shippingCompanyController->updateById($_POST['id'], $_POST['description']);
 
     switch ($result) {
         case 'UPDATED':
@@ -62,13 +66,13 @@ if(isset($_POST['action']) && $_POST['action'] == 'edit'){
     }
 }
 
-$truckTypes = $truckTypeController->findAll();
+$shippingCompanys = $shippingCompanyController->findByClient('tetrapak');
 
 ?>
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header" id="title">Tipo de Veículo - Novo</h1>
+        <h1 class="page-header" id="title">Transportadora - Novo</h1>
     </div>                
 </div>
 <div class="row">
@@ -81,12 +85,13 @@ $truckTypes = $truckTypeController->findAll();
                         <input type="hidden" name="id" value="" id="id">
                         <input type="hidden" name="action" value="save" id="action">
                             <div class="form-group">
-                                <label>Descrição</label>
-                                <input class="form-control" maxlength="100" name="description" id="description" required>
+                                <label>Nome</label>
+                                <input class="form-control" maxlength="100" name="name" id="name" required>
+                                <p class="help-block">Insira o nome completo da nova transportadora.</p>
                             </div>
                         
                             <button id="btn-salvar" type="submit" class="btn btn-primary">Salvar</button>
-                            <button type="reset" onclick="resetNewTruck()" class="btn btn-danger">Cancelar</button>
+                            <button type="reset" onclick="resetNewShippingCompany()" class="btn btn-danger">Cancelar</button>
                         </form>
                     </div>
                 </div>    
@@ -103,7 +108,7 @@ $truckTypes = $truckTypeController->findAll();
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Descrição</th>
+                            <th>Nome</th>
                             <th>Editar</th>
                             <th>Excluir</th>
                         </tr>
@@ -111,12 +116,12 @@ $truckTypes = $truckTypeController->findAll();
                     <tbody>
                         
                             <?php
-                                foreach($truckTypes as $truckType) { 
+                                foreach($shippingCompanys as $shippingCompany) { 
                                     echo '<tr class="odd gradeX">';
-                                    echo '<td>'.$truckType->getId().'</td>';
-                                    echo '<td>'.$truckType->getDescription().'</td>';
-                                    echo '<td class="text-center clickble" onclick="editTruckType('.$truckType->getId().', \''.$truckType->getDescription().'\' )"><span class="fa fa-edit text-primary"></span></td>';
-                                    echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newTruckType.php&delete='.$truckType->getId().'"><span class="fa fa-trash-o text-danger"></span></a></td>';
+                                    echo '<td>'.$shippingCompany->getId().'</td>';
+                                    echo '<td>'.$shippingCompany->getNome().'</td>';
+                                    echo '<td class="text-center clickble" onclick="editShippingCompany('.$shippingCompany->getId().', \''.$shippingCompany->getNome().'\' )"><span class="fa fa-edit text-primary"></span></td>';
+                                    echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newShippingCompany.php&delete='.$shippingCompany->getId().'"><span class="fa fa-trash-o text-danger"></span></a></td>';
                                     echo '</tr>';
 
                                 }

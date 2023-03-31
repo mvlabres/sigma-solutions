@@ -51,6 +51,21 @@ class TruckTypeRepository{
         }
     }
 
+    public function updateById($id, $description){
+
+        try{
+            $sql = "UPDATE tipoveiculo
+                    SET descricao = '".$description."'
+                    WHERE ID = ".$id;  
+
+            $result = $this->mySql->query($sql);
+            return 'UPDATED';
+
+        }catch(Exception $e){
+            return 'UPDATE_ERROR';
+        }
+    }
+
     public function deleteById($id){
 
         try{

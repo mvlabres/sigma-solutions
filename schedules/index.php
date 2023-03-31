@@ -19,6 +19,7 @@ if(isset($_GET['customer']) && $_GET['customer'] != null) {
     $customerController = new CustomerController($MySQLi);
     $customers = $customerController->findByName($_GET['customer']); 
 
+    $_SESSION['customerName'] = $_GET['customer'];
     $_SESSION['customerDescription'] = $customers[0]->getDescription();
     $customerName = $customers[0]->getName();
 }
@@ -140,10 +141,13 @@ if(isset($_GET['conteudo'])) {
                             <a href="#"><i></i> Cadastros</a>
                             <ul class="nav nav-second-level">
                                 <li>
+                                    <a href="index.php?conteudo=newOperationType.php">Tipo de Operação</a>
+                                </li>
+                                <li>
                                     <a href="index.php?conteudo=newTruckType.php">Tipo de veículo</a>
                                 </li>
                                 <li>
-                                    <a href="index.php?conteudo=newSchedule.php">Transportadoras</a>
+                                    <a href="index.php?conteudo=newShippingCompany.php">Transportadoras</a>
                                 </li>
                             </ul>
                         </li>

@@ -23,6 +23,33 @@ class ShippingCompanyController{
         return $data;
     }
 
+    public function save($post){
+
+        try {
+  
+            return $this->shippingCompanyRepository->save($post);
+        
+        } catch (Exception $e) {
+            return 'SAVE_ERROR';
+        }
+    }
+
+    public function updateById($id, $name){
+
+        return $this->shippingCompanyRepository->updateById($id, $name);
+    }
+
+    public function deleteById($id){
+
+        try {
+
+            return $this->shippingCompanyRepository->deleteById($id);
+        
+        } catch (Exception $e) {
+            return 'DELETE_ERROR';
+        }
+    }
+
     public function loadData($records){
 
         $shippingCompanys = array();

@@ -45,6 +45,11 @@ class TruckTypeController{
         }
     }
 
+    public function updateById($id, $description){
+
+        return $this->truckTypeRepository->updateById($id, $description);
+    }
+
     public function deleteById($id){
 
         try {

@@ -2,6 +2,7 @@
 
 class ShippingCompany{
 
+    private $id;
     private $nome;
     private $username;
     private $CNPJ;

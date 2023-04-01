@@ -1,6 +1,15 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require('klabin-agendamentos/pages/class.php');
 require('klabin-agendamentos/functions.php');
+require_once('controller/systemsController.php');
+
+$systemsController = new SystemsController($MySQLi);
+$systemIds = array();
 
 $userTypeValues = [
     ['key'=> 'adm',         'value' => 'Administrador'],
@@ -21,6 +30,8 @@ if(isset($_POST['usuario']) && $_POST['usuario'] != null){
     $User->setPassword($_POST['check_senha']);
     $User->setTipo($_POST['userType']);
     $User->setUsuarioCriacao($_SESSION['nome']);
+    $User->setSystemAccess($_POST['systemAccess']);
+
     date_default_timezone_set('America/Sao_Paulo');
     $data = date('Y-m-d H:i');
     $User->setData($data);
@@ -41,17 +52,21 @@ if(isset($_POST['usuario']) && $_POST['usuario'] != null){
 
 if(isset($_GET['edit'])&& $_GET['edit'] != null){
     $result = $usuario->buscarUsuario($_GET['edit'], $MySQLi);
+
     while ($dados = $result->fetch_assoc()){ 
-        $usuario->setId($dados['id']);
+        $usuario->setId($dados['user_id']);
         $usuario->setNome($dados['nome']);
         $usuario->setUsername($dados['username']);
         $usuario->setPassword($dados['password']);
         $usuario->setTipo($dados['tipo']);
+        array_push($systemIds, $dados['systemsId']);
     }
-
-    echo 'tipo do usuario: ';
-    echo $usuario->getTipo();
 }
+
+echo 'sistemas: ';
+print_r($systemIds);
+
+$systems = $systemsController->findAll();
 
 ?>
 
@@ -92,6 +107,22 @@ if(isset($_GET['edit'])&& $_GET['edit'] != null){
                                     }
                                     ?>
                                   </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Sistemas</label>
+                                <select name="systemAccess[]" class="form-control" multiple required>
+                                    <?php
+                                        if(count($systems) > 0){
+                                            foreach ($systems as $system) {
+
+                                                $selected = in_array($system->getId(), $systemIds) ? 'selected' : null;
+
+                                                echo '<option '.$selected.' value="'.$system->getId().'">'.$system->getDescription().'</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <p class="help-block">Cuidado, pois aqui você concede acesso aos sistemas da plataforma. :|</p>
                             </div>
                             <div class="form-group">
                                 <label>Senha</label>

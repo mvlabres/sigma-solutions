@@ -53,7 +53,7 @@ if(isset($_GET['delete']) && $_SERVER['REQUEST_METHOD'] !='POST'){
 
 if(isset($_POST['action']) && $_POST['action'] == 'edit'){
 
-    $result = $shippingCompanyController->updateById($_POST['id'], $_POST['description']);
+    $result = $shippingCompanyController->updateById($_POST['id'], $_POST['name']);
 
     switch ($result) {
         case 'UPDATED':
@@ -101,7 +101,7 @@ $shippingCompanys = $shippingCompanyController->findByClient('tetrapak');
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Visualize aqui todos os tipos de veículos.
+                Visualize aqui todas as transportadoras.
             </div>
             <div class="panel-body">
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">

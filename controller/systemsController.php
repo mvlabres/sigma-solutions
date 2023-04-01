@@ -15,6 +15,14 @@ class SystemsController{
         $this->systemsRepository = new SystemsRepository($this->mySql);
     }
 
+    public function findAll(){
+
+        $result = $this->systemsRepository->findAll();
+        $data = $this->loadData($result);
+
+        return $data;
+    }
+
     public function findByUser($userId){
 
         $result = $this->systemsRepository->findByUser($userId);

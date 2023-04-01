@@ -9,6 +9,7 @@ include_once '../../session.php';
         private $data;
         private $tipo;
         private $usuarioCriacao;
+        private $systemAccess;
 
 	public function __construct(){
         }
@@ -56,16 +57,30 @@ include_once '../../session.php';
         public function getUsuarioCriacao(){
             return $this->usuarioCriacao;
         }
+        public function setSystemAccess($systemAccess){
+            $this->systemAccess = $systemAccess;
+        }
+        public function getSystemAccess(){
+            return $this->systemAccess;
+        }
 
         public function salvarUsuario($mysql){
             try{
                 $sql = "insert into usuario(nome, username, password, usuarioCriacao, dataInclusao, tipo) values ('".$this->getNome()."','".$this->getUsername()."','".$this->getPassword()."','".$this->getUsuarioCriacao()."', '".$this->getData()."', '".$this->getTipo()."')";
                 $mysql->query($sql);
 
-                $last_id = $mysql->insert_id;
+                $systemAccess = $this->getSystemAccess();
 
-                $sql = "insert into userSystems(userId, systemsId) values (".$last_id.",  1)";
-                $mysql->query($sql);
+                if(count($systemAccess) > 0){
+                    
+                    $last_id = $mysql->insert_id;
+                    foreach ($systemAccess as $systemId) {
+                        
+                        $sql = "insert into userSystems(userId, systemsId) values (".$last_id.", ".$systemId." )";
+                        $mysql->query($sql);  
+                    }
+                }
+
                 return true;
             }catch(Exception $e){
                 return false;
@@ -91,12 +106,16 @@ include_once '../../session.php';
             }
         }
         public function listarUsuarios($mysql){
-            $sql = "select id,nome,username,password,dataInclusao,tipo,usuarioCriacao from usuario where tipo IN ('gerenciador', 'user') ";
+            $sql = "select id,nome,username,password,dataInclusao,tipo,usuarioCriacao from usuario";
             $result = $mysql->query($sql);
             return $result;
         }
         public function buscarUsuario($id, $mysql){
-            $sql = "select id,nome,username,password,dataInclusao,tipo,usuarioCriacao from usuario where id = ".$id;
+            $sql = "select usuario.id AS user_id,nome,username,password,dataInclusao,tipo,usuarioCriacao, systemsId
+                    from usuario 
+                    inner join usersystems on usuario.id = userId
+                    where usuario.id = ".$id;
+
             $result = $mysql->query($sql);
             return $result;
         }

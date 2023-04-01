@@ -56,3 +56,31 @@ const resetNewTruck = () =>{
     document.getElementById('id').value = null;
     document.getElementById('action').value = 'save';
 }
+
+const editOperationType = (id, name) => {
+
+    document.getElementById('id').value = id;
+    document.getElementById('name').value = name;
+    document.getElementById('action').value = 'edit';
+    document.getElementById('title').innerHTML = 'Tipo de Operação - Editar';
+}
+
+const resetOperationType = () =>{
+    document.getElementById('title').innerHTML = 'Tipo de Operação - Novo';
+    document.getElementById('id').value = null;
+    document.getElementById('action').value = 'save';
+}
+
+const editShippingCompany = (id, name) => {
+
+    document.getElementById('id').value = id;
+    document.getElementById('name').value = name;
+    document.getElementById('action').value = 'edit';
+    document.getElementById('title').innerHTML = 'Transportadora - Editar';
+}
+
+const resetShippingCompany = () =>{
+    document.getElementById('title').innerHTML = 'Transportadora - Novo';
+    document.getElementById('id').value = null;
+    document.getElementById('action').value = 'save';
+}

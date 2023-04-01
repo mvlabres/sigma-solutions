@@ -74,11 +74,10 @@ include_once '../../session.php';
                 if(count($systemAccess) > 0){
                     
                     $last_id = $mysql->insert_id;
-                    foreach ($systemAccess as $systemId) {
-                        
-                        $sql = "insert into userSystems(userId, systemsId) values (".$last_id.", ".$systemId." )";
-                        $mysql->query($sql);  
-                    }
+
+                    if($this->addSystemAccess($mysql, $last_id, $systemAccess)) return true;
+                    else return false;
+                    
                 }
 
                 return true;
@@ -86,11 +85,61 @@ include_once '../../session.php';
                 return false;
             }
         }
+
+        public function addSystemAccess($mysql, $userId, $systemAccess){
+
+            try {
+                foreach ($systemAccess as $systemId) {
+                        
+                    $sql = "INSERT INTO userSystems(userId, systemsId) VALUES (".$userId.", ".$systemId." )";
+                    $mysql->query($sql); 
+                }
+
+                return true;
+
+            } catch (Exception $e) {
+                return false;
+            }
+
+            
+
+        }
+
         public function editarUsuario($mysql,$id){
             try{
                
                 $sql = "update usuario set nome = '".$this->getNome()."', username = '".$this->getUsername()." ', password = '".$this->getPassword()."', dataInclusao = '".$this->getData()."', usuarioCriacao = '".$this->getUsuarioCriacao()."' where id = ".$id;
                 $mysql->query($sql);
+
+                $sql = "SELECT id, userId, systemsId FROM userSystems 
+                        WHERE userId = " . $id; 
+                        
+                $result = $mysql->query($sql);
+
+                $systemIds = array();
+                $userSystemIds = array();
+
+                while ($data = $result->fetch_assoc()){ 
+                    
+                    array_push($userSystemIds, $data['id']);
+                    array_push($systemIds, $data['systemsId']);
+                }
+
+                $diff1 = array_diff($systemIds, $this->getSystemAccess());
+                $diff2 = array_diff($this->getSystemAccess(), $systemIds);
+
+                if(count($diff1) == 0 && count($diff2) == 0) return true;
+                else {
+                    
+                    $sql = "DELETE FROM userSystems 
+                            WHERE userId = " . $id; 
+
+                    $mysql->query($sql);
+
+                    if($this->addSystemAccess($mysql, $id, $this->getSystemAccess())) return true;
+                    else return false;
+                }
+
                 return true;
             }catch(Exception $e){
                 return false;

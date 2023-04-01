@@ -12,8 +12,8 @@ create table userSystems(
 	id int auto_increment primary key not null,
     userId int not null,
     systemsId int not null,
-    CONSTRAINT FK_userId FOREIGN KEY (userId) REFERENCES usuario(id),
-	CONSTRAINT FK_systemsId FOREIGN KEY (systemsId) REFERENCES systems(id)
+    CONSTRAINT FK_userId FOREIGN KEY (userId) REFERENCES usuario(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT FK_systemsId FOREIGN KEY (systemsId) REFERENCES systems(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 insert into systems (name, description, systemUrl, iconPath) values ('klabinSchedules', 'Klabin Agendamentos', 'klabin-agendamentos/pages/', 'images/icone-agendamento.png');

@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require('klabin-agendamentos/pages/class.php');
 require('klabin-agendamentos/functions.php');
 require_once('controller/systemsController.php');
@@ -36,12 +32,14 @@ if(isset($_POST['usuario']) && $_POST['usuario'] != null){
     $data = date('Y-m-d H:i');
     $User->setData($data);
     if($_POST['id'] == null){
+
         if($User->salvarUsuario($MySQLi)==true){
             echo messageSuccess('Usuário Salvo com sucesso!');
         }else{
             messageErro('Erro ao salvar usuário!<br>Tente mais tarde!');
         }
     }else{
+
         if($User->editarUsuario($MySQLi, $_POST['id'])==true){
             echo messageSuccess('Usuário editado com sucesso!');
         }else{
@@ -63,8 +61,6 @@ if(isset($_GET['edit'])&& $_GET['edit'] != null){
     }
 }
 
-echo 'sistemas: ';
-print_r($systemIds);
 
 $systems = $systemsController->findAll();
 

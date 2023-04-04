@@ -98,4 +98,15 @@ alter table transportadora add column cliente_origem varchar(50);
 
 update transportadora set cliente_origem = 'klabin';
 
+alter table janela add column data_agendamento datetime;
+alter table janela add column saida datetime;
+alter table janela add column separacao varchar(20);
+alter table janela add column shipment_id varchar(15);
+alter table janela add column do_s varchar(50);
+alter table janela add column cidade varchar(50);
+alter table janela add column carga_qtde int;
+alter table janela add column observacao varchar(150);
+alter table janela add column dados_gerais varchar(500);
+alter table janela add column cliente varchar(50);
+
 

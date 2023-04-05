@@ -4,6 +4,7 @@ html, body {
     margin: 0px;
     min-height: 100%;
     min-width: 100%;
+    overflow-x: hidden !important;
 }
 
 .backgroud-image{
@@ -196,3 +197,12 @@ html, body {
     width: 100%;
     margin-bottom: 20px;
 }
+
+.panel-default>.panel-heading {
+    max-width: 100% !important;
+}
+
+.dataTables_wrapper > .row {
+    overflow: auto !important;
+}
+

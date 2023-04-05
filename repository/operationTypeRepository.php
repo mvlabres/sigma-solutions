@@ -23,6 +23,20 @@ class OperationTypeRepository{
         }
     }
 
+    public function findByClient($client){
+
+        try{
+            $sql = "SELECT id, name, label
+                    FROM operation_type
+                    WHERE cliente = '".$client."'";  
+
+            return $this->mySql->query($sql);
+
+        }catch(Exception $e){
+            return false;
+        }
+    }
+
     public function findByName($name){
 
         try{
@@ -37,11 +51,11 @@ class OperationTypeRepository{
         }
     }
 
-    public function save($name, $label){
+    public function save($name, $label, $client){
 
         try{
             $sql = "INSERT INTO operation_type
-                    SET name = '".$name."', label = '".$label."'";  
+                    SET name = '".$name."', label = '".$label."', cliente = '".$client."'";  
 
             $result = $this->mySql->query($sql);
             return 'SAVED';

@@ -91,7 +91,8 @@ insert into customer (name, description) values ('klabin', 'Klabin');
 create table operation_type(
     id int primary key auto_increment not null,
     name varchar(50) not null,
-    label varchar(50) not null
+    label varchar(50) not null,
+    cliente varchar(50) not null
 );
 
 alter table transportadora add column cliente_origem varchar(50);

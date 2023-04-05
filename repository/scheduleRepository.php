@@ -63,7 +63,8 @@ class ScheduleRepository{
                     carga_qtde = ".$schedule->getCargaQtde().",
                     observacao = '".$schedule->getObservacao()."',
                     dados_gerais = '".$schedule->getDadosGerais()."',
-                    cliente = '".$schedule->getCliente()."'"; 
+                    cliente = '".$schedule->getCliente()."',
+                    doca = '".$schedule->getDoca()."'";
 
             $result = $this->mySql->query($sql);
             return 'SAVED';

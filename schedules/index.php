@@ -73,12 +73,8 @@ if(isset($_GET['conteudo'])) {
     <script src="../vendor/raphael/raphael.min.js"></script>
     <script src="../vendor/morrisjs/morris.min.js"></script>
     <script src="../data/morris-data.js"></script>
-    <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
     <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
@@ -92,6 +88,11 @@ if(isset($_GET['conteudo'])) {
     <script src="../assets/js/scripts.js"></script>
     <script src="../path/to/cdn/jquery.min.js"></script>
     <script src="../jquery.datetimepicker.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    
 
 </head>
 
@@ -133,7 +134,10 @@ if(isset($_GET['conteudo'])) {
                             <a href="#"><i></i> Agendamentos </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="index.php?conteudo=newSchedule.php">Novo Agendamento</a>
+                                    <a href="index.php?conteudo=newSchedule.php">Novo</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?conteudo=searchSchedule.php">Pesquisar</a>
                                 </li>
                             </ul>
                         </li>

@@ -15,6 +15,14 @@ class OperationTypeController{
         $this->operationTypeRepository = new OperationTypeRepository($this->mySql);
     }
 
+    public function findByClient($client){
+
+        $result = $this->operationTypeRepository->findByClient($client);
+        $data = $this->loadData($result);
+
+        return $data;
+    }
+
     public function findAll(){
 
         $result = $this->operationTypeRepository->findAll();
@@ -38,7 +46,7 @@ class OperationTypeController{
                 return 'ALREADY_EXISTS';
             }
 
-            return $this->operationTypeRepository->save($name, $label);
+            return $this->operationTypeRepository->save($name, $label, $_SESSION['customerName']);
         
         } catch (Exception $e) {
             return 'SAVE_ERROR';

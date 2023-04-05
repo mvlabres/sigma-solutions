@@ -7,11 +7,13 @@ error_reporting(E_ALL);
 require_once('../controller/shippingCompanyController.php');
 require_once('../controller/truckTypeController.php');
 require_once('../controller/scheduleController.php');
+require_once('../controller/operationTypeController.php');
 require_once('../utils.php');
 
 $shippingCompanyController = new ShippingCompanyController($MySQLi);
 $truckTypeController = new TruckTypeController($MySQLi);
 $scheduleController = new ScheduleController($MySQLi);
+$operationTypeController = new OperationTypeController($MySQLi);
 
 if(isset($_POST['action'])){
     $result = $scheduleController->save($_POST);
@@ -29,6 +31,7 @@ if(isset($_POST['action'])){
 
 $shippingCompanys = $shippingCompanyController->findByClient($_SESSION['customerName']);
 $truckTypes = $truckTypeController->findAll();
+$operationTypes = $operationTypeController->findByClient($_SESSION['customerName']);
 
 ?>
 
@@ -53,7 +56,7 @@ $truckTypes = $truckTypeController->findAll();
                             <div class="form-group">
                                 <label>Horário Carregamento</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" name="operationScheduleTime" required/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" name="operationScheduleTime" required/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -61,7 +64,7 @@ $truckTypes = $truckTypeController->findAll();
                             <div class="form-group">
                                 <label>Chegada</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" name="arrival"/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" name="arrival"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -69,7 +72,7 @@ $truckTypes = $truckTypeController->findAll();
                             <div class="form-group">
                                 <label>Início</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" name="operationStart" />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" name="operationStart" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -77,7 +80,7 @@ $truckTypes = $truckTypeController->findAll();
                             <div class="form-group">
                                 <label>Fim</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" name="operationDone"/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" name="operationDone"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -85,7 +88,7 @@ $truckTypes = $truckTypeController->findAll();
                             <div class="form-group">
                                 <label>Saída</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" name="operationExit" />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" name="operationExit" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -94,15 +97,15 @@ $truckTypes = $truckTypeController->findAll();
                                 <label>Tipo de Operação</label>
                                 <select name="operationType" class="form-control" aria-label="Default select example">
                                     <option value="">Selecione...</option>
-                                    <!-- <?php
-                                    foreach ($userTypeValues as $userTypeValue) {
+                                    <?php
+                                    foreach ($operationTypes as $operationType) {
 
                                         $selected = null;
-                                        if($usuario->getTipo() == $userTypeValue['key']) $selected = 'selected';
+                                        //if($usuario->getTipo() == $userTypeValue['key']) $selected = 'selected';
 
-                                        echo '<option value="'.$userTypeValue['key'].'" '.$selected.' >'.$userTypeValue['value'].'</option>';
+                                        echo '<option value="'.$operationType->getName().'" '.$selected.' >'.$operationType->getLabel().'</option>';
                                     }
-                                    ?> -->
+                                    ?>
                                   </select>
                             </div>
                             <div class="form-group">
@@ -137,6 +140,10 @@ $truckTypes = $truckTypeController->findAll();
                             <div class="form-group">
                                 <label>Shipment ID </label>
                                 <input class="form-control" type="text" name="shipmentId" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Doca </label>
+                                <input class="form-control" type="text" name="dock" required>
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Veículo</label>

@@ -27,6 +27,7 @@ class Schedule{
     private $cliente;
     private $usuarioAlteracao;
     private $dataAlteracao;
+    private $doca;
 
     public function setId($id){
         $this->id = $id;
@@ -183,6 +184,12 @@ class Schedule{
     }
     public function getDataAlteracao(){
         return $this->dataAlteracao;
+    } 
+    public function setDoca($doca){
+        $this->doca = $doca;
+    }
+    public function getDoca(){
+        return $this->doca;
     } 
 }
 

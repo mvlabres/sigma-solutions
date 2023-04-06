@@ -41,7 +41,16 @@ jQuery(function($){
     bindDatePicker();
 
     
-  });
+});
+
+const handleLoad = () => {
+
+    // const tablesLength = document.getElementsByName('dataTables-example_length');
+
+    // tablesLength.forEach(element => {
+    //     element.value = 50;
+    // });
+}
 
 const editTruckType = (id, description) => {
 

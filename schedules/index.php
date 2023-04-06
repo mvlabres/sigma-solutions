@@ -96,7 +96,7 @@ if(isset($_GET['conteudo'])) {
 
 </head>
 
-<body>
+<body onload = "handleLoad()">
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">

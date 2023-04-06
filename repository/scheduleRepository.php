@@ -8,11 +8,11 @@ class ScheduleRepository{
         $this->mySql = $mySql;
     }
 
-    /*public function findAll(){
+    public function findAll(){
 
         try{
-            $sql = "SELECT id, name, label
-                    FROM operation_type";  
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
+                    FROM janela";  
 
             $result = $this->mySql->query($sql);
 
@@ -21,21 +21,35 @@ class ScheduleRepository{
         }catch(Exception $e){
             return false;
         }
-    }*/
+    }
 
-    /*public function findByName($name){
+    public function findByClient($client){
 
         try{
-            $sql = "SELECT id, name, label
-                    FROM operation_type
-                    WHERE name = '".$name."'";  
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
+                    FROM janela
+                    WHERE cliente = '".$client."'";  
 
             return $this->mySql->query($sql);
 
         }catch(Exception $e){
             return false;
         }
-    }*/
+    }
+
+    public function findById($id){
+
+        try{
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
+                    FROM janela
+                    WHERE id = '".$id."'";  
+
+            return $this->mySql->query($sql);
+
+        }catch(Exception $e){
+            return false;
+        }
+    }
 
     public function save($schedule){
 

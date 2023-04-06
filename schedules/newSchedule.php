@@ -8,7 +8,12 @@ require_once('../controller/shippingCompanyController.php');
 require_once('../controller/truckTypeController.php');
 require_once('../controller/scheduleController.php');
 require_once('../controller/operationTypeController.php');
+require_once('../model/schedule.php');
 require_once('../utils.php');
+
+$schedule = new Schedule();
+
+$disabled = '';
 
 $shippingCompanyController = new ShippingCompanyController($MySQLi);
 $truckTypeController = new TruckTypeController($MySQLi);
@@ -28,6 +33,21 @@ if(isset($_POST['action'])){
             break;
     }
 }
+
+if(isset($_GET['search']) && $_GET['search'] != null){
+
+    $searchId = $_GET['search'];
+    $schedule = $scheduleController->findById($searchId);
+    $disabled = 'disabled';
+}
+
+if(isset($_GET['edit']) && $_GET['edit'] != null){
+
+    $editId = $_GET['edit'];
+    $schedule = $scheduleController->findById($editId);
+    $disabled = '';
+}
+
 
 $shippingCompanys = $shippingCompanyController->findByClient($_SESSION['customerName']);
 $truckTypes = $truckTypeController->findAll();
@@ -51,12 +71,12 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             <input type="hidden" name="action" value="save" >
                             <div class="form-group">
                                 <label>Status</label>
-                                <input type='text' class="invisible-disabeld-field warning-text-field form-control" value="NOVO" disabled/>
+                                <input type='text' class="invisible-disabeld-field warning-text-field form-control" value="<?=$schedule->getStatus() ?>" disabled/> 
                             </div>
                             <div class="form-group">
                                 <label>Horário Carregamento</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" name="operationScheduleTime" required/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getDataAgendamento() ?>" name="operationScheduleTime"  <?=$disabled ?> required/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -64,7 +84,7 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             <div class="form-group">
                                 <label>Chegada</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" name="arrival"/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" <?=$disabled ?>/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -72,7 +92,7 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             <div class="form-group">
                                 <label>Início</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" name="operationStart" />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getInicioOperacao() ?>" name="operationStart"  <?=$disabled ?>/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -80,7 +100,7 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             <div class="form-group">
                                 <label>Fim</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" name="operationDone"/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getFimOperacao() ?>" name="operationDone" <?=$disabled ?>/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -88,29 +108,29 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             <div class="form-group">
                                 <label>Saída</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" name="operationExit" />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getSaida() ?>" name="operationExit" <?=$disabled ?>/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Operação</label>
-                                <select name="operationType" class="form-control" aria-label="Default select example">
+                                <select name="operationType" class="form-control" aria-label="Default select example" <?=$disabled ?> required>
                                     <option value="">Selecione...</option>
                                     <?php
                                     foreach ($operationTypes as $operationType) {
 
                                         $selected = null;
-                                        //if($usuario->getTipo() == $userTypeValue['key']) $selected = 'selected';
+                                        if($schedule->getOperacao() == $operationType->getName()) $selected = 'selected';
 
-                                        echo '<option value="'.$operationType->getName().'" '.$selected.' >'.$operationType->getLabel().'</option>';
+                                        echo '<option value="'.$operationType->getName().'" '.$selected.' >'.$operationType->getName().'</option>';
                                     }
                                     ?>
                                   </select>
                             </div>
                             <div class="form-group">
                                 <label>Transportadora</label>
-                                <select name="shippingCompany" class="form-control" aria-label="Default select example" required>
+                                <select name="shippingCompany" class="form-control" aria-label="Default select example"  <?=$disabled ?> required>
                                     <option value="">Selecione...</option>
                                     <?php
 
@@ -118,7 +138,7 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                                         foreach ($shippingCompanys as $shippingCompany) {
     
                                             $selected = null;
-                                            //if($usuario->getTipo() == $userTypeValue['key']) $selected = 'selected';
+                                            if($schedule->getTransportadora() == $shippingCompany->getNome()) $selected = 'selected';
     
                                             echo '<option value="'.$shippingCompany->getNome().'" '.$selected.' >'.$shippingCompany->getNome().'</option>';
                                         }
@@ -128,32 +148,32 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             </div>
                             <div class="form-group">
                                 <label>Cidade</label>
-                                <input class="form-control" type="text" name="city" required>
+                                <input class="form-control" type="text" value="<?=$schedule->getCidade() ?>" name="city"  <?=$disabled ?> required>
                             </div>
                             <div class="form-group">
                                 <label>Separação/Bin</label>
-                                <input class="form-control" type="text" name="binSeparation">
+                                <input class="form-control" type="text" value="<?=$schedule->getSeparacao() ?>" name="binSeparation" <?=$disabled ?>>
                             </div>
                         
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Shipment ID </label>
-                                <input class="form-control" type="text" name="shipmentId" required>
+                                <input class="form-control" type="text" value="<?=$schedule->getShipmentId() ?>" name="shipmentId"  <?=$disabled ?> required>
                             </div>
                             <div class="form-group">
                                 <label>Doca </label>
-                                <input class="form-control" type="text" name="dock" required>
+                                <input class="form-control" type="text" value="<?=$schedule->getDoca() ?>" name="dock"  <?=$disabled ?> >
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Veículo</label>
-                                <select name="truckType" class="form-control placeholder" aria-label="Default select example" required>
+                                <select name="truckType" class="form-control placeholder" aria-label="Default select example"  <?=$disabled ?> >
                                     <option value="">Selecione...</option>
                                     <?php
                                     foreach ($truckTypes as $truckType) {
 
                                         $selected = null;
-                                        //if($truckType->getDescription() == $userTypeValue['key']) $selected = 'selected';
+                                        if($schedule->getTipoVeiculo() == $truckType->getDescription()) $selected = 'selected';
 
                                         echo '<option value="'.$truckType->getDescription().'" '.$selected.' >'.$truckType->getDescription().'</option>';
                                     }
@@ -162,42 +182,42 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             </div>
                             <div class="form-group">
                                 <label>Placa do cavalo</label>
-                                <input class="form-control" type="text"  name="licenceTruck">
+                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCavalo() ?>" name="licenceTruck"  <?=$disabled ?> required>
                             </div>
                             <div class="form-group">
                                 <label>DO's</label>
-                                <input class="form-control"  value="Não" type="text" name="dos" >
+                                <input class="form-control"  value="Não" type="text" value="<?=$schedule->getDo_s() ?>" name="dos" <?=$disabled ?> >
                             </div>
                             <div class="form-group">
                                 <label>Nota Fiscal</label>
-                                <input class="form-control" type="text" name="invoice">
+                                <input class="form-control" type="text" value="<?=$schedule->getNf() ?>" name="invoice"  <?=$disabled ?>>
                             </div>
                             <div class="form-group">
                                 <label>Peso Bruto</label>
-                                <input class="form-control" type="text" name="grossWeight">
+                                <input class="form-control" type="text" value="<?=$schedule->getPeso() ?>" name="grossWeight"  <?=$disabled ?>>
                             </div>
                             <div class="form-group">
                                 <label>Paletes</label>
-                                <input class="form-control" type="number" name="pallets">
+                                <input class="form-control" type="number" value="<?=$schedule->getCargaQtde() ?>" name="pallets"  <?=$disabled ?>>
                             </div>
                             <div class="form-group">
                                 <label>Material</label>
-                                <textarea class="form-control" type="text" name="material"></textarea>
+                                <textarea class="form-control" type="text"  name="material" <?=$disabled ?>><?=$schedule->getDadosGerais() ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Observação</label>
-                                <textarea class="form-control" type="text" name="observation"></textarea>
+                                <textarea class="form-control" type="text"  name="observation" <?=$disabled ?>> <?=$schedule->getObservacao() ?> </textarea>
                             </div>
                         </div> 
                     </div>
                     <div class="full-container">
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="inputGroupFile01">Novo Anexo</label>
-                            <input type="file" class="form-control" id="inputGroupFile01">
+                            <input type="file" class="form-control" id="inputGroupFile01" <?=$disabled ?>>
                         </div>
                     </div>  
-                    <button id="btn-salvar" type="submit" class="btn btn-primary">Salvar</button>
-                    <button type="reset" class="btn btn-danger">Cancelar</button> 
+                    <button id="btn-salvar" type="submit" class="btn btn-primary" <?=$disabled ?>>Salvar</button>
+                    <button type="reset" class="btn btn-danger" <?=$disabled ?>>Cancelar</button> 
                 </form>
             </div>
         </div>

@@ -65,6 +65,8 @@ class TruckTypeController{
 
         $truckTypes = array();
 
+        if($records == null) return $truckTypes;
+
         while ($data = $records->fetch_assoc()){ 
             $truckType = new TruckType();
             $truckType->setId($data['id']);

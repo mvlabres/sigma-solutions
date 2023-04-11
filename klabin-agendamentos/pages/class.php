@@ -162,7 +162,7 @@ include_once '../../session.php';
         public function buscarUsuario($id, $mysql){
             $sql = "select usuario.id AS user_id,nome,username,password,dataInclusao,tipo,usuarioCriacao, systemsId
                     from usuario 
-                    inner join usersystems on usuario.id = userId
+                    inner join userSystems on usuario.id = userId
                     where usuario.id = ".$id;
 
             $result = $mysql->query($sql);

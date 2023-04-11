@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require_once('../controller/shippingCompanyController.php');
 require_once('../controller/truckTypeController.php');
 require_once('../controller/scheduleController.php');
@@ -134,12 +130,15 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                                 <select name="operationType" class="form-control" aria-label="Default select example" <?=$disabled ?> required>
                                     <option value="">Selecione...</option>
                                     <?php
-                                    foreach ($operationTypes as $operationType) {
 
-                                        $selected = null;
-                                        if($schedule->getOperacao() == $operationType->getName()) $selected = 'selected';
-
-                                        echo '<option value="'.$operationType->getName().'" '.$selected.' >'.$operationType->getName().'</option>';
+                                    if(count($operationTypes) > 0){
+                                        foreach ($operationTypes as $operationType) {
+    
+                                            $selected = null;
+                                            if($schedule->getOperacao() == $operationType->getName()) $selected = 'selected';
+    
+                                            echo '<option value="'.$operationType->getName().'" '.$selected.' >'.$operationType->getName().'</option>';
+                                        }
                                     }
                                     ?>
                                   </select>
@@ -186,12 +185,15 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                                 <select name="truckType" class="form-control placeholder" aria-label="Default select example"  <?=$disabled ?> >
                                     <option value="">Selecione...</option>
                                     <?php
-                                    foreach ($truckTypes as $truckType) {
 
-                                        $selected = null;
-                                        if($schedule->getTipoVeiculo() == $truckType->getDescription()) $selected = 'selected';
-
-                                        echo '<option value="'.$truckType->getDescription().'" '.$selected.' >'.$truckType->getDescription().'</option>';
+                                    if(count($truckTypes) > 0){
+                                        foreach ($truckTypes as $truckType) {
+    
+                                            $selected = null;
+                                            if($schedule->getTipoVeiculo() == $truckType->getDescription()) $selected = 'selected';
+    
+                                            echo '<option value="'.$truckType->getDescription().'" '.$selected.' >'.$truckType->getDescription().'</option>';
+                                        }
                                     }
                                     ?>
                                 </select>

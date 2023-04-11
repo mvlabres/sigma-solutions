@@ -12,6 +12,7 @@ require_once('../model/schedule.php');
 require_once('../utils.php');
 
 $schedule = new Schedule();
+$action = 'save'; 
 
 $disabled = '';
 
@@ -21,15 +22,27 @@ $scheduleController = new ScheduleController($MySQLi);
 $operationTypeController = new OperationTypeController($MySQLi);
 
 if(isset($_POST['action'])){
-    $result = $scheduleController->save($_POST);
+
+    $result;
+
+    if($_POST['action'] == 'save'){
+
+        $result = $scheduleController->save($_POST);
+    } else if($_POST['action'] == 'edit'){
+        $result = $scheduleController->update($_POST);
+    }
     
     switch ($result) {
         case 'SAVED':
             successAlert('Agendamento realizado com sucesso!');
             break;
         
+        case 'UPDATED':
+            successAlert('Agendamento atualizado com sucesso!');
+            break;
+        
         case 'SAVE_ERROR':
-            errorAlert('Ocorreu um erro ao realizar o agendamento. Tente novamente ou entre em contato com o administrador.');
+            errorAlert('Ocorreu um erro ao salvar o agendamento. Tente novamente ou entre em contato com o administrador.');
             break;
     }
 }
@@ -43,6 +56,7 @@ if(isset($_GET['search']) && $_GET['search'] != null){
 
 if(isset($_GET['edit']) && $_GET['edit'] != null){
 
+    $action = 'edit';
     $editId = $_GET['edit'];
     $schedule = $scheduleController->findById($editId);
     $disabled = '';
@@ -52,6 +66,8 @@ if(isset($_GET['edit']) && $_GET['edit'] != null){
 $shippingCompanys = $shippingCompanyController->findByClient($_SESSION['customerName']);
 $truckTypes = $truckTypeController->findAll();
 $operationTypes = $operationTypeController->findByClient($_SESSION['customerName']);
+
+$statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field' : 'warning-text-field';
 
 ?>
 
@@ -64,19 +80,19 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
     <div class="col-lg-12">
          <div class="panel panel-default">
             <div class="panel-body">
-                <form role="form-new-user" method="post" action="#" name="valida">
+                <form role="form-new-user"  onsubmit="return validateStatus()" method="post" action="#" name="valida">
                     <div class="row">
                         <div class="col-lg-6">
-                            <input type="hidden" name="id" value="">
-                            <input type="hidden" name="action" value="save" >
+                            <input type="hidden" name="id" value="<?=$editId ?>">
+                            <input type="hidden" name="action" value="<?=$action ?>" >
                             <div class="form-group">
                                 <label>Status</label>
-                                <input type='text' class="invisible-disabeld-field warning-text-field form-control" value="<?=$schedule->getStatus() ?>" disabled/> 
+                                <input type='text' class="invisible-disabeld-field form-control <?=$statusFieldColor ?>" value="<?php if($schedule->getStatus()==null) echo 'Novo'; else echo $schedule->getStatus() ?>" name="scheduleStatus" id="scheduleStatus" readonly/> 
                             </div>
                             <div class="form-group">
                                 <label>Horário Carregamento</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getDataAgendamento() ?>" name="operationScheduleTime"  <?=$disabled ?> required/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getDataAgendamento() ?>" name="operationScheduleTime" id="operationScheduleTime" <?=$disabled ?> required/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -84,7 +100,7 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             <div class="form-group">
                                 <label>Chegada</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" <?=$disabled ?>/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" id="arrival" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -92,7 +108,7 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             <div class="form-group">
                                 <label>Início</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getInicioOperacao() ?>" name="operationStart"  <?=$disabled ?>/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getInicioOperacao() ?>" name="operationStart" id="operationStart" <?=$disabled ?> onblur="dateTimeHandleBlur(this)"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -100,7 +116,7 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             <div class="form-group">
                                 <label>Fim</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getFimOperacao() ?>" name="operationDone" <?=$disabled ?>/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getFimOperacao() ?>" name="operationDone" id="operationDone" <?=$disabled ?> onblur="dateTimeHandleBlur(this)"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -108,7 +124,7 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             <div class="form-group">
                                 <label>Saída</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getSaida() ?>" name="operationExit" <?=$disabled ?>/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getSaida() ?>" name="operationExit" id="operationExit" <?=$disabled ?> onblur="dateTimeHandleBlur(this)"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -182,7 +198,7 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             </div>
                             <div class="form-group">
                                 <label>Placa do cavalo</label>
-                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCavalo() ?>" name="licenceTruck"  <?=$disabled ?> required>
+                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCavalo() ?>" name="licenceTruck"  <?=$disabled ?>>
                             </div>
                             <div class="form-group">
                                 <label>DO's</label>
@@ -202,7 +218,7 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
                             </div>
                             <div class="form-group">
                                 <label>Material</label>
-                                <textarea class="form-control" type="text"  name="material" <?=$disabled ?>><?=$schedule->getDadosGerais() ?></textarea>
+                                <textarea class="form-control" type="text"  name="material" <?=$disabled ?> required><?=$schedule->getDadosGerais() ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Observação</label>

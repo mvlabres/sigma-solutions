@@ -43,15 +43,6 @@ jQuery(function($){
     
 });
 
-const handleLoad = () => {
-
-    // const tablesLength = document.getElementsByName('dataTables-example_length');
-
-    // tablesLength.forEach(element => {
-    //     element.value = 50;
-    // });
-}
-
 const editTruckType = (id, description) => {
 
     document.getElementById('id').value = id;
@@ -92,4 +83,48 @@ const resetShippingCompany = () =>{
     document.getElementById('title').innerHTML = 'Transportadora - Novo';
     document.getElementById('id').value = null;
     document.getElementById('action').value = 'save';
+}
+
+const validateStatus = () => {
+
+    const operationScheduleTime = document.getElementById('operationScheduleTime').value;
+    const arrival = document.getElementById('arrival').value;
+
+    if(!arrival) {
+        document.getElementById('scheduleStatus').value = 'Agendado';
+        return true;
+    }
+
+    const operationStart = document.getElementById('operationStart').value;
+
+    if(!operationStart) {
+        document.getElementById('scheduleStatus').value = 'Aguardando';
+        return true;
+    }
+
+    const operationDone = document.getElementById('operationDone').value;
+
+    if(!operationDone) {
+        document.getElementById('scheduleStatus').value = 'Em operação';
+        return true;
+    }
+
+    const operationExit = document.getElementById('operationExit').value;
+
+    if(!operationExit) {
+        document.getElementById('scheduleStatus').value = 'Fim de operação';
+        return true;
+    }
+
+    document.getElementById('scheduleStatus').value = 'Liberado';
+    return true;
+}
+
+const dateTimeHandleBlur = (element) => {
+    if(element.value == '') {
+        setTimeout(() => {
+            element.innerHTML = '';
+            element.value = '';
+        }, 10);
+    }
 }

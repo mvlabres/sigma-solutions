@@ -229,3 +229,7 @@ html, body {
     max-width: 150px !important;
 }
 
+.invisible-disabeld-field:read-only {
+    background-color: transparent !important;
+  }
+

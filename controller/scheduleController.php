@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require_once('../repository/scheduleRepository.php');
 require_once('../model/schedule.php');
 
@@ -75,22 +71,22 @@ class ScheduleController{
         $schedule->setPlacaCavalo($post['licenceTruck']);
         $schedule->setOperacao($post['operationType']);
         $schedule->setNf($post['invoice']);
-        $schedule->setHoraChegada(date("Y-m-d H:m:s", strtotime(str_replace('/', '-', $post['arrival'] ))));
+        $schedule->setHoraChegada(date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $post['arrival'] ))));
         if($post['arrival'] == '') $schedule->setHoraChegada('');
 
-        $schedule->setInicioOperacao(date("Y-m-d H:m:s", strtotime(str_replace('/', '-', $post['operationStart'] ))));
+        $schedule->setInicioOperacao(date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $post['operationStart'] ))));
         if($post['operationStart'] == '') $schedule->setInicioOperacao('');
 
-        $schedule->setFimOperacao(date("Y-m-d H:m:s", strtotime(str_replace('/', '-', $post['operationDone'] ))));
+        $schedule->setFimOperacao(date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $post['operationDone'] ))));
         if($post['operationDone'] == '') $schedule->setFimOperacao('');
 
         $schedule->setNomeUsuario($_SESSION['nome']);
-        $schedule->setDataInclusao(date("Y-m-d H:m:s"));
+        $schedule->setDataInclusao(date("Y-m-d H:i:s"));
         $schedule->setPeso($post['grossWeight']);
-        $schedule->setDataAgendamento(date("Y-m-d H:m:s", strtotime(str_replace('/', '-', $post['operationScheduleTime'] ))));
-        $schedule->setSaida(date("Y-m-d H:m:s", strtotime(str_replace('/', '-', $post['operationExit'] ))));
-        if($post['operationExit'] == '') $schedule->setSaida('');
+        $schedule->setDataAgendamento(date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $post['operationScheduleTime'] ))));
 
+        $schedule->setSaida(date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $post['operationExit'] ))));
+        if($post['operationExit'] == '') $schedule->setSaida('');
 
         $schedule->setSeparacao($post['binSeparation']);
         $schedule->setShipmentId($post['shipmentId']);
@@ -119,20 +115,20 @@ class ScheduleController{
             $schedule->setPlacaCavalo($data['placa_cavalo']);
             $schedule->setOperacao($data['operacao']);
             $schedule->setNf($data['nf']);
-            $schedule->setHoraChegada( date("d/m/Y h:m:s", strtotime($data['horaChegada'])));
+            $schedule->setHoraChegada( date("d/m/Y h:i:s", strtotime($data['horaChegada'])));
             if($data['horaChegada'] == '0000-00-00 00:00:00') $schedule->setHoraChegada('');
 
-            $schedule->setInicioOperacao(date("d/m/Y h:m:s", strtotime($data['inicio_operacao'])));
+            $schedule->setInicioOperacao(date("d/m/Y h:i:s", strtotime($data['inicio_operacao'])));
             if($data['inicio_operacao'] == '0000-00-00 00:00:00') $schedule->setInicioOperacao('');
 
-            $schedule->setFimOperacao(date("d/m/Y H:m:s", strtotime($data['fim_operacao'])));
+            $schedule->setFimOperacao(date("d/m/Y h:i:s", strtotime($data['fim_operacao'])));
             if($data['fim_operacao'] == '0000-00-00 00:00:00') $schedule->setFimOperacao('');
 
             $schedule->setNomeUsuario($data['usuario']);
-            $schedule->setDataInclusao(date("d/m/Y h:m:s", strtotime($data['dataInclusao'])));
+            $schedule->setDataInclusao(date("d/m/Y h:i:s", strtotime($data['dataInclusao'])));
             $schedule->setPeso($data['peso']);
-            $schedule->setDataAgendamento(date("d/m/Y h:m:s", strtotime($data['data_agendamento'])));
-            $schedule->setSaida(date("d/m/Y h:m:s", strtotime($data['saida'])));
+            $schedule->setDataAgendamento(date("d/m/Y h:i:s", strtotime($data['data_agendamento'])));
+            $schedule->setSaida(date("d/m/Y h:i:s", strtotime($data['saida'])));
             if($data['saida'] == '0000-00-00 00:00:00') $schedule->setSaida('');
 
             $schedule->setSeparacao($data['separacao']);

@@ -6,6 +6,9 @@ html, body {
     min-width: 100%;
     overflow-x: hidden !important;
 }
+[hidden]{
+    display: none !important;
+}
 
 .backgroud-image{
     width: 100%;
@@ -231,5 +234,16 @@ html, body {
 
 .invisible-disabeld-field:read-only {
     background-color: transparent !important;
-  }
+}
+
+.row-element-group{
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content:flex-start !important;
+    align-items: end !important;
+}
+
+.row-element-group > .form-group{
+    margin-right: 20px !important;
+}
 

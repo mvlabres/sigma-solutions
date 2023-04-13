@@ -108,7 +108,7 @@ include_once '../../session.php';
         public function editarUsuario($mysql,$id){
             try{
                
-                $sql = "update usuario set nome = '".$this->getNome()."', username = '".$this->getUsername()." ', password = '".$this->getPassword()."', dataInclusao = '".$this->getData()."', usuarioCriacao = '".$this->getUsuarioCriacao()."' where id = ".$id;
+                $sql = "update usuario set nome = '".$this->getNome()."', username = '".$this->getUsername()." ', password = '".$this->getPassword()."', dataInclusao = '".$this->getData()."', usuarioCriacao = '".$this->getUsuarioCriacao()."', tipo = '".$this->getTipo()."' where id = ".$id;
                 $mysql->query($sql);
 
                 $sql = "SELECT id, userId, systemsId FROM userSystems 

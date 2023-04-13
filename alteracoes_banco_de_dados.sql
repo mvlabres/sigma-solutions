@@ -81,7 +81,6 @@ INSERT INTO `userSystems` (`userId`, `systemsID`) VALUES
 (119,1),
 (120,1);
 
-// até aqui já esta aplicado em produção
 
 alter table customer add column description varchar(50);
 
@@ -109,5 +108,46 @@ alter table janela add column carga_qtde int;
 alter table janela add column observacao varchar(150);
 alter table janela add column dados_gerais varchar(500);
 alter table janela add column cliente varchar(50);
+
+
+
+
+// até aqui já esta aplicado em produção
+
+
+
+create table user_access(
+    id int not null auto_increment primary key,
+    userType varchar(50) not null,
+    functionName varchar(50) not null
+);
+
+insert into user_access (userType, functionName) value('adm', 'schedule');
+insert into user_access (userType, functionName) value('adm', 'schedule_new');
+insert into user_access (userType, functionName) value('adm', 'schedule_list');
+insert into user_access (userType, functionName) value('adm', 'register');
+insert into user_access (userType, functionName) value('adm', 'register_operation_type');
+insert into user_access (userType, functionName) value('adm', 'register_truck_type');
+insert into user_access (userType, functionName) value('adm', 'register_shipping_company');
+insert into user_access (userType, functionName) value('adm', 'register_log');
+insert into user_access (userType, functionName) value('adm', 'register_report');
+
+insert into user_access (userType, functionName) value('porter', 'schedule');
+insert into user_access (userType, functionName) value('porter', 'schedule_list');
+
+insert into user_access (userType, functionName) value('client', 'schedule');
+insert into user_access (userType, functionName) value('client', 'schedule_new');
+insert into user_access (userType, functionName) value('client', 'schedule_list');
+
+insert into user_access (userType, functionName) value('operator', 'schedule');
+insert into user_access (userType, functionName) value('operator', 'schedule_list');
+insert into user_access (userType, functionName) value('operator', 'register_report');
+
+insert into user_access (userType, functionName) value('operator', 'schedule');
+insert into user_access (userType, functionName) value('operator', 'schedule_list');
+insert into user_access (userType, functionName) value('operator', 'register_report');
+
+
+
 
 

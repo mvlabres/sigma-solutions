@@ -9,7 +9,41 @@ $schedules = $scheduleController->findByClient($_SESSION['customerName']);
 
 <div class="row">
     <div class="col-lg-12">
-        <h3 class="page-header">Agendamentos</h3>
+        
+        <h3>Filtro</h3>
+        <form>
+            <div class="row-element-group">
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status" class="form-control" aria-label="Default select example">
+                        <option value="todos">Todos</option>
+                        <option value="Aguardando">Aguardando</option>
+                        <option value="Em operação">Em operação</option>
+                        <option value="Fim de operação">Fim de operação</option>
+                        <option value="Liberado">Liberado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Data inicial</label>
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Data final</label>
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <div class="row">

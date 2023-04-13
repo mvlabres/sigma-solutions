@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 require_once('../conn.php');
 require_once('../session.php');
@@ -79,7 +76,6 @@ if(isset($_GET['conteudo'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="../utils.js"></script>  
     <script src="/jQuery-Mask-Plugin-master/"></script>
     <script src="../dist/js/sb-admin-2.js"></script> 
@@ -130,45 +126,38 @@ if(isset($_GET['conteudo'])) {
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li>
+                        <li <?=$_SESSION['FUNCTION_ACCESS']['schedule'] ?>>
                             <a href="#"><i></i> Agendamentos </a>
                             <ul class="nav nav-second-level">
-                                <li>
+                                <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_new'] ?> >
                                     <a href="index.php?conteudo=newSchedule.php">Novo</a>
                                 </li>
-                                <li>
+                                <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_list'] ?>>
                                     <a href="index.php?conteudo=searchSchedule.php">Pesquisar</a>
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li <?=$_SESSION['FUNCTION_ACCESS']['register'] ?>>
                             <a href="#"><i></i> Cadastros</a>
                             <ul class="nav nav-second-level">
-                                <li>
+                                <li <?=$_SESSION['FUNCTION_ACCESS']['register_operation_type'] ?>>
                                     <a href="index.php?conteudo=newOperationType.php">Tipo de Operação</a>
                                 </li>
-                                <li>
+                                <li <?=$_SESSION['FUNCTION_ACCESS']['register_truck_type'] ?>>
                                     <a href="index.php?conteudo=newTruckType.php">Tipo de veículo</a>
                                 </li>
-                                <li>
+                                <li <?=$_SESSION['FUNCTION_ACCESS']['register_shipping_company'] ?>>
                                     <a href="index.php?conteudo=newShippingCompany.php">Transportadoras</a>
                                 </li>
                             </ul>
                         </li>
-                        <?php
-                        if($tipoUsuario != 1 && $tipoUsuario != 2){
-                        echo '
-                        <li>
+                       <li <?=$_SESSION['FUNCTION_ACCESS']['register_log'] ?>>
                             <a href="#"><i></i> LOG sistema  </a>
-                        </li>';
-                        }
-                        if($tipoUsuario != 1){
-                        echo '
-                        <li>
-                            <a href="index.php?conteudo=relatorio.php"><i></i> Relatórios</a>
-                        </li>';
-                        }
-                        ?>
+                        </li>
+                        <li <?=$_SESSION['FUNCTION_ACCESS']['register_report'] ?>>
+                            <a href="#"><i></i> Relatórios</a>
+                        </li>
+                       
                     </ul>
                 </div>
             </div>

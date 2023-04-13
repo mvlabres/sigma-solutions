@@ -1,11 +1,11 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require_once('../controller/shippingCompanyController.php');
 require_once('../utils.php');
+
+if($_SESSION['FUNCTION_ACCESS']['register_shipping_company'] == 'hidden') {
+    echo "<script>window.location='/sigma-solutions/schedules/index.php'</script>";
+}
 
 $action = 'save';
 

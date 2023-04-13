@@ -3,6 +3,10 @@
 require_once('../controller/operationTypeController.php');
 require_once('../utils.php');
 
+if($_SESSION['FUNCTION_ACCESS']['register_operation_type'] == 'hidden') {
+    echo "<script>window.location='/sigma-solutions/schedules/index.php'</script>";
+}
+
 $action = 'save';
 
 $operationTypeController = new OperationTypeController($MySQLi);

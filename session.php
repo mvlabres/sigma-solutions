@@ -25,7 +25,9 @@ function sec_session_start() {
     
 }
 
+
 sec_session_start();
+
 
 if( $_SERVER['REQUEST_METHOD'] =='POST' ){
     
@@ -42,12 +44,12 @@ if( $_SERVER['REQUEST_METHOD'] =='POST' ){
 }
 
 
-function login($usuario, $senha, $mysqli) 
-{
+function login($usuario, $senha, $mysqli) {
+
     $data = date('d/m/Y');
     $hora = date('h:i');
-    if ($stmt = $mysqli->prepare("SELECT id,nome, username, password, dataInclusao, tipo FROM usuario  WHERE username = ? LIMIT 1"))
-    { 
+
+    if ($stmt = $mysqli->prepare("SELECT id,nome, username, password, dataInclusao, tipo FROM usuario  WHERE username = ? LIMIT 1")){ 
         
         $stmt->bind_param('s', $usuario);
         $stmt->execute();
@@ -55,59 +57,77 @@ function login($usuario, $senha, $mysqli)
 
         $stmt->bind_result($id, $nome, $username,$password, $data_inclusao, $tipo);
         $stmt->fetch();
-        if ($stmt->num_rows == 1) 
-        {   
-            if ($senha == $password) 
-            { 
+
+        if ($stmt->num_rows == 1){ 
+
+            if ($senha == $password){ 
                 $_SESSION['id'] = $id;
                 $_SESSION['nome'] = $nome;
                 $_SESSION['username'] = $username;
                 $_SESSION['tipo'] = $tipo;
+                getAccess($mysqli);
                 return true;
-            } 
-            else 
-            {
-                return false;
-            }
+
+            } else return false;
             
-        } else {
-            return false;
-        }
+        } else return false;
     }
 }
 
+function getAccess($mysqli){
+
+    $FUNCTION_ACCESS = [
+        'schedule'=> 'hidden',
+        'schedule_new'=> 'hidden',
+        'schedule_list'=> 'hidden',
+        'register'=> 'hidden',
+        'register_operation_type'=> 'hidden',
+        'register_truck_type'=> 'hidden',
+        'register_shipping_company'=> 'hidden',
+        'register_log'=> 'hidden',
+        'register_report'=> 'hidden'
+    ];
+
+    $sql = "SELECT id, userType, functionName
+            FROM user_access 
+            WHERE userType = '".$_SESSION['tipo'] ."'";
+
+                    
+    $result = $mysqli->query($sql);
+
+    while ($data = $result->fetch_assoc()){ 
+        $FUNCTION_ACCESS[$data['functionName']] = '';
+
+    }
+
+    $_SESSION['FUNCTION_ACCESS'] = $FUNCTION_ACCESS;
+}
+
 function login_check($mysqli) {
-    if (isset($_SESSION['username'])) 
-    {
+
+    if (isset($_SESSION['username'])){
         $username = $_SESSION['username'];
-        if ($stmt = $mysqli->prepare("SELECT id,nome, username, password, dataInclusao, tipo FROM usuario  WHERE username = ? LIMIT 1")) 
-        {
+        if ($stmt = $mysqli->prepare("SELECT id,nome, username, password, dataInclusao, tipo FROM usuario  WHERE username = ? LIMIT 1")){
             $stmt->bind_param('i', $id);
             $stmt->execute();  
             $stmt->store_result();
+
             if($stmt->num_rows == 1) {
-                if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 7200)) 
-                {
+                if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 7200)) {
                     session_unset();     
                     session_destroy();  
                     return false;
                 }
-                else
-                {
+                else{
                     $_SESSION['LAST_ACTIVITY'] = time();
-                     return true;
+                    return true;
                 }
-            }else {
-                // Não foi logado 
-                return false;
-            }
+            }else return false;
         } 
-        else {
-            // Não foi logado 
-            return false;
-        }
-    } else {
-        // Não foi logado 
-        return false;
-    }
+
+        else return false;
+        
+    } else  return false;
 }
+
+

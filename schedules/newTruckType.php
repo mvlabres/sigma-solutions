@@ -3,6 +3,10 @@
 require_once('../controller/truckTypeController.php');
 require_once('../utils.php');
 
+if($_SESSION['FUNCTION_ACCESS']['register_truck_type'] == 'hidden') {
+    echo "<script>window.location='/sigma-solutions/schedules/index.php'</script>";
+}
+
 $action = 'save';
 
 $truckTypeController = new TruckTypeController($MySQLi);

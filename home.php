@@ -53,9 +53,7 @@ if(isset($_GET['conteudo'])) {
     <script src="../jQuery-Mask-Plugin-master/"></script>
     <script src="dist/js/sb-admin-2.js"></script>
 </head>
-
 <body>
-
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">

@@ -10,6 +10,7 @@ $systemIds = array();
 $userTypeValues = [
     ['key'=> 'adm',         'value' => 'Administrador'],
     ['key'=> 'client',      'value' => 'Cliente'],
+    ['key'=> 'operator',    'value' => 'Operador'],
     ['key'=> 'gerenciador', 'value' => 'Gerenciador'],
     ['key'=> 'porter',      'value' => 'Portaria'],
     ['key'=> 'user',        'value' => 'Visitante']

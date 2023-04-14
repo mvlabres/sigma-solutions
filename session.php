@@ -25,11 +25,17 @@ function sec_session_start() {
     
 }
 
+$pagesNotClearPost = ['searchSchedule.php'];
 
 sec_session_start();
 
+$contentPost = '';
 
-if( $_SERVER['REQUEST_METHOD'] =='POST' ){
+if(isset($_GET['conteudo']) && $_GET['conteudo'] != null){
+    $contentPost = $_GET['conteudo'];
+}
+
+if( $_SERVER['REQUEST_METHOD'] =='POST' && !in_array($contentPost, $pagesNotClearPost)){
     
     $request = md5(implode( $_POST ) );
 

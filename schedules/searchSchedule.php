@@ -1,9 +1,31 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once('../controller/scheduleController.php');
+
+date_default_timezone_set("America/Sao_Paulo");
+
+$statusList = ['Todos','Agendado','Aguardando', 'Em operação', 'Fim de operação', 'Liberado'];
+
+$status = 'Todos';
+$startDate = date("d/m/Y") . ' 00:00:00';
+$endDate = date("d/m/Y h:i:s");
 
 $scheduleController = new ScheduleController($MySQLi);
 
-$schedules = $scheduleController->findByClient($_SESSION['customerName']);
+
+
+if(isset($_POST['status']) && $_POST['status'] != null){
+
+    $status = $_POST['status'];
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
+}
+
+$schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSION['customerName'], $status, $startDate, $endDate);
 
 ?>
 
@@ -11,22 +33,28 @@ $schedules = $scheduleController->findByClient($_SESSION['customerName']);
     <div class="col-lg-12">
         
         <h3>Filtro</h3>
-        <form>
+        <form method="post" action="#">
             <div class="row-element-group">
                 <div class="form-group">
                     <label>Status</label>
                     <select name="status" class="form-control" aria-label="Default select example">
-                        <option value="todos">Todos</option>
-                        <option value="Aguardando">Aguardando</option>
-                        <option value="Em operação">Em operação</option>
-                        <option value="Fim de operação">Fim de operação</option>
-                        <option value="Liberado">Liberado</option>
+                        <?php
+
+                        foreach ($statusList as $statusValue) {
+                            
+                            $selected = '';
+
+                            if($statusValue == $status) $selected = 'selected';
+                            echo '<option value="'.$statusValue.'" '.$selected.'>'.$statusValue.'</option>';
+                        }
+                        ?>
+                        
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Data inicial</label>
                     <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" />
+                        <input name="startDate" type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$startDate ?>"/>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
@@ -34,7 +62,7 @@ $schedules = $scheduleController->findByClient($_SESSION['customerName']);
                 <div class="form-group">
                     <label>Data final</label>
                     <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" />
+                        <input name="endDate" type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$endDate ?>"/>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>

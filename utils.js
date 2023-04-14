@@ -87,7 +87,6 @@ const resetShippingCompany = () =>{
 
 const validateStatus = () => {
 
-    const operationScheduleTime = document.getElementById('operationScheduleTime').value;
     const arrival = document.getElementById('arrival').value;
 
     if(!arrival) {
@@ -121,10 +120,18 @@ const validateStatus = () => {
 }
 
 const dateTimeHandleBlur = (element) => {
+
+    const dateTimeValue = element.value;
+
     if(element.value == '') {
         setTimeout(() => {
             element.innerHTML = '';
             element.value = '';
+        }, 10);
+    }else{
+        setTimeout(() => {
+            element.innerHTML = dateTimeValue;
+            element.value = dateTimeValue;
         }, 10);
     }
 }

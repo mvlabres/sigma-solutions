@@ -60,6 +60,7 @@ $fieldAcces = [
 ];
 
 $schedule = new Schedule();
+
 $action = 'save'; 
 
 $disabled = '';
@@ -128,7 +129,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
     <div class="col-lg-12">
          <div class="panel panel-default">
             <div class="panel-body">
-                <form role="form-new-user"  onsubmit="return validateStatus()" method="post" action="#" name="valida">
+                <form role="form-new-user" onsubmit="return validateStatus()" method="post" action="#" name="valida">
                     <div class="row">
                         <div class="col-lg-6">
                             <input type="hidden" name="id" value="<?=$editId ?>">
@@ -140,7 +141,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Horário Carregamento</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getDataAgendamento() ?>" name="operationScheduleTime" id="operationScheduleTime" <?=$disabled ?> <?=$fieldAcces['operationScheduleTime'] ?> required/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getDataAgendamento() ?>" name="operationScheduleTime" id="operationScheduleTime" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationScheduleTime'] ?> required/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>

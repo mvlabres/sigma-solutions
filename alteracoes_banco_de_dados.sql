@@ -110,12 +110,6 @@ alter table janela add column dados_gerais varchar(500);
 alter table janela add column cliente varchar(50);
 
 
-
-
-// até aqui já esta aplicado em produção
-
-
-
 create table user_access(
     id int not null auto_increment primary key,
     userType varchar(50) not null,
@@ -146,6 +140,8 @@ insert into user_access (userType, functionName) value('operator', 'register_rep
 insert into user_access (userType, functionName) value('operator', 'schedule');
 insert into user_access (userType, functionName) value('operator', 'schedule_list');
 insert into user_access (userType, functionName) value('operator', 'register_report');
+
+// até aqui já esta aplicado em produção
 
 
 

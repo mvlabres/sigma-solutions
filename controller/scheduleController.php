@@ -53,6 +53,22 @@ class ScheduleController{
         return $data;
     }
 
+    public function findByClientStatusStartDateAndEndDate($client, $status, $startDate, $endDate){
+
+        $startDate = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $startDate )));
+        $endDate = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $endDate )));
+
+        if($status == 'Todos'){
+            $result = $this->scheduleRepository->findByClientStartDateAndEndDate($client, $startDate, $endDate);
+        }else {
+            $result = $this->scheduleRepository->findByClientStatusStartDateAndEndDate($client, $status, $startDate, $endDate);
+        }
+
+        $data = $this->loadData($result);
+
+        return $data;
+    }
+
     public function findById($id){
 
         $result = $this->scheduleRepository->findById($id);

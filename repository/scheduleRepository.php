@@ -28,7 +28,43 @@ class ScheduleRepository{
         try{
             $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
                     FROM janela
-                    WHERE cliente = '".$client."'";  
+                    WHERE cliente = '".$client."'
+                    ORDER BY data_agendamento";  
+
+            return $this->mySql->query($sql);
+
+        }catch(Exception $e){
+            return false;
+        }
+    }
+
+    public function findByClientStartDateAndEndDate($client, $startDate, $endDate){
+
+        try{
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
+                    FROM janela
+                    WHERE cliente = '".$client."'
+                    AND data_agendamento >= '".$startDate."'
+                    AND data_agendamento <= '".$endDate."'
+                    ORDER BY data_agendamento";  
+
+            return $this->mySql->query($sql);
+
+        }catch(Exception $e){
+            return false;
+        }
+    }
+
+    public function findByClientStatusStartDateAndEndDate($client, $status, $startDate, $endDate){
+
+        try{
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
+                    FROM janela
+                    WHERE cliente = '".$client."'
+                    AND status = '".$status."' 
+                    AND data_agendamento >= '".$startDate."'
+                    AND data_agendamento <= '".$endDate."'
+                    ORDER BY data_agendamento";  
 
             return $this->mySql->query($sql);
 

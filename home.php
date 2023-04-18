@@ -52,8 +52,9 @@ if(isset($_GET['conteudo'])) {
     <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
     <script src="../jQuery-Mask-Plugin-master/"></script>
     <script src="dist/js/sb-admin-2.js"></script>
+    <script src="utils.js"></script>
 </head>
-<body>
+<body onload="setDefaultNavSpace()">
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">

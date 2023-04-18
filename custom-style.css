@@ -247,3 +247,55 @@ html, body {
     margin-right: 20px !important;
 }
 
+.icon-menu-img{
+    max-width:100%;
+    max-height:100%;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+#quick-access-nav{
+    margin-right: 150px !important;
+}
+
+#menu-nav-bar{
+    display: none;
+}
+
+#page-wrapper{
+    margin-left: 0px;
+}
+
+.functions-group{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn-functions-group{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+}
+
+.btn-functions-group > button{
+    margin-right: 5px !important;
+}
+
+.large-modal{
+    width: 70% !important;
+}
+
+
+@media (max-width: 1220px){
+    #quick-access-nav{
+        margin-right: 30px !important;
+    }
+
+    .customer-master-label{
+        margin-left: 20px;
+    }
+}
+

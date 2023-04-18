@@ -28,6 +28,10 @@ class Schedule{
     private $usuarioAlteracao;
     private $dataAlteracao;
     private $doca;
+    private $nomeMotorista;
+    private $placaCarreta2;
+    private $documentoMotorista;
+    private $placaCarreta;
 
     public function setId($id){
         $this->id = $id;
@@ -190,6 +194,30 @@ class Schedule{
     }
     public function getDoca(){
         return $this->doca;
+    } 
+    public function setNomeMotorista($nomeMotorista){
+        $this->nomeMotorista = $nomeMotorista;
+    }
+    public function getNomeMotorista(){
+        return $this->nomeMotorista;
+    } 
+    public function setPlacaCarreta2($placaCarreta2){
+        $this->placaCarreta2 = $placaCarreta2;
+    }
+    public function getPlacaCarreta2(){
+        return $this->placaCarreta2;
+    } 
+    public function setDocumentoMotorista($documentoMotorista){
+        $this->documentoMotorista = $documentoMotorista;
+    }
+    public function getDocumentoMotorista(){
+        return $this->documentoMotorista;
+    } 
+    public function setPlacaCarreta($placaCarreta){
+        $this->placaCarreta = $placaCarreta;
+    }
+    public function getPlacaCarreta(){
+        return $this->placaCarreta;
     } 
 }
 

@@ -141,7 +141,17 @@ insert into user_access (userType, functionName) value('operator', 'schedule');
 insert into user_access (userType, functionName) value('operator', 'schedule_list');
 insert into user_access (userType, functionName) value('operator', 'register_report');
 
+
+
+
 // até aqui já esta aplicado em produção
+
+
+
+
+alter table janela add column nome_motorista varchar(100);
+alter table janela add column placa_carreta2 varchar(12);
+alter table janela add column documento_motorista varchar(14);
 
 
 

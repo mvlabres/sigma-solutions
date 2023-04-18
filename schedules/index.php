@@ -63,6 +63,7 @@ if(isset($_GET['conteudo'])) {
     <link href="../custom-style.css" rel="stylesheet">
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -88,13 +89,14 @@ if(isset($_GET['conteudo'])) {
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    
-
 </head>
 
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-brand">
+                <img class="icon-menu-img" src="../images/menu-icon.png"  onmouseover="handleShowMenu()">
+            </div>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -105,10 +107,10 @@ if(isset($_GET['conteudo'])) {
                 <a class="navbar-brand" href="../home.php">SIGMA Solutions</a>
             </div>
 
-            <div class="navbar-brand customer-master-label">
+            <div class="navbar-brand customer-master-label" >
                 <p><?=$_SESSION['customerDescription'] ?> Agendamentos</p>
             </div>
-         
+
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -123,9 +125,28 @@ if(isset($_GET['conteudo'])) {
                     </ul>
                 </li>
             </ul>
-            <div class="navbar-default sidebar" role="navigation">
+           
+            <ul <?=$_SESSION['FUNCTION_ACCESS']['schedule'] ?> class="nav navbar-top-links navbar-right" id="quick-access-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span> Agendamentos</span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_new'] ?> >
+                            <a href="index.php?conteudo=newSchedule.php">Novo</a>
+                        </li>
+                        <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_list'] ?>>
+                            <a href="index.php?conteudo=searchSchedule.php">Pesquisar</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+          
+           
+            <div class="navbar-default sidebar" id="menu-nav-bar" role="navigation" >
                 <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
+                    <ul class="nav" id="side-menu" >
                         <li <?=$_SESSION['FUNCTION_ACCESS']['schedule'] ?>>
                             <a href="#"><i></i> Agendamentos </a>
                             <ul class="nav nav-second-level">
@@ -163,7 +184,7 @@ if(isset($_GET['conteudo'])) {
             </div>
         </nav>
 
-        <div id="page-wrapper">
+        <div id="page-wrapper" onmouseover="handleHideMenu()" >
             <?php
                 include($conteudo);
             ?>
@@ -179,6 +200,7 @@ if(isset($_GET['conteudo'])) {
             $('.celular').mask('(00)00000-0000');
             $('.cnpj').mask('00.000.000/0000-00');
             $("#data_final").mask("99/99/9999");
+            $('.cpf').mask('000.000.000-00');
         });
     </script>
 
@@ -197,6 +219,10 @@ if(isset($_GET['conteudo'])) {
         $(function () {
             $('#datetimepicker1').datetimepicker();
         });
+
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
     </script>
     </body>
 

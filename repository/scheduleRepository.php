@@ -11,7 +11,7 @@ class ScheduleRepository{
     public function findAll(){
 
         try{
-            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta
                     FROM janela";  
 
             $result = $this->mySql->query($sql);
@@ -26,7 +26,7 @@ class ScheduleRepository{
     public function findByClient($client){
 
         try{
-            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta
                     FROM janela
                     WHERE cliente = '".$client."'
                     ORDER BY data_agendamento";  
@@ -41,7 +41,7 @@ class ScheduleRepository{
     public function findByClientStartDateAndEndDate($client, $startDate, $endDate){
 
         try{
-            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta
                     FROM janela
                     WHERE cliente = '".$client."'
                     AND data_agendamento >= '".$startDate."'
@@ -58,7 +58,7 @@ class ScheduleRepository{
     public function findByClientStatusStartDateAndEndDate($client, $status, $startDate, $endDate){
 
         try{
-            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta
                     FROM janela
                     WHERE cliente = '".$client."'
                     AND status = '".$status."' 
@@ -76,7 +76,7 @@ class ScheduleRepository{
     public function findById($id){
 
         try{
-            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta
                     FROM janela
                     WHERE id = '".$id."'";  
 
@@ -114,7 +114,11 @@ class ScheduleRepository{
                     observacao = '".$schedule->getObservacao()."',
                     dados_gerais = '".$schedule->getDadosGerais()."',
                     cliente = '".$schedule->getCliente()."',
-                    doca = '".$schedule->getDoca()."'";
+                    doca = '".$schedule->getDoca()."',
+                    nome_motorista = '".$schedule->getNomeMotorista()."', 
+                    placa_carreta2 = '".$schedule->getPlacaCarreta2()."',
+                    documento_motorista = '".$schedule->getDocumentoMotorista()."',
+                    placa_carreta = '".$schedule->getPlacaCarreta()."'";
 
             $result = $this->mySql->query($sql);
             return 'SAVED';
@@ -151,7 +155,11 @@ class ScheduleRepository{
                     observacao = '".$schedule->getObservacao()."',
                     dados_gerais = '".$schedule->getDadosGerais()."',
                     cliente = '".$schedule->getCliente()."',
-                    doca = '".$schedule->getDoca()."'
+                    doca = '".$schedule->getDoca()."',
+                    nome_motorista = '".$schedule->getNomeMotorista()."', 
+                    placa_carreta2 = '".$schedule->getPlacaCarreta2()."',
+                    documento_motorista = '".$schedule->getDocumentoMotorista()."',
+                    placa_carreta = '".$schedule->getPlacaCarreta()."'
                     WHERE ID = ".$id;  
 
 

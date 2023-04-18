@@ -116,6 +116,11 @@ class ScheduleController{
         $schedule->setDadosGerais($post['material']);
         $schedule->setCliente($_SESSION['customerName']);
 
+        $schedule->setNomeMotorista($post['driverName']); 
+        $schedule->setPlacaCarreta2($post['licenceTrailer2']);
+        $schedule->setDocumentoMotorista($post['documentDriver']);
+        $schedule->setPlacaCarreta($post['licenceTrailer']);
+
         return $schedule;
     }
 
@@ -157,6 +162,10 @@ class ScheduleController{
             $schedule->setDadosGerais($data['dados_gerais']);
             $schedule->setCliente($data['cliente']);
             $schedule->setStatus($data['status']);
+            $schedule->setNomeMotorista($data['nome_motorista']); 
+            $schedule->setPlacaCarreta2($data['placa_carreta2']);
+            $schedule->setDocumentoMotorista($data['documento_motorista']);
+            $schedule->setPlacaCarreta($data['placa_carreta']);
             
             array_push($schedules, $schedule);
         }

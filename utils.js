@@ -135,3 +135,19 @@ const dateTimeHandleBlur = (element) => {
         }, 10);
     }
 }
+
+const handleShowMenu = () => {
+
+    document.getElementById('menu-nav-bar').style.display = 'block';
+    document.getElementById('page-wrapper').style.marginLeft = '250px';
+}
+
+const handleHideMenu = () => {
+
+    document.getElementById('menu-nav-bar').style.display = 'none';
+    document.getElementById('page-wrapper').style.marginLeft = '0px';
+}
+
+const setDefaultNavSpace = () => {
+    document.getElementById('page-wrapper').style.marginLeft = '250px';
+}

@@ -24,14 +24,20 @@ $userTypeFieldAccess = [
     'shipmentId'            => ['operator', 'porter'],
     'dock'                  => ['porter'],
     'truckType'             => ['porter'],
-    'licenceTruck'          => ['porter'],
+    'licenceTruck'          => [],
     'dos'                   => ['porter'],
     'invoice'               => ['porter'],
     'grossWeight'           => ['porter'],
     'pallets'               => ['porter'],
     'material'              => ['porter'],
     'observation'           => ['porter'],
-    'files'                 => ['porter']
+    'files'                 => ['porter'],
+
+
+    'documentDriver'        => [],
+    'driverName'            => [],
+    'licenceTrailer2'       => [],
+    'licenceTrailer'        => []
 ];
 
 $teste = false;
@@ -56,7 +62,11 @@ $fieldAcces = [
     'pallets'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['pallets'] )) ? 'disabled' : '',
     'material'              => (in_array($_SESSION['tipo'], $userTypeFieldAccess['material'] )) ? 'disabled' : '',
     'observation'           => (in_array($_SESSION['tipo'], $userTypeFieldAccess['observation'] )) ? 'disabled' : '',
-    'files'                 => (in_array($_SESSION['tipo'], $userTypeFieldAccess['files'] )) ? 'disabled' : ''
+    'files'                 => (in_array($_SESSION['tipo'], $userTypeFieldAccess['files'] )) ? 'disabled' : '',
+    'documentDriver'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['documentDriver'] )) ? 'disabled' : '',
+    'driverName'            => (in_array($_SESSION['tipo'], $userTypeFieldAccess['driverName'] )) ? 'disabled' : '',
+    'licenceTrailer2'       => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTrailer2'] )) ? 'disabled' : '',
+    'licenceTrailer'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['files'] )) ? 'licenceTrailer' : ''
 ];
 
 $schedule = new Schedule();
@@ -179,6 +189,14 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label>Nome Motorista</label>
+                                <input class="form-control" type="text" value="<?=$schedule->getNomeMotorista() ?>" name="driverName"  <?=$disabled ?> <?=$fieldAcces['driverName'] ?>>
+                            </div>
+                            <div class="form-group">
+                                <label>CPF Motorista</label>
+                                <input class="form-control cpf" id="cpf" type="text" value="<?=$schedule->getDocumentoMotorista() ?>" name="documentDriver"  <?=$disabled ?> <?=$fieldAcces['documentDriver'] ?>>
+                            </div>
+                            <div class="form-group">
                                 <label>Tipo de Operação</label>
                                 <select name="operationType" class="form-control" aria-label="Default select example" <?=$disabled ?> <?=$fieldAcces['operationType'] ?> required>
                                     <option value="">Selecione...</option>
@@ -254,6 +272,14 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Placa do cavalo</label>
                                 <input class="form-control" type="text"  value="<?=$schedule->getPlacaCavalo() ?>" name="licenceTruck"  <?=$disabled ?> <?=$fieldAcces['licenceTruck'] ?> >
+                            </div>
+                            <div class="form-group">
+                                <label>Placa Carreta 1</label>
+                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCarreta() ?>" name="licenceTrailer"  <?=$disabled ?> <?=$fieldAcces['licenceTrailer'] ?> >
+                            </div>
+                            <div class="form-group">
+                                <label>Placa Carreta 2</label>
+                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCarreta2() ?>" name="licenceTrailer2"  <?=$disabled ?> <?=$fieldAcces['licenceTrailer2'] ?> >
                             </div>
                             <div class="form-group">
                                 <label>DO's</label>

@@ -32,8 +32,6 @@ $userTypeFieldAccess = [
     'material'              => ['porter'],
     'observation'           => ['porter'],
     'files'                 => ['porter'],
-
-
     'documentDriver'        => [],
     'driverName'            => [],
     'licenceTrailer2'       => [],

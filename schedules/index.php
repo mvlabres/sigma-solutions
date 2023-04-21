@@ -92,7 +92,7 @@ if(isset($_GET['conteudo'])) {
 </head>
 
 <body>
-    <div id="wrapper">
+    <div id="wrapper" class="schedule-body">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-brand">
                 <img class="icon-menu-img" src="../images/menu-icon.png"  onmouseover="handleShowMenu()">
@@ -144,7 +144,7 @@ if(isset($_GET['conteudo'])) {
             </ul>
           
            
-            <div class="navbar-default sidebar" id="menu-nav-bar" role="navigation" >
+            <div class="navbar-default sidebar vertical-menu" id="menu-nav-bar" role="navigation" >
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu" >
                         <li <?=$_SESSION['FUNCTION_ACCESS']['schedule'] ?>>

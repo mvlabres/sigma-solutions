@@ -1,3 +1,11 @@
+let selectedElement;
+
+let activeScheduleColumnsSearch = [];
+let inactiveScheduleColumnsSearch = [];
+
+let activeColumnsTemp = [];
+let inactiveColumnsTemp = [];
+
 jQuery(function($){
     var bindDatePicker = function() {
          $(".date").datetimepicker({
@@ -137,17 +145,134 @@ const dateTimeHandleBlur = (element) => {
 }
 
 const handleShowMenu = () => {
-
     document.getElementById('menu-nav-bar').style.display = 'block';
-    document.getElementById('page-wrapper').style.marginLeft = '250px';
 }
 
 const handleHideMenu = () => {
-
     document.getElementById('menu-nav-bar').style.display = 'none';
-    document.getElementById('page-wrapper').style.marginLeft = '0px';
 }
 
-const setDefaultNavSpace = () => {
-    document.getElementById('page-wrapper').style.marginLeft = '250px';
+const readColumns = () => {
+
+    document.querySelectorAll('div[name="active-column-name"]').forEach(element => {
+        activeColumnsTemp.push(element);
+    });
+
+    document.querySelectorAll('div[name="inactive-column-name"]').forEach(element => {
+        inactiveColumnsTemp.push(element);
+    });
+
+
+    activeScheduleColumnsSearch = [...document.getElementsByName('active-column')];
+    inactiveScheduleColumnsSearch = [...document.getElementsByName('inactive-column')];
+
+}
+
+const inactiveColumn = () => {
+    activeScheduleColumnsSearch.forEach((element, index) => {
+
+        if(element.checked){
+            element.checked = false;
+            inactiveScheduleColumnsSearch.push(element);
+            activeScheduleColumnsSearch.splice(index, 1);
+
+            const divId = element.id.replace('order', 'div');
+
+            const elementToMove = document.getElementById(divId);
+
+            document.getElementById('active-columns').removeChild(elementToMove);
+            document.getElementById('inactive-columns').appendChild(elementToMove);
+        }
+    });
+}
+
+const activeColumn = () => {
+    inactiveScheduleColumnsSearch.forEach((element, index) => {
+        if(element.checked){
+            element.checked = false;
+            activeScheduleColumnsSearch.push(element);
+            inactiveScheduleColumnsSearch.splice(index, 1);
+
+            const divId = element.id.replace('order', 'div');
+
+            const elementToMove = document.getElementById(divId);
+
+            document.getElementById('inactive-columns').removeChild(elementToMove);
+            document.getElementById('active-columns').appendChild(elementToMove);
+        }
+    });
+}
+
+const handleSelect = (radioElement) => {
+    if(!radioElement.checked) return;
+
+    activeScheduleColumnsSearch.forEach(element => {
+        if(element.id !== radioElement.id){
+            element.checked = false;
+        }
+    });
+}
+
+const restoreColumns = () => {
+
+    let box = document.querySelector('#active-columns');
+    let child = box.lastElementChild
+
+    while (child) {
+        box.removeChild(child);
+        child = box.lastElementChild;
+    }
+
+    box = document.querySelector('#inactive-columns');
+    child = box.lastElementChild
+
+    while (child) {
+        box.removeChild(child);
+        child = box.lastElementChild;
+    }
+
+    box = document.querySelector('#active-columns');
+
+    activeColumnsTemp.forEach(element => {
+        box.append(element);  
+    });
+
+    box = document.querySelector('#inactive-columns');
+
+    inactiveColumnsTemp.forEach(element => {
+        box.append(element);  
+    });
+
+}
+
+const moveColumn = (direction) => {
+
+    const columns = document.querySelectorAll('div[name="active-column-name"]')
+
+    for(let x = 0; x < columns.length; x++ ){
+
+        const element = columns[x];
+
+        const divElement = element.children[0];
+        const columnElement = divElement.children[0];
+
+        if(!columnElement.checked) continue;
+
+        if(columnElement.checked){
+
+            if(x === 0 || x === columns.length - 1 ) break;
+
+            const container = document.querySelector('div[name="active-columns"]');
+            const neighborElement = (direction === 'up') ? columns[x - 1 ] : columns[x + 1 ];
+
+            if(direction === 'up') container.insertBefore(element, neighborElement);
+            else container.insertBefore(neighborElement, element);
+            break;
+        }
+    }
+}
+
+const moveDown = () => {
+
+    if(!selectedElement) return;
 }

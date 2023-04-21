@@ -8,6 +8,33 @@ require_once('../controller/scheduleController.php');
 
 date_default_timezone_set("America/Sao_Paulo");
 
+$columns = [
+    ['name' => 'status',                'label'=> 'Status',         'order' => 0,  'value' => 'getStatus',             'columnSize'=> 'td-100', 'show' => true],
+    ['name' => 'operationScheduleTime', 'label'=> 'Agendamento',    'order' => 1,  'value' => 'getDataAgendamento',    'columnSize'=> 'td-120', 'show' => true],
+    ['name' => 'arrival',               'label'=> 'Chegada',        'order' => 2,  'value' => 'getHoraChegada',        'columnSize'=> 'td-120', 'show' => false],
+    ['name' => 'operationStart',        'label'=> 'Início',         'order' => 3,  'value' => 'getInicioOperacao',     'columnSize'=> 'td-120', 'show' => true],
+    ['name' => 'operationDone',         'label'=> 'Fim',            'order' => 4,  'value' => 'getFimOperacao',        'columnSize'=> 'td-120', 'show' => true],
+    ['name' => 'operationExit',         'label'=> 'Saída',          'order' => 5,  'value' => 'getSaida',              'columnSize'=> 'td-120', 'show' => true],
+    ['name' => 'operationType',         'label'=> 'Operação',       'order' => 6,  'value' => 'getOperacao',           'columnSize'=> 'td-100', 'show' => true],
+    ['name' => 'shippingCompany',       'label'=> 'Transportadora', 'order' => 7,  'value' => 'getTransportadora',     'columnSize'=> 'td-120', 'show' => true],
+    ['name' => 'city',                  'label'=> 'Cidade',         'order' => 8,  'value' => 'getCidade',             'columnSize'=> 'td-100', 'show' => true],
+    ['name' => 'documentDriver',        'label'=> 'CPF',            'order' => 9, 'value' => 'getDocumentoMotorista', 'columnSize'=> 'td-100', 'show' => true],
+    ['name' => 'driverName',            'label'=> 'Nome Motorista', 'order' => 10, 'value' => 'getNomeMotorista',      'columnSize'=> 'td-120', 'show' => true],
+    ['name' => 'licenceTruck',          'label'=> 'Placa Cavalo',   'order' => 11, 'value' => 'getPlacaCavalo',        'columnSize'=> 'td-100', 'show' => true],
+    ['name' => 'licenceTrailer2',       'label'=> 'Placa carreta',  'order' => 12, 'value' => 'getPlacaCarreta',       'columnSize'=> 'td-120', 'show' => true],
+    ['name' => 'licenceTrailer',        'label'=> 'Placa Carreta 2','order' => 13, 'value' => 'getPlacaCarreta2',      'columnSize'=> 'td-120', 'show' => true],
+    ['name' => 'binSeparation',         'label'=> 'Separação BIN',  'order' => 14, 'value' => 'getSeparacao',          'columnSize'=> 'td-120', 'show' => true],
+    ['name' => 'shipmentId',            'label'=> 'Shipment ID',    'order' => 15, 'value' => 'getShipmentId',         'columnSize'=> 'td-100', 'show' => true],
+    ['name' => 'dock',                  'label'=> 'Doca',           'order' => 16, 'value' => 'getDoca',               'columnSize'=> 'td-70',  'show' => true],
+    ['name' => 'truckType',             'label'=> 'Tipo Veículo',   'order' => 17, 'value' => 'getTipoVeiculo',        'columnSize'=> 'td-100', 'show' => true],
+    ['name' => 'dos',                   'label'=> 'DO\'s',          'order' => 18, 'value' => 'getDo_s',               'columnSize'=> 'td-70',  'show' => true],
+    ['name' => 'invoice',               'label'=> 'NF',             'order' => 19, 'value' => 'getNf',                 'columnSize'=> 'td-70',  'show' => true],
+    ['name' => 'grossWeight',           'label'=> 'Peso Final',     'order' => 20, 'value' => 'getPeso',               'columnSize'=> 'td-100', 'show' => true],
+    ['name' => 'pallets',               'label'=> 'Paletes',        'order' => 21, 'value' => 'getCargaQtde',          'columnSize'=> 'td-70',  'show' => true],
+    ['name' => 'material',              'label'=> 'Material',       'order' => 22, 'value' => 'getDadosGerais',        'columnSize'=> 'td-150', 'show' => true],
+    ['name' => 'observation',           'label'=> 'Observação',     'order' => 23, 'value' => 'getObservacao',         'columnSize'=> 'td-150', 'show' => true]
+];
+
 $statusList = ['Todos','Agendado','Aguardando', 'Em operação', 'Fim de operação', 'Liberado'];
 
 $status = 'Todos';
@@ -30,10 +57,8 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
 ?>
 
 <body>
-
     <div class="row">
         <div class="col-lg-12">
-            
             <h3>Filtro</h3>
             <div class="functions-group">
                 <form method="post" action="#">
@@ -76,7 +101,7 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                     </div>
                 </form>
                 <div class="btn-functions-group">
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#columnOrder"><i class="glyphicon glyphicon-sort-by-attributes"></i> Ordenar Colunas</button>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#columnOrder" onclick="readColumns()"><i class="glyphicon glyphicon-sort-by-attributes"></i> Ordenar Colunas</button>
                     <button type="button" class="btn btn-secondary"><i class="fa fa-file-excel-o"></i> Exportar</button>
                 </div>
             </div>
@@ -92,24 +117,15 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                                 <tr>
                                     <th scope="column" class="td-70">Detalhes</th>
                                     <th scope="column" class="td-70">Editar</th>
-                                    <th class="td-100">Status</th>
-                                    <th class="td-120">Agendamento</th>
-                                    <th class="td-100">Placa Cavalo</th>
-                                    <th class="td-100">Shipment ID</th>
-                                    <th class="td-100">Operação</th>
-                                    <th class="td-120">Transportadora</th>
-                                    <th class="td-120">Chegada</th>
-                                    <th class="td-70">Doca</th>
-                                    <th class="td-120">Início</th>
-                                    <th class="td-120">Fim</th>
-                                    <th class="td-120">Saída</th>
-                                    <th class="td-100">Cidade</th>
-                                    <th class="td-100">Peso Final</th>
-                                    <th class="td-70">NF</th>
-                                    <th class="td-70">Paletes</th>
-                                    <th class="td-100">Tipo Veículo</th>
-                                    <th class="td-150">Observação</th>
-                                    <th class="td-150">Material</th>
+
+                                    <?php
+                                    foreach ($columns as $column) {
+
+                                        if(!$column['show']) continue;
+                                        echo '<th class="'.$column["columnSize"].'">'.$column["label"].'</th>';
+                                    }
+                                    ?>
+            
                                 </tr>
                             </thead>
                             <tbody>
@@ -117,26 +133,14 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
     
                                     foreach ($schedules as $schedule) {
                                         echo '<tr>';
-                                        echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newSchedule.php&search='.$schedule->getId().'"><span class="fa fa-search text-primary"></span></a></td>';
-                                        echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newSchedule.php&edit='.$schedule->getId().'"><span class="fa fa-edit text-primary"></span></a></td>';
-                                        echo '<td>'.$schedule->getStatus().'</td>';
-                                        echo '<td>'.$schedule->getDataAgendamento().'</td>';
-                                        echo '<td>'.$schedule->getPlacaCavalo().'</td>';
-                                        echo '<td>'.$schedule->getShipmentId().'</td>';
-                                        echo '<td>'.$schedule->getOperacao().'</td>';
-                                        echo '<td>'.$schedule->getTransportadora().'</td>';
-                                        echo '<td>'.$schedule->getHoraChegada().'</td>';
-                                        echo '<td>'.$schedule->getDoca().'</td>';
-                                        echo '<td>'.$schedule->getInicioOperacao().'</td>';
-                                        echo '<td>'.$schedule->getFimOperacao().'</td>';
-                                        echo '<td>'.$schedule->getSaida().'</td>';
-                                        echo '<td>'.$schedule->getCidade().'</td>';
-                                        echo '<td>'.$schedule->getPeso().'</td>';
-                                        echo '<td>'.$schedule->getNf().'</td>';
-                                        echo '<td>'.$schedule->getCargaQtde().'</td>';
-                                        echo '<td>'.$schedule->getTipoVeiculo().'</td>';
-                                        echo '<td>'.$schedule->getObservacao().'</td>';
-                                        echo '<td>'.$schedule->getDadosGerais().'</td>';
+                                        echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newSchedule.php&search='.$schedule["getId"].'"><span class="fa fa-search text-primary"></span></a></td>';
+                                        echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newSchedule.php&edit='.$schedule["getId"].'"><span class="fa fa-edit text-primary"></span></a></td>';
+                                        
+                                        foreach ($columns as $column) {
+                                            if(!$column['show']) continue;
+                                            echo '<td>'.$schedule[$column['value']].'</td>';
+                                        }
+                                        
                                         echo '</tr>';
                                     }
                                 ?>
@@ -152,16 +156,68 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
     <div class="modal-dialog modal-dialog-centered large-modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Ordenar colunas</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h3 class="modal-title" id="exampleModalLongTitle">Ordenar colunas</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="restoreColumns()">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                ...
+            <div class="modal-body row-center-box">
+                <div class="column-group" id="column-group-active">
+                    <h3>Colunas Ativas</h3>
+
+                    <div class="row-space-between" id="active-box">
+                        <div id="active-columns" name="active-columns" class="column-space-between">
+                            
+                        <?php
+                        foreach ($columns as $column) {
+
+                            if(!$column['show']) continue;
+                            
+                            echo '<div class="column-box-order" id="div-'.$column['order'].'" name="active-column-name">';
+                            echo    '<div class="form-check">';
+                            echo        '<input class="form-check-input" type="checkbox" id="order-'.$column['order'].'" name="active-column" onchange="handleSelect(this)" >';
+                            echo        '<label class="form-check-label">'.$column['label'].'</label>';
+                            echo    '</div>';
+                            echo '</div>';
+                        }
+                        ?> 
+                            
+                        </div>
+                        <div class="column-group-inner-action">
+                            <button class="btn btn-secondary" onclick="moveColumn('up')"><i class="glyphicon glyphicon-chevron-up"></i></button>
+                            <button class="btn btn-secondary" onclick="moveColumn('down')"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="column-group-action">
+                    <button class="btn btn-primary" onclick="inactiveColumn()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button class="btn btn-primary" onclick="activeColumn()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                </div>
+                <div class="column-group" id="column-group-inactive">
+                    <h3>Colunas Inativas</h3>
+                    <div class="row-space-between" id="inactive-box">
+                        <div id="inactive-columns" name="inactive-columns" class="column-space-between">
+                        <?php
+                        foreach ($columns as $column) {
+
+                            if($column['show']) continue;
+                            
+                            echo '<div class="column-box-order" id="div-'.$column['order'].'" name="inactive-column-name">';
+                            echo    '<div class="form-check">';
+                            echo        '<input class="form-check-input" type="checkbox" id="order-'.$column['order'].'" name="inactive-column" value="something">';
+                            echo        '<label class="form-check-label">'.$column['label'].'</label>';
+                            echo    '</div>';
+                            echo '</div>';
+                        }
+                        ?> 
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="restoreColumns()">Fechar</button>
                 <button type="button" class="btn btn-primary">Salvar</button>
             </div>
         </div>

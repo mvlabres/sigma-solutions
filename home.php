@@ -54,7 +54,7 @@ if(isset($_GET['conteudo'])) {
     <script src="dist/js/sb-admin-2.js"></script>
     <script src="utils.js"></script>
 </head>
-<body onload="setDefaultNavSpace()">
+<body>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">

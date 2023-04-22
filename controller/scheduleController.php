@@ -257,6 +257,55 @@ class ScheduleController{
 
         return $schedules;
     }
+
+    public function loadData($records){
+
+        $schedules = array();
+
+        while ($data = $records->fetch_assoc()){ 
+            $schedule = new Schedule();
+            $schedule->setId($data['id']);
+            $schedule->setTransportadora($data['transportadora']);
+            $schedule->setTipoVeiculo($data['tipoVeiculo']);
+            $schedule->setPlacaCavalo($data['placa_cavalo']);
+            $schedule->setOperacao($data['operacao']);
+            $schedule->setNf($data['nf']);
+            $schedule->setHoraChegada( date("d/m/Y h:i:s", strtotime($data['horaChegada'])));
+            if($data['horaChegada'] == '0000-00-00 00:00:00') $schedule->setHoraChegada('');
+
+            $schedule->setInicioOperacao(date("d/m/Y h:i:s", strtotime($data['inicio_operacao'])));
+            if($data['inicio_operacao'] == '0000-00-00 00:00:00') $schedule->setInicioOperacao('');
+
+            $schedule->setFimOperacao(date("d/m/Y h:i:s", strtotime($data['fim_operacao'])));
+            if($data['fim_operacao'] == '0000-00-00 00:00:00') $schedule->setFimOperacao('');
+
+            $schedule->setNomeUsuario($data['usuario']);
+            $schedule->setDataInclusao(date("d/m/Y h:i:s", strtotime($data['dataInclusao'])));
+            $schedule->setPeso($data['peso']);
+            $schedule->setDataAgendamento(date("d/m/Y h:i:s", strtotime($data['data_agendamento'])));
+            $schedule->setSaida(date("d/m/Y h:i:s", strtotime($data['saida'])));
+            if($data['saida'] == '0000-00-00 00:00:00') $schedule->setSaida('');
+
+            $schedule->setSeparacao($data['separacao']);
+            $schedule->setShipmentId($data['shipment_id']);
+            $schedule->setDoca($data['doca']);
+            $schedule->setDo_s($data['do_s']);
+            $schedule->setCidade($data['cidade']);
+            $schedule->setCargaQtde($data['carga_qtde']);
+            $schedule->setObservacao($data['observacao']);
+            $schedule->setDadosGerais($data['dados_gerais']);
+            $schedule->setCliente($data['cliente']);
+            $schedule->setStatus($data['status']);
+            $schedule->setNomeMotorista($data['nome_motorista']); 
+            $schedule->setPlacaCarreta2($data['placa_carreta2']);
+            $schedule->setDocumentoMotorista($data['documento_motorista']);
+            $schedule->setPlacaCarreta($data['placa_carreta']);
+    
+            array_push($schedules, $schedule);
+        }
+
+        return $schedules;
+    }
 }
 
 ?>

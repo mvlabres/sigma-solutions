@@ -12,7 +12,7 @@ class TruckTypeRepository{
 
         try{
             $sql = "SELECT id, descricao
-                    FROM tipoveiculo";  
+                    FROM tipoVeiculo";  
 
             $result = $this->mySql->query($sql);
 
@@ -27,7 +27,7 @@ class TruckTypeRepository{
 
         try{
             $sql = "SELECT id, descricao
-                    FROM tipoveiculo
+                    FROM tipoVeiculo
                     WHERE descricao = '".$description."'";  
 
             return $this->mySql->query($sql);
@@ -40,7 +40,7 @@ class TruckTypeRepository{
     public function save($post){
 
         try{
-            $sql = "INSERT INTO tipoveiculo
+            $sql = "INSERT INTO tipoVeiculo
                     SET descricao = '".$post['description']."'";  
 
             $result = $this->mySql->query($sql);
@@ -54,7 +54,7 @@ class TruckTypeRepository{
     public function updateById($id, $description){
 
         try{
-            $sql = "UPDATE tipoveiculo
+            $sql = "UPDATE tipoVeiculo
                     SET descricao = '".$description."'
                     WHERE ID = ".$id;  
 
@@ -69,7 +69,7 @@ class TruckTypeRepository{
     public function deleteById($id){
 
         try{
-            $sql = "DELETE FROM tipoveiculo
+            $sql = "DELETE FROM tipoVeiculo
                     WHERE id = ".$id;  
 
             $result = $this->mySql->query($sql);

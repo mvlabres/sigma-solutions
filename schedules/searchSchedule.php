@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require_once('../controller/scheduleController.php');
 require_once('../utils.php');
 
@@ -166,8 +162,10 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                                         echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newSchedule.php&edit='.$schedule["getId"].'"><span class="fa fa-edit text-primary"></span></a></td>';
                                         
                                         foreach ($columns as $key => $value) {
+
                                             if(!$value['show']) continue;
-                                            echo '<td>'.$value['value'].'</td>';
+
+                                            echo '<td>'.$schedule[$value['value']].'</td>';
                                         }
                                         
                                         echo '</tr>';

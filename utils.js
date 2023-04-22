@@ -6,6 +6,11 @@ let inactiveScheduleColumnsSearch = [];
 let activeColumnsTemp = [];
 let inactiveColumnsTemp = [];
 
+function dateTimeMask(value) {
+    let x = value.replace(/\D+/g, '').match(/(\d{0,2})(\d{0,2})(\d{0,4})(\d{0,2})(\d{0,2})(\d{0,2})/);
+    return !x[2] ? x[1] : `${x[1]}/${x[2]}` + (!x[3] ? `` : `/${x[3]}` + ` `) + (!x[4] ? `` : x[4]) + (!x[5] ? `` : `:${x[5]}`) + (!x[6] ? `` : `:${x[6]}`);   
+}
+
 jQuery(function($){
     var bindDatePicker = function() {
          $(".date").datetimepicker({
@@ -142,6 +147,18 @@ const dateTimeHandleBlur = (element) => {
             element.value = dateTimeValue;
         }, 10);
     }
+}
+
+const dateTimeHandleKeyUp = (element) => {
+
+    let dateTimeValue = element.value;
+
+    dateTimeValue = dateTimeValue.replace(/[a-zA-Z]/g, '');
+
+    dateTimeValue = dateTimeMask(dateTimeValue);
+
+    element.innerHTML = dateTimeValue;
+    element.value = dateTimeValue;
 }
 
 const handleShowMenu = () => {

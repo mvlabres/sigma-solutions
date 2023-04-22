@@ -149,7 +149,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Horário Carregamento</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getDataAgendamento() ?>" name="operationScheduleTime" id="operationScheduleTime" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationScheduleTime'] ?> required/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getDataAgendamento() ?>" name="operationScheduleTime" id="operationScheduleTime" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationScheduleTime'] ?> minlength="19" maxlength="19" onkeyup="dateTimeHandleKeyUp(this)" required/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -157,7 +157,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Chegada</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" id="arrival" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['arrival'] ?>/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" id="arrival" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['arrival'] ?> minlength="19" maxlength="19" onkeyup="dateTimeHandleKeyUp(this)"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -165,7 +165,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Início</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getInicioOperacao() ?>" name="operationStart" id="operationStart" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationStart'] ?>/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getInicioOperacao() ?>" name="operationStart" id="operationStart" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationStart'] ?> minlength="19" maxlength="19" onkeyup="dateTimeHandleKeyUp(this)"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -173,7 +173,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Fim</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getFimOperacao() ?>" name="operationDone" id="operationDone" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationDone'] ?> />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getFimOperacao() ?>" name="operationDone" id="operationDone" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationDone'] ?> minlength="19" maxlength="19" onkeyup="dateTimeHandleKeyUp(this)"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -181,7 +181,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Saída</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getSaida() ?>" name="operationExit" id="operationExit" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationExit'] ?> />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getSaida() ?>" name="operationExit" id="operationExit" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationExit'] ?> minlength="19" maxlength="19" onkeyup="dateTimeHandleKeyUp(this)"/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>

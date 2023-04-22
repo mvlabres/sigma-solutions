@@ -108,7 +108,7 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                         <div class="form-group">
                             <label>Data inicial</label>
                             <div class='input-group date' id='datetimepicker1'>
-                                <input name="startDate" type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$startDate ?>"/>
+                                <input name="startDate" type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$startDate ?>" onblur="dateTimeHandleBlur(this)" required  minlength="19" maxlength="19" onkeyup="dateTimeHandleKeyUp(this)"/>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
@@ -116,7 +116,7 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                         <div class="form-group">
                             <label>Data final</label>
                             <div class='input-group date' id='datetimepicker1'>
-                                <input name="endDate" type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$endDate ?>"/>
+                                <input name="endDate" type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" onblur="dateTimeHandleBlur(this)" value="<?=$endDate ?>" minlength="19" maxlength="19" onkeyup="dateTimeHandleKeyUp(this)" required/>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>

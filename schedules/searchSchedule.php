@@ -5,35 +5,38 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once('../controller/scheduleController.php');
+require_once('../utils.php');
 
 date_default_timezone_set("America/Sao_Paulo");
 
 $columns = [
-    ['name' => 'status',                'label'=> 'Status',         'order' => 0,  'value' => 'getStatus',             'columnSize'=> 'td-100', 'show' => true],
-    ['name' => 'operationScheduleTime', 'label'=> 'Agendamento',    'order' => 1,  'value' => 'getDataAgendamento',    'columnSize'=> 'td-120', 'show' => true],
-    ['name' => 'arrival',               'label'=> 'Chegada',        'order' => 2,  'value' => 'getHoraChegada',        'columnSize'=> 'td-120', 'show' => false],
-    ['name' => 'operationStart',        'label'=> 'Início',         'order' => 3,  'value' => 'getInicioOperacao',     'columnSize'=> 'td-120', 'show' => true],
-    ['name' => 'operationDone',         'label'=> 'Fim',            'order' => 4,  'value' => 'getFimOperacao',        'columnSize'=> 'td-120', 'show' => true],
-    ['name' => 'operationExit',         'label'=> 'Saída',          'order' => 5,  'value' => 'getSaida',              'columnSize'=> 'td-120', 'show' => true],
-    ['name' => 'operationType',         'label'=> 'Operação',       'order' => 6,  'value' => 'getOperacao',           'columnSize'=> 'td-100', 'show' => true],
-    ['name' => 'shippingCompany',       'label'=> 'Transportadora', 'order' => 7,  'value' => 'getTransportadora',     'columnSize'=> 'td-120', 'show' => true],
-    ['name' => 'city',                  'label'=> 'Cidade',         'order' => 8,  'value' => 'getCidade',             'columnSize'=> 'td-100', 'show' => true],
-    ['name' => 'documentDriver',        'label'=> 'CPF',            'order' => 9, 'value' => 'getDocumentoMotorista', 'columnSize'=> 'td-100', 'show' => true],
-    ['name' => 'driverName',            'label'=> 'Nome Motorista', 'order' => 10, 'value' => 'getNomeMotorista',      'columnSize'=> 'td-120', 'show' => true],
-    ['name' => 'licenceTruck',          'label'=> 'Placa Cavalo',   'order' => 11, 'value' => 'getPlacaCavalo',        'columnSize'=> 'td-100', 'show' => true],
-    ['name' => 'licenceTrailer2',       'label'=> 'Placa carreta',  'order' => 12, 'value' => 'getPlacaCarreta',       'columnSize'=> 'td-120', 'show' => true],
-    ['name' => 'licenceTrailer',        'label'=> 'Placa Carreta 2','order' => 13, 'value' => 'getPlacaCarreta2',      'columnSize'=> 'td-120', 'show' => true],
-    ['name' => 'binSeparation',         'label'=> 'Separação BIN',  'order' => 14, 'value' => 'getSeparacao',          'columnSize'=> 'td-120', 'show' => true],
-    ['name' => 'shipmentId',            'label'=> 'Shipment ID',    'order' => 15, 'value' => 'getShipmentId',         'columnSize'=> 'td-100', 'show' => true],
-    ['name' => 'dock',                  'label'=> 'Doca',           'order' => 16, 'value' => 'getDoca',               'columnSize'=> 'td-70',  'show' => true],
-    ['name' => 'truckType',             'label'=> 'Tipo Veículo',   'order' => 17, 'value' => 'getTipoVeiculo',        'columnSize'=> 'td-100', 'show' => true],
-    ['name' => 'dos',                   'label'=> 'DO\'s',          'order' => 18, 'value' => 'getDo_s',               'columnSize'=> 'td-70',  'show' => true],
-    ['name' => 'invoice',               'label'=> 'NF',             'order' => 19, 'value' => 'getNf',                 'columnSize'=> 'td-70',  'show' => true],
-    ['name' => 'grossWeight',           'label'=> 'Peso Final',     'order' => 20, 'value' => 'getPeso',               'columnSize'=> 'td-100', 'show' => true],
-    ['name' => 'pallets',               'label'=> 'Paletes',        'order' => 21, 'value' => 'getCargaQtde',          'columnSize'=> 'td-70',  'show' => true],
-    ['name' => 'material',              'label'=> 'Material',       'order' => 22, 'value' => 'getDadosGerais',        'columnSize'=> 'td-150', 'show' => true],
-    ['name' => 'observation',           'label'=> 'Observação',     'order' => 23, 'value' => 'getObservacao',         'columnSize'=> 'td-150', 'show' => true]
+    'status'               => ['name' => 'status',                'label'=> 'Status',         'order' => 0,  'value' => 'getStatus',             'columnSize'=> 'td-100', 'show' => true],
+    'operationScheduleTime'=> ['name' => 'operationScheduleTime', 'label'=> 'Agendamento',    'order' => 1,  'value' => 'getDataAgendamento',    'columnSize'=> 'td-120', 'show' => true],
+    'arrival'              => ['name' => 'arrival',               'label'=> 'Chegada',        'order' => 2,  'value' => 'getHoraChegada',        'columnSize'=> 'td-120', 'show' => true],
+    'operationStart'       => ['name' => 'operationStart',        'label'=> 'Início',         'order' => 3,  'value' => 'getInicioOperacao',     'columnSize'=> 'td-120', 'show' => true],
+    'operationDone'        => ['name' => 'operationDone',         'label'=> 'Fim',            'order' => 4,  'value' => 'getFimOperacao',        'columnSize'=> 'td-120', 'show' => true],
+    'operationExit'        => ['name' => 'operationExit',         'label'=> 'Saída',          'order' => 5,  'value' => 'getSaida',              'columnSize'=> 'td-120', 'show' => true],
+    'operationType'        => ['name' => 'operationType',         'label'=> 'Operação',       'order' => 6,  'value' => 'getOperacao',           'columnSize'=> 'td-100', 'show' => true],
+    'shippingCompany'      => ['name' => 'shippingCompany',       'label'=> 'Transportadora', 'order' => 7,  'value' => 'getTransportadora',     'columnSize'=> 'td-120', 'show' => true],
+    'city'                 => ['name' => 'city',                  'label'=> 'Cidade',         'order' => 8,  'value' => 'getCidade',             'columnSize'=> 'td-100', 'show' => true],
+    'documentDriver'       => ['name' => 'documentDriver',        'label'=> 'CPF',            'order' => 9,  'value' => 'getDocumentoMotorista', 'columnSize'=> 'td-100', 'show' => true],
+    'driverName'           => ['name' => 'driverName',            'label'=> 'Nome Motorista', 'order' => 10, 'value' => 'getNomeMotorista',      'columnSize'=> 'td-120', 'show' => true],
+    'licenceTruck'         => ['name' => 'licenceTruck',          'label'=> 'Placa Cavalo',   'order' => 11, 'value' => 'getPlacaCavalo',        'columnSize'=> 'td-100', 'show' => true],
+    'licenceTrailer2'      => ['name' => 'licenceTrailer2',       'label'=> 'Placa carreta',  'order' => 12, 'value' => 'getPlacaCarreta',       'columnSize'=> 'td-120', 'show' => true],
+    'licenceTrailer'       => ['name' => 'licenceTrailer',        'label'=> 'Placa Carreta 2','order' => 13, 'value' => 'getPlacaCarreta2',      'columnSize'=> 'td-120', 'show' => true],
+    'binSeparation'        => ['name' => 'binSeparation',         'label'=> 'Separação BIN',  'order' => 14, 'value' => 'getSeparacao',          'columnSize'=> 'td-120', 'show' => true],
+    'shipmentId'           => ['name' => 'shipmentId',            'label'=> 'Shipment ID',    'order' => 15, 'value' => 'getShipmentId',         'columnSize'=> 'td-100', 'show' => true],
+    'dock'                 => ['name' => 'dock',                  'label'=> 'Doca',           'order' => 16, 'value' => 'getDoca',               'columnSize'=> 'td-70',  'show' => true],
+    'truckType'            => ['name' => 'truckType',             'label'=> 'Tipo Veículo',   'order' => 17, 'value' => 'getTipoVeiculo',        'columnSize'=> 'td-100', 'show' => true],
+    'dos'                  => ['name' => 'dos',                   'label'=> 'DOs',            'order' => 18, 'value' => 'getDo_s',               'columnSize'=> 'td-70',  'show' => true],
+    'invoice'              => ['name' => 'invoice',               'label'=> 'NF',             'order' => 19, 'value' => 'getNf',                 'columnSize'=> 'td-70',  'show' => true],
+    'grossWeight'          => ['name' => 'grossWeight',           'label'=> 'Peso Final',     'order' => 20, 'value' => 'getPeso',               'columnSize'=> 'td-100', 'show' => true],
+    'pallets'              => ['name' => 'pallets',               'label'=> 'Paletes',        'order' => 21, 'value' => 'getCargaQtde',          'columnSize'=> 'td-70',  'show' => true],
+    'material'             => ['name' => 'material',              'label'=> 'Material',       'order' => 22, 'value' => 'getDadosGerais',        'columnSize'=> 'td-150', 'show' => true],
+    'observation'          => ['name' => 'observation',           'label'=> 'Observação',     'order' => 23, 'value' => 'getObservacao',         'columnSize'=> 'td-150', 'show' => true]
 ];
+
+$scheduleController = new ScheduleController($MySQLi);
 
 $statusList = ['Todos','Agendado','Aguardando', 'Em operação', 'Fim de operação', 'Liberado'];
 
@@ -41,8 +44,27 @@ $status = 'Todos';
 $startDate = date("d/m/Y") . ' 00:00:00';
 $endDate = date("d/m/Y") . ' 23:59:59';
 
-$scheduleController = new ScheduleController($MySQLi);
+if(isset($_POST['order-action']) && $_POST['order-action'] != null){
 
+    if(isset($_POST['column']) && count($_POST['column']) > 0){
+        
+        $result = $scheduleController->savePreferences($columns, $_POST);
+
+        switch ($result) {
+            case 'SAVED':
+                successAlert('Preferências salvas com sucesso!');
+                break;
+            
+            case 'UPDATED':
+                successAlert('Preferências atualizadas com sucesso!');
+                break;
+            
+            case 'SAVE_ERROR':
+                errorAlert('Ocorreu um erro ao salvar a preferência. Tente novamente ou entre em contato com o administrador.');
+                break;
+        }
+    }
+}
 
 
 if(isset($_POST['status']) && $_POST['status'] != null){
@@ -50,6 +72,14 @@ if(isset($_POST['status']) && $_POST['status'] != null){
     $status = $_POST['status'];
     $startDate = $_POST['startDate'];
     $endDate = $_POST['endDate'];
+}
+
+$preference = $scheduleController->findPreferenceByUser();
+
+if($preference->getId() != null){
+    $columns = array();
+
+    $columns = $scheduleController->sortArray(json_decode($preference->getPreference(), true, JSON_UNESCAPED_UNICODE));
 }
 
 $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSION['customerName'], $status, $startDate, $endDate);
@@ -119,10 +149,9 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                                     <th scope="column" class="td-70">Editar</th>
 
                                     <?php
-                                    foreach ($columns as $column) {
-
-                                        if(!$column['show']) continue;
-                                        echo '<th class="'.$column["columnSize"].'">'.$column["label"].'</th>';
+                                    foreach ($columns as $key => $value) {
+                                        if(!$value['show']) continue;
+                                        echo '<th class="'.$value["columnSize"].'">'.$value["label"].'</th>';
                                     }
                                     ?>
             
@@ -136,9 +165,9 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                                         echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newSchedule.php&search='.$schedule["getId"].'"><span class="fa fa-search text-primary"></span></a></td>';
                                         echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newSchedule.php&edit='.$schedule["getId"].'"><span class="fa fa-edit text-primary"></span></a></td>';
                                         
-                                        foreach ($columns as $column) {
-                                            if(!$column['show']) continue;
-                                            echo '<td>'.$schedule[$column['value']].'</td>';
+                                        foreach ($columns as $key => $value) {
+                                            if(!$value['show']) continue;
+                                            echo '<td>'.$value['value'].'</td>';
                                         }
                                         
                                         echo '</tr>';
@@ -166,23 +195,25 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                     <h3>Colunas Ativas</h3>
 
                     <div class="row-space-between" id="active-box">
-                        <div id="active-columns" name="active-columns" class="column-space-between">
-                            
-                        <?php
-                        foreach ($columns as $column) {
+                        <form action="#" method="post" id="order-form">
+                            <input name="order-action" value="save-order" type="hidden" />
+                            <input name="preferenceId" value="<?=$preference->getId() ?>" type="hidden" />
+                            <div id="active-columns" name="active-columns" class="column-space-between active-columns-order" slot="active">
+                                <?php
+                                foreach ($columns as $key => $value) {
 
-                            if(!$column['show']) continue;
-                            
-                            echo '<div class="column-box-order" id="div-'.$column['order'].'" name="active-column-name">';
-                            echo    '<div class="form-check">';
-                            echo        '<input class="form-check-input" type="checkbox" id="order-'.$column['order'].'" name="active-column" onchange="handleSelect(this)" >';
-                            echo        '<label class="form-check-label">'.$column['label'].'</label>';
-                            echo    '</div>';
-                            echo '</div>';
-                        }
-                        ?> 
-                            
-                        </div>
+                                    if(!$value['show']) continue;
+                                    
+                                    echo '<div class="column-box-order" id="div-'.$value['order'].'" name="active-column-name">';
+                                    echo    '<div class="form-check">';
+                                    echo        '<input class="form-check-input active-column" type="checkbox" id="order-'.$value['order'].'" name="column[]" value="'.$key.'" onchange="handleSelect(this)" >';
+                                    echo        '<label class="form-check-label">'.$value['label'].'</label>';
+                                    echo    '</div>';
+                                    echo '</div>';
+                                }
+                                ?> 
+                            </div>
+                        </form> 
                         <div class="column-group-inner-action">
                             <button class="btn btn-secondary" onclick="moveColumn('up')"><i class="glyphicon glyphicon-chevron-up"></i></button>
                             <button class="btn btn-secondary" onclick="moveColumn('down')"><i class="glyphicon glyphicon-chevron-down"></i></button>
@@ -198,29 +229,30 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                 <div class="column-group" id="column-group-inactive">
                     <h3>Colunas Inativas</h3>
                     <div class="row-space-between" id="inactive-box">
-                        <div id="inactive-columns" name="inactive-columns" class="column-space-between">
-                        <?php
-                        foreach ($columns as $column) {
-
-                            if($column['show']) continue;
+                        <div id="inactive-columns" name="inactive-columns" class="column-space-between" slot="inactive">
                             
-                            echo '<div class="column-box-order" id="div-'.$column['order'].'" name="inactive-column-name">';
-                            echo    '<div class="form-check">';
-                            echo        '<input class="form-check-input" type="checkbox" id="order-'.$column['order'].'" name="inactive-column" value="something">';
-                            echo        '<label class="form-check-label">'.$column['label'].'</label>';
-                            echo    '</div>';
-                            echo '</div>';
-                        }
-                        ?> 
+                            <?php
+                            foreach ($columns as $key => $value) {
+    
+                                if($value['show']) continue;
+                                
+                                echo '<div class="column-box-order" id="div-'.$value['order'].'" name="inactive-column-name">';
+                                echo    '<div class="form-check">';
+                                echo        '<input class="form-check-input inactive-column" type="checkbox" id="order-'.$value['order'].'" name="column[]" value="'.$key.'" onchange="handleSelect(this)">';
+                                echo        '<label class="form-check-label">'.$value['label'].'</label>';
+                                echo    '</div>';
+                                echo '</div>';
+                            }
+                            ?> 
+                            
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="restoreColumns()">Fechar</button>
-                <button type="button" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-primary" onclick="saveOrder()">Salvar</button>
             </div>
         </div>
     </div>
 </div>
-

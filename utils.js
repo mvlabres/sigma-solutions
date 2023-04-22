@@ -163,8 +163,8 @@ const readColumns = () => {
     });
 
 
-    activeScheduleColumnsSearch = [...document.getElementsByName('active-column')];
-    inactiveScheduleColumnsSearch = [...document.getElementsByName('inactive-column')];
+    activeScheduleColumnsSearch = [...document.getElementsByClassName('active-column')];
+    inactiveScheduleColumnsSearch = [...document.getElementsByClassName('inactive-column')];
 
 }
 
@@ -206,7 +206,9 @@ const activeColumn = () => {
 const handleSelect = (radioElement) => {
     if(!radioElement.checked) return;
 
-    activeScheduleColumnsSearch.forEach(element => {
+    const allColumns = activeScheduleColumnsSearch.concat(inactiveScheduleColumnsSearch);
+
+    allColumns.forEach(element => {
         if(element.id !== radioElement.id){
             element.checked = false;
         }
@@ -247,7 +249,7 @@ const restoreColumns = () => {
 
 const moveColumn = (direction) => {
 
-    const columns = document.querySelectorAll('div[name="active-column-name"]')
+    const columns = document.querySelector('#active-columns').children;
 
     for(let x = 0; x < columns.length; x++ ){
 
@@ -260,7 +262,9 @@ const moveColumn = (direction) => {
 
         if(columnElement.checked){
 
-            if(x === 0 || x === columns.length - 1 ) break;
+            if(x === columns.length - 1 && direction === 'down') break;
+
+            if(x === 0 && direction === 'up') break;
 
             const container = document.querySelector('div[name="active-columns"]');
             const neighborElement = (direction === 'up') ? columns[x - 1 ] : columns[x + 1 ];
@@ -272,7 +276,11 @@ const moveColumn = (direction) => {
     }
 }
 
-const moveDown = () => {
+const saveOrder = () => {
 
-    if(!selectedElement) return;
+    activeScheduleColumnsSearch.forEach(element => {
+        element.checked = true;
+    });
+
+    document.getElementById('order-form').submit();
 }

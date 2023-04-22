@@ -334,6 +334,10 @@ html, body {
     width: 80% !important;
 }
 
+.active-columns-order, #order-form{
+    width: 80% !important;
+}
+
 .column-box-order{
     border: solid 1px #ddd;
     min-height: 30px;

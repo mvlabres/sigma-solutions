@@ -301,3 +301,102 @@ const saveOrder = () => {
 
     document.getElementById('order-form').submit();
 }
+
+// const handleChangeFiles = () => {
+
+//     const filesNameContainer = document.querySelector('#files-name'); 
+//     const files = Array.from( document.querySelector('#files').files );
+
+//     files.forEach(file => {
+//         const element = file.name;
+
+//         const div = document.createElement("div");
+        
+//         const spanTrash = document.createElement("span");
+//         spanTrash.classList.add("fa");
+//         spanTrash.classList.add("fa-trash-o");
+//         spanTrash.classList.add("text-danger");
+//         spanTrash.setAttribute("onclick","removeFile(this)");
+
+//         const linkTrash = document.createElement("span");
+//         linkTrash.appendChild(spanTrash);
+        
+//         const linkdownload = document.createElement("a");
+        
+//         const input = document.createElement("input");
+
+//         input.name = `file[]`;
+//         input.type = 'file';
+//         input.files[0] = file;
+//         input.classList.add('file-und');
+
+//         linkdownload.innerHTML = element;
+
+//         linkdownload.appendChild(input);
+
+//         div.appendChild(linkTrash);
+//         div.appendChild(linkdownload);
+
+//         filesNameContainer.appendChild(div);
+//     });  
+    
+//     document.querySelector('#files').files = null;
+// }
+
+
+
+
+const dt = new DataTransfer(); // Permet de manipuler les fichiers de l'input file
+
+const handleChangeFiles = () => {
+
+    const attachment = document.querySelector('#attachment');
+
+    Array.from(attachment.files).forEach(file => {
+        const parentSpan = document.createElement("span");
+        parentSpan.classList.add("file-block");
+
+        const childSpan = document.createElement("span");
+        childSpan.classList.add("name");
+        childSpan.innerHTML = file.name;
+
+        const fileDelete = document.createElement("span");
+        fileDelete.classList.add("file-delete");
+        fileDelete.innerHTML = '+';
+        fileDelete.setAttribute("onclick","removeFile(this)");
+
+        parentSpan.appendChild(fileDelete);
+        parentSpan.appendChild(childSpan);
+        document.querySelector('#files-names').appendChild(parentSpan);
+    });
+
+
+    for (let file of attachment.files) {
+		dt.items.add(file);
+	}
+
+    attachment.files = dt.files;
+}
+
+const removeFile = (element) => {
+    const sibling = element.nextSibling;
+    const parent = element.parentElement;
+
+    let name = sibling.innerHTML;
+
+
+    while (parent.firstChild) {
+        parent.firstChild.remove()
+    }
+
+    for(let i = 0; i < dt.items.length; i++){
+
+        if(name === dt.items[i].getAsFile().name){
+            dt.items.remove(i);
+            continue;
+        }
+    }
+
+    document.getElementById('attachment').files = dt.files;
+
+}

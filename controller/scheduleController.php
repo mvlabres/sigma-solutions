@@ -24,8 +24,36 @@ class ScheduleController{
             $schedule = new Schedule();
             $schedule->setStatus('Agendado'); 
 
-            $schedule = $this->setFields($post, $schedule);
-            return $this->scheduleRepository->save($schedule);
+            print_r($_FILES);
+
+            // foreach ($post['file'] as $file) {
+
+            //     echo 'file: ';
+            //     print_r($file);
+            //     echo '<br>';
+                // $target_dir = "upload/";
+
+                // $path = pathinfo($file);
+                // $filename = $path['filename'];
+                // $ext = $path['extension'];
+                // $temp_name = $_FILES['my_file']['tmp_name'];
+                // $path_filename_ext = $target_dir.$filename.".".$ext;
+             
+                // // Check if file already exists
+                // if (file_exists($path_filename_ext)) {
+                //     echo "Sorry, file already exists.";
+                // }else{
+                //     move_uploaded_file($temp_name,$path_filename_ext);
+                //     echo "Congratulations! File Uploaded Successfully.";
+                // }
+            // }
+
+
+                 
+            
+
+            /*$schedule = $this->setFields($post, $schedule);
+            return $this->scheduleRepository->save($schedule);*/
         
         } catch (Exception $e) {
             return 'SAVE_ERROR';

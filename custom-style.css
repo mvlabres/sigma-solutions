@@ -366,6 +366,80 @@ html, body {
     background-color: #e0e0e0 !important;
 }
 
+.files-name{
+    margin-bottom: 15px;
+}
+
+.files-name > div{
+    margin-top: 2px;
+    margin-bottom: -20px !important;
+    display: flex;
+    flex-direction: row;
+}
+.files-name > div > a > input{
+    border: none;
+    cursor: pointer;
+}
+
+.files-name > div > a {
+    margin-left: 10px;
+}
+
+.files-name > div > span{
+    cursor: pointer;
+}
+
+.multiple-file{
+    color: transparent !important;
+}
+
+.file-und{
+    opacity: 0;
+}
+
+
+/* FILE INPUT TYPE */
+
+#files-area{
+	width: 100%;
+	margin: 0 auto;
+}
+
+.file-block{
+	border-radius: 10px;
+	background-color: rgba(144, 163, 203, 0.2);
+	margin: 5px;
+	color: initial;
+	display: inline-flex;
+}
+
+.file-block > span.name{
+    padding-right: 10px;
+    width: max-content;
+    display: inline-flex;
+}
+
+.file-delete{
+	display: flex;
+	width: 24px;
+	color: initial;
+	background-color: #6eb4ff00;
+	font-size: large;
+	justify-content: center;
+	margin-right: 3px;
+	cursor: pointer;
+}
+
+.file-delete:hover{
+    background-color: rgba(144, 163, 203, 0.2);
+    border-radius: 10px;
+}
+
+.file-delete{
+    transform: rotate(45deg) !important;
+}
+
+
 @media (max-width: 1220px){
     #quick-access-nav{
         margin-right: 30px !important;

@@ -128,6 +128,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
 
 ?>
 
+
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Novo Agendamento</h1>
@@ -137,7 +138,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
     <div class="col-lg-12">
          <div class="panel panel-default">
             <div class="panel-body">
-                <form role="form-new-user" onsubmit="return validateStatus()" method="post" action="#" name="valida">
+                <form role="form-new-user" onsubmit="return validateStatus()" method="post" action="#" name="valida" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-6">
                             <input type="hidden" name="id" value="<?=$editId ?>">
@@ -306,10 +307,19 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                         </div> 
                     </div>
                     <div class="full-container">
-                        <div class="input-group mb-3">
-                            <label class="input-group-text" for="inputGroupFile01">Novo Anexo</label>
-                            <input type="file" class="form-control" id="inputGroupFile01" name="files" <?=$disabled ?> <?=$fieldAcces['files'] ?> >
-                        </div>
+                        <p class="mt-5 text-left">
+                            <label for="attachment">
+                                <a class="btn btn-primary text-light" role="button" aria-disabled="false" >+ Anexos</a>
+                                
+                            </label>
+                            <input type="file" name="file[]"  id="attachment" style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles()"/>
+                            
+                        </p>
+                        <p id="files-area">
+                            <span id="filesList">
+                                <span id="files-names"></span>
+                            </span>
+                        </p>
                     </div>  
                     <button id="btn-salvar" type="submit" class="btn btn-primary" <?=$disabled ?>>Salvar</button>
                     <button type="reset" class="btn btn-danger" <?=$disabled ?>>Cancelar</button> 

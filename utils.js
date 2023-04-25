@@ -145,6 +145,7 @@ const dateTimeHandleBlur = (element) => {
         setTimeout(() => {
             element.innerHTML = dateTimeValue;
             element.value = dateTimeValue;
+            dateTimeHandleKeyUp(element);
         }, 10);
     }
 }

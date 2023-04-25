@@ -4,17 +4,20 @@ require_once('../repository/scheduleRepository.php');
 require_once('../model/schedule.php');
 require_once('../model/columnsPreference.php');
 require_once('../repository/columnsPreferencesRepository.php');
+require_once('../repository/attachmentRepository.php');
 
 class ScheduleController{
 
     private $schedule;
     private $scheduleRepository;
+    private $attachmentRepository;
     private $mySql;
 
     public function __construct($mySql){
 
         $this->mySql = $mySql;
         $this->scheduleRepository = new ScheduleRepository($this->mySql);
+        $this->attachmentRepository = new AttachmentRepository($this->mySql);
     }
 
     public function save($post){
@@ -23,38 +26,15 @@ class ScheduleController{
 
             $schedule = new Schedule();
             $schedule->setStatus('Agendado'); 
-
-            print_r($_FILES);
-
-            // foreach ($post['file'] as $file) {
-
-            //     echo 'file: ';
-            //     print_r($file);
-            //     echo '<br>';
-                // $target_dir = "upload/";
-
-                // $path = pathinfo($file);
-                // $filename = $path['filename'];
-                // $ext = $path['extension'];
-                // $temp_name = $_FILES['my_file']['tmp_name'];
-                // $path_filename_ext = $target_dir.$filename.".".$ext;
-             
-                // // Check if file already exists
-                // if (file_exists($path_filename_ext)) {
-                //     echo "Sorry, file already exists.";
-                // }else{
-                //     move_uploaded_file($temp_name,$path_filename_ext);
-                //     echo "Congratulations! File Uploaded Successfully.";
-                // }
-            // }
-
-
-                 
             
+            $schedule = $this->setFields($post, $schedule);
 
-            /*$schedule = $this->setFields($post, $schedule);
-            return $this->scheduleRepository->save($schedule);*/
-        
+            $result = $this->scheduleRepository->save($schedule);
+
+            if($result == 'SAVE_ERROR') return $result;
+
+            return $this->saveFiles($result);  
+            
         } catch (Exception $e) {
             return 'SAVE_ERROR';
         }
@@ -107,6 +87,30 @@ class ScheduleController{
         if(count($data) > 0) return $data[0];
 
         return $data;
+    }
+
+    public function saveFiles($scheduleId){
+
+        try {
+            foreach ($_FILES as $file) {
+    
+                $fileName = $file['name'][0];
+    
+                $scheduleDirectory = 'files/schedule_'.$scheduleId.'/';
+    
+                if (!file_exists($scheduleDirectory)) mkdir($scheduleDirectory, 0755);
+                
+                $tempName = $file['tmp_name'][0];
+                $pathFile = $scheduleDirectory.$fileName;
+             
+                if (!file_exists($pathFile)) move_uploaded_file($tempName,$pathFile);
+    
+                return $this->attachmentRepository->save($scheduleId, $pathFile);
+            }
+        } catch (Exception $e) {
+            return 'SAVE_ERROR';
+        }
+
     }
 
     public function savePreferences($columnsDefault, $post){

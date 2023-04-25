@@ -121,7 +121,10 @@ class ScheduleRepository{
                     placa_carreta = '".$schedule->getPlacaCarreta()."'";
 
             $result = $this->mySql->query($sql);
-            return 'SAVED';
+
+            if(!$result) return 'SAVE_ERROR';
+
+            return $this->mySql->insert_id;
 
         }catch(Exception $e){
             return 'SAVE_ERROR';

@@ -159,3 +159,14 @@ create table columns_preference(
 
 
 
+
+
+create table attachment(
+    id int not null auto_increment primary key,
+    path varchar(100) not null,
+    scheduleId int not null,
+    CONSTRAINT FK_scheduleId FOREIGN KEY (scheduleId) REFERENCES janela(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+

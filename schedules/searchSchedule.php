@@ -7,23 +7,23 @@ date_default_timezone_set("America/Sao_Paulo");
 
 $columns = [
     'status'               => ['name' => 'status',                'label'=> 'Status',         'order' => 0,  'value' => 'getStatus',             'columnSize'=> 'td-100', 'show' => true],
-    'operationScheduleTime'=> ['name' => 'operationScheduleTime', 'label'=> 'Agendamento',    'order' => 1,  'value' => 'getDataAgendamento',    'columnSize'=> 'td-120', 'show' => true],
-    'arrival'              => ['name' => 'arrival',               'label'=> 'Chegada',        'order' => 2,  'value' => 'getHoraChegada',        'columnSize'=> 'td-120', 'show' => true],
-    'operationStart'       => ['name' => 'operationStart',        'label'=> 'Início',         'order' => 3,  'value' => 'getInicioOperacao',     'columnSize'=> 'td-120', 'show' => true],
-    'operationDone'        => ['name' => 'operationDone',         'label'=> 'Fim',            'order' => 4,  'value' => 'getFimOperacao',        'columnSize'=> 'td-120', 'show' => true],
-    'operationExit'        => ['name' => 'operationExit',         'label'=> 'Saída',          'order' => 5,  'value' => 'getSaida',              'columnSize'=> 'td-120', 'show' => true],
+    'operationScheduleTime'=> ['name' => 'operationScheduleTime', 'label'=> 'Agendamento',    'order' => 1,  'value' => 'getDataAgendamento',    'columnSize'=> 'td-150', 'show' => true],
+    'arrival'              => ['name' => 'arrival',               'label'=> 'Chegada',        'order' => 2,  'value' => 'getHoraChegada',        'columnSize'=> 'td-150', 'show' => true],
+    'operationStart'       => ['name' => 'operationStart',        'label'=> 'Início',         'order' => 3,  'value' => 'getInicioOperacao',     'columnSize'=> 'td-150', 'show' => true],
+    'operationDone'        => ['name' => 'operationDone',         'label'=> 'Fim',            'order' => 4,  'value' => 'getFimOperacao',        'columnSize'=> 'td-150', 'show' => true],
+    'operationExit'        => ['name' => 'operationExit',         'label'=> 'Saída',          'order' => 5,  'value' => 'getSaida',              'columnSize'=> 'td-150', 'show' => true],
     'operationType'        => ['name' => 'operationType',         'label'=> 'Operação',       'order' => 6,  'value' => 'getOperacao',           'columnSize'=> 'td-100', 'show' => true],
-    'shippingCompany'      => ['name' => 'shippingCompany',       'label'=> 'Transportadora', 'order' => 7,  'value' => 'getTransportadora',     'columnSize'=> 'td-120', 'show' => true],
+    'shippingCompany'      => ['name' => 'shippingCompany',       'label'=> 'Transportadora', 'order' => 7,  'value' => 'getTransportadora',     'columnSize'=> 'td-150', 'show' => true],
     'city'                 => ['name' => 'city',                  'label'=> 'Cidade',         'order' => 8,  'value' => 'getCidade',             'columnSize'=> 'td-100', 'show' => true],
     'documentDriver'       => ['name' => 'documentDriver',        'label'=> 'CPF',            'order' => 9,  'value' => 'getDocumentoMotorista', 'columnSize'=> 'td-100', 'show' => true],
-    'driverName'           => ['name' => 'driverName',            'label'=> 'Nome Motorista', 'order' => 10, 'value' => 'getNomeMotorista',      'columnSize'=> 'td-120', 'show' => true],
-    'licenceTruck'         => ['name' => 'licenceTruck',          'label'=> 'Placa Cavalo',   'order' => 11, 'value' => 'getPlacaCavalo',        'columnSize'=> 'td-100', 'show' => true],
-    'licenceTrailer2'      => ['name' => 'licenceTrailer2',       'label'=> 'Placa carreta',  'order' => 12, 'value' => 'getPlacaCarreta',       'columnSize'=> 'td-120', 'show' => true],
-    'licenceTrailer'       => ['name' => 'licenceTrailer',        'label'=> 'Placa Carreta 2','order' => 13, 'value' => 'getPlacaCarreta2',      'columnSize'=> 'td-120', 'show' => true],
-    'binSeparation'        => ['name' => 'binSeparation',         'label'=> 'Separação BIN',  'order' => 14, 'value' => 'getSeparacao',          'columnSize'=> 'td-120', 'show' => true],
-    'shipmentId'           => ['name' => 'shipmentId',            'label'=> 'Shipment ID',    'order' => 15, 'value' => 'getShipmentId',         'columnSize'=> 'td-100', 'show' => true],
+    'driverName'           => ['name' => 'driverName',            'label'=> 'Nome Motorista', 'order' => 10, 'value' => 'getNomeMotorista',      'columnSize'=> 'td-150', 'show' => true],
+    'licenceTruck'         => ['name' => 'licenceTruck',          'label'=> 'Placa Cavalo',   'order' => 11, 'value' => 'getPlacaCavalo',        'columnSize'=> 'td-120', 'show' => true],
+    'licenceTrailer2'      => ['name' => 'licenceTrailer2',       'label'=> 'Placa carreta',  'order' => 12, 'value' => 'getPlacaCarreta',       'columnSize'=> 'td-150', 'show' => true],
+    'licenceTrailer'       => ['name' => 'licenceTrailer',        'label'=> 'Placa Carreta 2','order' => 13, 'value' => 'getPlacaCarreta2',      'columnSize'=> 'td-150', 'show' => true],
+    'binSeparation'        => ['name' => 'binSeparation',         'label'=> 'Separação BIN',  'order' => 14, 'value' => 'getSeparacao',          'columnSize'=> 'td-150', 'show' => true],
+    'shipmentId'           => ['name' => 'shipmentId',            'label'=> 'Shipment ID',    'order' => 15, 'value' => 'getShipmentId',         'columnSize'=> 'td-150', 'show' => true],
     'dock'                 => ['name' => 'dock',                  'label'=> 'Doca',           'order' => 16, 'value' => 'getDoca',               'columnSize'=> 'td-70',  'show' => true],
-    'truckType'            => ['name' => 'truckType',             'label'=> 'Tipo Veículo',   'order' => 17, 'value' => 'getTipoVeiculo',        'columnSize'=> 'td-100', 'show' => true],
+    'truckType'            => ['name' => 'truckType',             'label'=> 'Tipo Veículo',   'order' => 17, 'value' => 'getTipoVeiculo',        'columnSize'=> 'td-120', 'show' => true],
     'dos'                  => ['name' => 'dos',                   'label'=> 'DOs',            'order' => 18, 'value' => 'getDo_s',               'columnSize'=> 'td-70',  'show' => true],
     'invoice'              => ['name' => 'invoice',               'label'=> 'NF',             'order' => 19, 'value' => 'getNf',                 'columnSize'=> 'td-70',  'show' => true],
     'grossWeight'          => ['name' => 'grossWeight',           'label'=> 'Peso Final',     'order' => 20, 'value' => 'getPeso',               'columnSize'=> 'td-100', 'show' => true],
@@ -87,7 +87,7 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
         <div class="col-lg-12">
             <h3>Filtro</h3>
             <div class="functions-group">
-                <form method="post" action="#">
+                <form method="post" action="index.php?conteudo=searchSchedule.php">
                     <div class="row-element-group">
                         <div class="form-group">
                             <label>Status</label>

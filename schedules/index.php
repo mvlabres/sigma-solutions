@@ -3,6 +3,7 @@
 require_once('../conn.php');
 require_once('../session.php');
 require_once('../controller/customerController.php');
+require_once('../utils.php');
 
 if($_SESSION['nome'] == null){
 	header('LOCATION:../../index.php');
@@ -29,6 +30,12 @@ if($_SESSION['tipo'] == 'user'){
 }
 
 $conteudo = "home.php";
+
+if(isset($_GET['action']) && $_GET['action'] != null){
+
+    if($_GET['action'] == 'schedule-save') successAlert('Agendamento realizado com sucesso!');
+    if($_GET['action'] == 'schedule-update') successAlert('Agendamento atualizado com sucesso!');
+}
 
 if(isset($_POST['conteudo'])) $conteudo = $_POST['conteudo'];   
 	

@@ -33,7 +33,7 @@ class ScheduleController{
 
             if($result == 'SAVE_ERROR') return $result;
 
-            return $this->saveFiles($result);  
+            return $this->saveFiles($result, 'SAVED');  
             
         } catch (Exception $e) {
             return 'SAVE_ERROR';
@@ -48,7 +48,11 @@ class ScheduleController{
             $schedule->setStatus($post['scheduleStatus']); 
 
             $schedule = $this->setFields($post, $schedule);
-            return $this->scheduleRepository->updateById($schedule, $post['id']);
+            $result =  $this->scheduleRepository->updateById($schedule, $post['id']);
+
+            if($result == 'SAVE_ERROR') return $result;
+
+            return $this->saveFiles($schedule->getId(), 'UPDATED'); 
         
         } catch (Exception $e) {
             return 'SAVE_ERROR';
@@ -84,12 +88,14 @@ class ScheduleController{
         $result = $this->scheduleRepository->findById($id);
         $data = $this->loadData($result);
 
+        $data[0] = $this->findAttByScheduleId($data[0]);
+
         if(count($data) > 0) return $data[0];
 
         return $data;
     }
 
-    public function saveFiles($scheduleId){
+    public function saveFiles($scheduleId, $action){
 
         try {
             foreach ($_FILES as $file) {
@@ -103,10 +109,14 @@ class ScheduleController{
                 $tempName = $file['tmp_name'][0];
                 $pathFile = $scheduleDirectory.$fileName;
              
-                if (!file_exists($pathFile)) move_uploaded_file($tempName,$pathFile);
-    
-                return $this->attachmentRepository->save($scheduleId, $pathFile);
+                if (!file_exists($pathFile)) {
+                    move_uploaded_file($tempName,$pathFile);
+                    $this->attachmentRepository->save($scheduleId, $pathFile);
+                }
             }
+
+            return $action;
+
         } catch (Exception $e) {
             return 'SAVE_ERROR';
         }
@@ -181,6 +191,21 @@ class ScheduleController{
         array_multisort($ordenedColumns, SORT_ASC, $columns);
 
         return $columns;
+    }
+
+    public function findAttByScheduleId($schedule){
+
+        $result = $this->attachmentRepository->findByScheduleId($schedule->getId());
+
+        $paths = array();
+
+        while ($data = $result->fetch_assoc()){ 
+
+            array_push($paths, $data['path']);
+        }
+        
+        $schedule->setFilesPath($paths);
+        return $schedule;
     }
 
     public function setFields($post, $schedule){

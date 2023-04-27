@@ -165,7 +165,6 @@ class ScheduleRepository{
                     placa_carreta = '".$schedule->getPlacaCarreta()."'
                     WHERE ID = ".$id;  
 
-
             $result = $this->mySql->query($sql);
             return 'UPDATED';
 
@@ -173,19 +172,5 @@ class ScheduleRepository{
             return 'SAVE_ERROR';
         }
     }
-
-    // public function deleteById($id){
-
-    //     try{
-    //         $sql = "DELETE FROM operation_type
-    //                 WHERE id = ".$id;  
-
-    //         $result = $this->mySql->query($sql);
-    //         return 'DELETED';
-
-    //     }catch(Exception $e){
-    //         return 'DELETE_ERROR';
-    //     }
-    // }
 }
 ?>

@@ -6,6 +6,8 @@ let inactiveScheduleColumnsSearch = [];
 let activeColumnsTemp = [];
 let inactiveColumnsTemp = [];
 
+const dt = new DataTransfer();
+
 function dateTimeMask(value) {
     let x = value.replace(/\D+/g, '').match(/(\d{0,2})(\d{0,2})(\d{0,4})(\d{0,2})(\d{0,2})(\d{0,2})/);
     return !x[2] ? x[1] : `${x[1]}/${x[2]}` + (!x[3] ? `` : `/${x[3]}` + ` `) + (!x[4] ? `` : x[4]) + (!x[5] ? `` : `:${x[5]}`) + (!x[6] ? `` : `:${x[6]}`);   
@@ -127,9 +129,62 @@ const validateStatus = () => {
         document.getElementById('scheduleStatus').value = 'Fim de operação';
         return true;
     }
+    else{
 
-    document.getElementById('scheduleStatus').value = 'Liberado';
-    return true;
+        const result = validationFields();
+
+        if(result){
+            document.getElementById('scheduleStatus').value = 'Liberado';
+            return result;
+        }
+
+        return result;
+    }
+}
+
+const validationFields = () => {
+
+    const fields = [
+        {'name':'operationScheduleTime', 'label': 'Agendamento'},
+        {'name':'arrival', 'label': 'Chegada'},
+        {'name':'operationStart', 'label': 'Início'},
+        {'name':'operationDone', 'label': 'Fim'},
+        {'name':'operationExit', 'label': 'Saída'},
+        {'name':'driverName', 'label': 'Nome Motorista'},
+        {'name':'cpf', 'label': 'CPF'},
+        {'name':'operationType', 'label': 'Operação'},
+        {'name':'shippingCompany', 'label': 'Transportadora'},
+        {'name':'city', 'label': 'Cidade'},
+        {'name':'binSeparation', 'label': 'Separação BIN'},
+        {'name':'shipmentId', 'label': 'Shipment ID'},
+        {'name':'dock', 'label': 'Doca'},
+        {'name':'truckType', 'label': 'Tipo Veículo'},
+        {'name':'licenceTruck', 'label': 'Placa Cavalo'},
+        {'name':'licenceTrailer', 'label': 'Placa carreta'},
+        {'name':'licenceTrailer2', 'label': 'Placa Carreta 2'},
+        {'name':'dos', 'label': 'DOs'},
+        {'name':'invoice', 'label': 'NF'},
+        {'name':'grossWeight', 'label': 'Peso Final'},
+        {'name':'pallets', 'label': 'Paletes'},
+        {'name':'material', 'label': 'Material'},
+        {'name':'observation', 'label': 'Observação'}
+    ];
+
+    let isValid = true;
+
+    for (const field of fields) {
+
+        const element = document.getElementById(field.name).value.toString();
+
+        if(element) continue;
+
+        isValid = false;
+
+        customAlert('alert-danger', `Favor preencher o campo ${field.label}`);
+        break;
+    }
+
+    return isValid;
 }
 
 const dateTimeHandleBlur = (element) => {
@@ -303,52 +358,6 @@ const saveOrder = () => {
     document.getElementById('order-form').submit();
 }
 
-// const handleChangeFiles = () => {
-
-//     const filesNameContainer = document.querySelector('#files-name'); 
-//     const files = Array.from( document.querySelector('#files').files );
-
-//     files.forEach(file => {
-//         const element = file.name;
-
-//         const div = document.createElement("div");
-        
-//         const spanTrash = document.createElement("span");
-//         spanTrash.classList.add("fa");
-//         spanTrash.classList.add("fa-trash-o");
-//         spanTrash.classList.add("text-danger");
-//         spanTrash.setAttribute("onclick","removeFile(this)");
-
-//         const linkTrash = document.createElement("span");
-//         linkTrash.appendChild(spanTrash);
-        
-//         const linkdownload = document.createElement("a");
-        
-//         const input = document.createElement("input");
-
-//         input.name = `file[]`;
-//         input.type = 'file';
-//         input.files[0] = file;
-//         input.classList.add('file-und');
-
-//         linkdownload.innerHTML = element;
-
-//         linkdownload.appendChild(input);
-
-//         div.appendChild(linkTrash);
-//         div.appendChild(linkdownload);
-
-//         filesNameContainer.appendChild(div);
-//     });  
-    
-//     document.querySelector('#files').files = null;
-// }
-
-
-
-
-const dt = new DataTransfer(); // Permet de manipuler les fichiers de l'input file
-
 const handleChangeFiles = () => {
 
     const attachment = document.querySelector('#attachment');
@@ -400,4 +409,43 @@ const removeFile = (element) => {
 
     document.getElementById('attachment').files = dt.files;
 
+}
+
+const customAlert = (type, message) => {
+
+    let alert = document.getElementById('fixed-alert');
+
+    if(alert) document.body.removeChild(alert);
+
+    const div = document.createElement("div");
+    div.classList.add('alert');
+    div.classList.add(type);
+    div.classList.add('alert-dismissible');
+    div.classList.add('show');
+    div.setAttribute('role', 'alert');
+    div.setAttribute('id', 'fixed-alert');
+
+    div.innerHTML = message;
+
+    const btn = document.createElement("button");
+    btn.classList.add('close');
+    btn.setAttribute('data-dismiss', 'alert');
+    btn.setAttribute('aria-label', 'Close');
+    btn.setAttribute('type', 'button');
+
+    const span = document.createElement("span");
+    span.setAttribute('aria-hidden', true);
+    span.innerHTML = '&times;';
+
+    btn.appendChild(span);
+    div.appendChild(btn);
+
+    document.body.appendChild(div);
+
+    setTimeout(() => {
+
+        alert = document.getElementById('fixed-alert');
+        if(alert) document.body.removeChild(alert);
+
+    }, 5000);
 }

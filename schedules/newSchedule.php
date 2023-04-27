@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require_once('../controller/shippingCompanyController.php');
 require_once('../controller/truckTypeController.php');
 require_once('../controller/scheduleController.php');
@@ -45,36 +41,37 @@ $userTypeFieldAccess = [
 $teste = false;
 
 $fieldAcces = [
-    'operationScheduleTime' => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationScheduleTime'] )) ? 'disabled' : '',
-    'arrival'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['arrival'] )) ? 'disabled' : '',
-    'operationStart'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationStart'] )) ? 'disabled' : '',
-    'operationDone'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationDone'] )) ? 'disabled' : '',
-    'operationExit'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationExit'] )) ? 'disabled' : '',
+    'operationScheduleTime' => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationScheduleTime'] )) ? 'readonly' : '',
+    'arrival'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['arrival'] )) ? 'readonly' : '',
+    'operationStart'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationStart'] )) ? 'readonly' : '',
+    'operationDone'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationDone'] )) ? 'readonly' : '',
+    'operationExit'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationExit'] )) ? 'readonly' : '',
     'operationType'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationType'] )) ? 'disabled' : '',
     'shippingCompany'       => (in_array($_SESSION['tipo'], $userTypeFieldAccess['shippingCompany'] )) ? 'disabled' : '',
-    'city'                  => (in_array($_SESSION['tipo'], $userTypeFieldAccess['city'] )) ? 'disabled' : '',
-    'binSeparation'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['binSeparation'] )) ? 'disabled' : '',
-    'shipmentId'            => (in_array($_SESSION['tipo'], $userTypeFieldAccess['shipmentId'] )) ? 'disabled' : '',
-    'dock'                  => (in_array($_SESSION['tipo'], $userTypeFieldAccess['dock'] )) ? 'disabled' : '',
+    'city'                  => (in_array($_SESSION['tipo'], $userTypeFieldAccess['city'] )) ? 'readonly' : '',
+    'binSeparation'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['binSeparation'] )) ? 'readonly' : '',
+    'shipmentId'            => (in_array($_SESSION['tipo'], $userTypeFieldAccess['shipmentId'] )) ? 'readonly' : '',
+    'dock'                  => (in_array($_SESSION['tipo'], $userTypeFieldAccess['dock'] )) ? 'readonly' : '',
     'truckType'             => (in_array($_SESSION['tipo'], $userTypeFieldAccess['truckType'] )) ? 'disabled' : '',
-    'licenceTruck'          => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTruck'] )) ? 'disabled' : '',
-    'dos'                   => (in_array($_SESSION['tipo'], $userTypeFieldAccess['dos'] )) ? 'disabled' : '',
-    'invoice'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['invoice'] )) ? 'disabled' : '',
-    'grossWeight'           => (in_array($_SESSION['tipo'], $userTypeFieldAccess['grossWeight'] )) ? 'disabled' : '',
-    'pallets'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['pallets'] )) ? 'disabled' : '',
-    'material'              => (in_array($_SESSION['tipo'], $userTypeFieldAccess['material'] )) ? 'disabled' : '',
-    'observation'           => (in_array($_SESSION['tipo'], $userTypeFieldAccess['observation'] )) ? 'disabled' : '',
+    'licenceTruck'          => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTruck'] )) ? 'readonly' : '',
+    'dos'                   => (in_array($_SESSION['tipo'], $userTypeFieldAccess['dos'] )) ? 'readonly' : '',
+    'invoice'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['invoice'] )) ? 'readonly' : '',
+    'grossWeight'           => (in_array($_SESSION['tipo'], $userTypeFieldAccess['grossWeight'] )) ? 'readonly' : '',
+    'pallets'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['pallets'] )) ? 'readonly' : '',
+    'material'              => (in_array($_SESSION['tipo'], $userTypeFieldAccess['material'] )) ? 'readonly' : '',
+    'observation'           => (in_array($_SESSION['tipo'], $userTypeFieldAccess['observation'] )) ? 'readonly' : '',
     'files'                 => (in_array($_SESSION['tipo'], $userTypeFieldAccess['files'] )) ? 'disabled' : '',
-    'documentDriver'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['documentDriver'] )) ? 'disabled' : '',
-    'driverName'            => (in_array($_SESSION['tipo'], $userTypeFieldAccess['driverName'] )) ? 'disabled' : '',
-    'licenceTrailer2'       => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTrailer2'] )) ? 'disabled' : '',
-    'licenceTrailer'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['files'] )) ? 'licenceTrailer' : ''
+    'documentDriver'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['documentDriver'] )) ? 'readonly' : '',
+    'driverName'            => (in_array($_SESSION['tipo'], $userTypeFieldAccess['driverName'] )) ? 'readonly' : '',
+    'licenceTrailer2'       => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTrailer2'] )) ? 'readonly' : '',
+    'licenceTrailer'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTrailer'] )) ? 'readonly' : ''
 ];
 
 $schedule = new Schedule();
 
 $action = 'save'; 
 
+$readonly = '';
 $disabled = '';
 
 $shippingCompanyController = new ShippingCompanyController($MySQLi);
@@ -95,12 +92,14 @@ if(isset($_POST['action'])){
     
     switch ($result) {
         case 'SAVED':
-            successAlert('Agendamento realizado com sucesso!');
+            echo "<script>window.location='index.php?conteudo=searchSchedule.php&action=schedule-save'</script>";	
             break;
         
+        
         case 'UPDATED':
-            successAlert('Agendamento atualizado com sucesso!');
+            echo "<script>window.location='index.php?conteudo=searchSchedule.php&action=schedule-update'</script>";	
             break;
+        
         
         case 'SAVE_ERROR':
             errorAlert('Ocorreu um erro ao salvar o agendamento. Tente novamente ou entre em contato com o administrador.');
@@ -112,6 +111,7 @@ if(isset($_GET['search']) && $_GET['search'] != null){
 
     $searchId = $_GET['search'];
     $schedule = $scheduleController->findById($searchId);
+    $readonly = 'readonly';
     $disabled = 'disabled';
 }
 
@@ -120,6 +120,7 @@ if(isset($_GET['edit']) && $_GET['edit'] != null){
     $action = 'edit';
     $editId = $_GET['edit'];
     $schedule = $scheduleController->findById($editId);
+    $readonly = '';
     $disabled = '';
 }
 
@@ -131,7 +132,6 @@ $operationTypes = $operationTypeController->findByClient($_SESSION['customerName
 $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field' : 'warning-text-field';
 
 ?>
-
 
 <div class="row">
     <div class="col-lg-12">
@@ -154,7 +154,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Horário Carregamento</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getDataAgendamento() ?>" name="operationScheduleTime" id="operationScheduleTime" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationScheduleTime'] ?> minlength="19" maxlength="19"  required/>
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getDataAgendamento() ?>" name="operationScheduleTime" id="operationScheduleTime" <?=$readonly ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationScheduleTime'] ?> minlength="19" maxlength="19"  required/>
                                     
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -163,7 +163,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Chegada</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" id="arrival" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['arrival'] ?> minlength="19" maxlength="19" />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" id="arrival" <?=$readonly ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['arrival'] ?> minlength="19" maxlength="19" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -171,7 +171,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Início</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getInicioOperacao() ?>" name="operationStart" id="operationStart" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationStart'] ?> minlength="19" maxlength="19" />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getInicioOperacao() ?>" name="operationStart" id="operationStart" <?=$readonly ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationStart'] ?> minlength="19" maxlength="19" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -187,22 +187,22 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Saída</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getSaida() ?>" name="operationExit" id="operationExit" <?=$disabled ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationExit'] ?> minlength="19" maxlength="19" />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getSaida() ?>" name="operationExit" id="operationExit" <?=$readonly ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationExit'] ?> minlength="19" maxlength="19" />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Nome Motorista</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getNomeMotorista() ?>" name="driverName"  <?=$disabled ?> <?=$fieldAcces['driverName'] ?>>
+                                <input class="form-control" type="text" value="<?=$schedule->getNomeMotorista() ?>" name="driverName" id="driverName"  <?=$readonly ?> <?=$fieldAcces['driverName'] ?>>
                             </div>
                             <div class="form-group">
                                 <label>CPF Motorista</label>
-                                <input class="form-control cpf" id="cpf" type="text" value="<?=$schedule->getDocumentoMotorista() ?>" name="documentDriver"  <?=$disabled ?> <?=$fieldAcces['documentDriver'] ?>>
+                                <input class="form-control cpf" id="cpf" type="text" value="<?=$schedule->getDocumentoMotorista() ?>" name="documentDriver"  <?=$readonly ?> <?=$fieldAcces['documentDriver'] ?>>
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Operação</label>
-                                <select name="operationType" class="form-control" aria-label="Default select example" <?=$disabled ?> <?=$fieldAcces['operationType'] ?> required>
+                                <select name="operationType" id="operationType" class="form-control" aria-label="Default select example" <?=$disabled ?> <?=$fieldAcces['operationType'] ?> required>
                                     <option value="">Selecione...</option>
                                     <?php
 
@@ -220,7 +220,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Transportadora</label>
-                                <select name="shippingCompany" class="form-control" aria-label="Default select example"  <?=$disabled ?> <?=$fieldAcces['shippingCompany'] ?> required>
+                                <select name="shippingCompany" class="form-control" aria-label="Default select example" id="shippingCompany"  <?=$disabled ?> <?=$fieldAcces['shippingCompany'] ?> required>
                                     <option value="">Selecione...</option>
                                     <?php
 
@@ -238,26 +238,26 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Cidade</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getCidade() ?>" name="city"  <?=$disabled ?> <?=$fieldAcces['city'] ?> required>
+                                <input class="form-control" type="text" value="<?=$schedule->getCidade() ?>" name="city" id="city" <?=$readonly ?> <?=$fieldAcces['city'] ?> required>
                             </div>
                             <div class="form-group">
                                 <label>Separação/Bin</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getSeparacao() ?>" name="binSeparation" <?=$disabled ?> <?=$fieldAcces['binSeparation'] ?> >
+                                <input class="form-control" type="text" value="<?=$schedule->getSeparacao() ?>" name="binSeparation" id="binSeparation" <?=$readonly ?> <?=$fieldAcces['binSeparation'] ?> >
                             </div>
                         
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Shipment ID </label>
-                                <input class="form-control" type="text" value="<?=$schedule->getShipmentId() ?>" name="shipmentId"  <?=$disabled ?> <?=$fieldAcces['shipmentId'] ?> required>
+                                <input class="form-control" type="text" value="<?=$schedule->getShipmentId() ?>" name="shipmentId" id="shipmentId" <?=$readonly ?> <?=$fieldAcces['shipmentId'] ?> required>
                             </div>
                             <div class="form-group">
                                 <label>Doca </label>
-                                <input class="form-control" type="text" value="<?=$schedule->getDoca() ?>" name="dock"  <?=$disabled ?> <?=$fieldAcces['dock'] ?> >
+                                <input class="form-control" type="text" value="<?=$schedule->getDoca() ?>" name="dock" id="dock" <?=$readonly ?> <?=$fieldAcces['dock'] ?> >
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Veículo</label>
-                                <select name="truckType" class="form-control placeholder" aria-label="Default select example"  <?=$disabled ?> <?=$fieldAcces['truckType'] ?>>
+                                <select name="truckType" class="form-control placeholder" aria-label="Default select example" id="truckType" <?=$disabled ?> <?=$fieldAcces['truckType'] ?>>
                                     <option value="">Selecione...</option>
                                     <?php
 
@@ -275,59 +275,78 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Placa do cavalo</label>
-                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCavalo() ?>" name="licenceTruck"  <?=$disabled ?> <?=$fieldAcces['licenceTruck'] ?> >
+                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCavalo() ?>" name="licenceTruck" id="licenceTruck" <?=$readonly ?> <?=$fieldAcces['licenceTruck'] ?> >
                             </div>
                             <div class="form-group">
                                 <label>Placa Carreta 1</label>
-                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCarreta() ?>" name="licenceTrailer"  <?=$disabled ?> <?=$fieldAcces['licenceTrailer'] ?> >
+                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCarreta() ?>" name="licenceTrailer" id="licenceTrailer"  <?=$readonly ?> <?=$fieldAcces['licenceTrailer'] ?> >
                             </div>
                             <div class="form-group">
                                 <label>Placa Carreta 2</label>
-                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCarreta2() ?>" name="licenceTrailer2"  <?=$disabled ?> <?=$fieldAcces['licenceTrailer2'] ?> >
+                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCarreta2() ?>" name="licenceTrailer2" id="licenceTrailer2" <?=$readonly ?> <?=$fieldAcces['licenceTrailer2'] ?> >
                             </div>
                             <div class="form-group">
                                 <label>DO's</label>
-                                <input class="form-control"  value="Não" type="text" value="<?=$schedule->getDo_s() ?>" name="dos" <?=$disabled ?> <?=$fieldAcces['dos'] ?> >
+                                <input class="form-control" id="dos" value="Não" type="text" value="<?=$schedule->getDo_s() ?>" name="dos" <?=$readonly ?> <?=$fieldAcces['dos'] ?> >
                             </div>
                             <div class="form-group">
                                 <label>Nota Fiscal</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getNf() ?>" name="invoice"  <?=$disabled ?> <?=$fieldAcces['invoice'] ?> >
+                                <input class="form-control" type="text" value="<?=$schedule->getNf() ?>" name="invoice" id="invoice" <?=$readonly ?> <?=$fieldAcces['invoice'] ?> >
                             </div>
                             <div class="form-group">
                                 <label>Peso Bruto</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getPeso() ?>" name="grossWeight"  <?=$disabled ?> <?=$fieldAcces['grossWeight'] ?> >
+                                <input class="form-control" type="text" value="<?=$schedule->getPeso() ?>" name="grossWeight" id="grossWeight" <?=$readonly ?> <?=$fieldAcces['grossWeight'] ?> >
                             </div>
                             <div class="form-group">
                                 <label>Paletes</label>
-                                <input class="form-control" type="number" value="<?=$schedule->getCargaQtde() ?>" name="pallets"  <?=$disabled ?> <?=$fieldAcces['pallets'] ?> >
+                                <input class="form-control" type="number" value="<?=$schedule->getCargaQtde() ?>" name="pallets" id="pallets" <?=$readonly ?> <?=$fieldAcces['pallets'] ?> >
                             </div>
                             <div class="form-group">
                                 <label>Material</label>
-                                <textarea class="form-control" type="text"  name="material" <?=$disabled ?> <?=$fieldAcces['material'] ?> required><?=$schedule->getDadosGerais() ?></textarea>
+                                <textarea class="form-control" type="text"  name="material" <?=$readonly ?> <?=$fieldAcces['material'] ?> id="material" required><?=$schedule->getDadosGerais() ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Observação</label>
-                                <textarea class="form-control" type="text"  name="observation" <?=$disabled ?> <?=$fieldAcces['observation'] ?> > <?=$schedule->getObservacao() ?> </textarea>
+                                <textarea class="form-control" type="text"  name="observation" <?=$readonly ?> <?=$fieldAcces['observation'] ?> id="observation" ><?=$schedule->getObservacao() ?></textarea>
                             </div>
                         </div> 
                     </div>
                     <div class="full-container">
                         <p class="mt-5 text-left">
                             <label for="attachment">
-                                <a class="btn btn-primary text-light" role="button" aria-disabled="false" >+ Anexos</a>
+                                <a class="btn btn-primary text-light" role="button" aria-disabled="false" <?=$fieldAcces['files'] ?> <?=$fileFieldDisabled ?>>+ Anexos</a>
                                 
                             </label>
-                            <input type="file" name="file[]"  id="attachment" style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles()"/>
+                            <input type="file" name="file[]"  id="attachment" style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles()" <?=$fieldAcces['files'] ?> <?=$fileFieldDisabled ?>/>
                             
                         </p>
                         <p id="files-area">
                             <span id="filesList">
-                                <span id="files-names"></span>
+                                <span id="files-names">
+                                    <?php
+
+                                    if((isset($_GET['search']) && $_GET['search'] != null) || (isset($_GET['edit']) && $_GET['edit'] != null)){
+
+                                        foreach ($schedule->getFilesPath() as $path) {
+
+                                            $fileName = substr($path, strrpos($path, '/') + 1);
+
+                                            echo '<span class="file-block">';
+                                            echo    '<a class="file-saved" href="'.$path.'" download>';
+                                            echo        '<span class="name">'.$fileName.'</span>';
+                                            echo    '</a>';
+                                            echo '</span>';
+                                        }
+                                    }
+                                    ?>
+                                </span>
                             </span>
                         </p>
-                    </div>  
-                    <button id="btn-salvar" type="submit" class="btn btn-primary" <?=$disabled ?>>Salvar</button>
-                    <button type="reset" class="btn btn-danger" <?=$disabled ?>>Cancelar</button> 
+                    </div> 
+                    <div class="btn-group-end">
+                        <button id="btn-salvar" type="submit" class="btn btn-primary" <?=$disabled ?>>Salvar</button>
+                        <a href="index.php?conteudo=searchSchedule.php" type="reset" class="btn btn-danger">Cancelar</a> 
+                    </div> 
                 </form>
             </div>
         </div>

@@ -411,6 +411,15 @@ html, body {
 	margin: 5px;
 	color: initial;
 	display: inline-flex;
+    align-items: center;
+}
+
+.file-saved{
+    background-color: #62d37d !important;
+    padding: 4px;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none !important;
 }
 
 .file-block > span.name{
@@ -439,6 +448,21 @@ html, body {
     transform: rotate(45deg) !important;
 }
 
+.btn-group-end{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.btn-group-end > a{
+    margin-left: 10px;
+}
+
+/*select:read-only {
+    pointer-events: none;
+    touch-action: none;
+}*/
 
 @media (max-width: 1220px){
     #quick-access-nav{

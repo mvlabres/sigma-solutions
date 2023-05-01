@@ -153,14 +153,6 @@ create table columns_preference(
 );
 
 
-
-
-// até aqui já esta aplicado em produção
-
-
-
-
-
 create table attachment(
     id int not null auto_increment primary key,
     path varchar(100) not null,
@@ -168,5 +160,9 @@ create table attachment(
     CONSTRAINT FK_scheduleId FOREIGN KEY (scheduleId) REFERENCES janela(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
+
+
+// até aqui já esta aplicado em produção
 
 

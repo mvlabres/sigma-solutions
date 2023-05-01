@@ -459,10 +459,118 @@ html, body {
     margin-left: 10px;
 }
 
-/*select:read-only {
-    pointer-events: none;
-    touch-action: none;
-}*/
+.panel-title{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.panel-home{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.schedule-box-status{
+    width: 16%;
+    min-width: 16%;
+    height: 300px;
+    min-height: 300px;
+    border-radius: 20px;
+    cursor: pointer;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(110, 109, 109, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(110, 109, 109, 0.75);
+    box-shadow: 10px 10px 5px 0px rgba(110, 109, 109, 0.75);
+}
+
+.schedule-box-status:hover{
+    transform: scale(1.05); 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+}
+
+.box-green{
+    background-color: #3fb159;
+}
+
+.box-gray{
+    background-color: rgb(200, 200, 200);
+}
+
+.box-orange{
+    background-color: rgb(180, 180, 180);
+}
+
+.box-blue{
+    background-color: rgb(160, 160, 160);
+}
+
+.box-yellow{
+    background-color: rgb(140, 140, 140);
+}
+
+.box-home-header{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 95%;
+    min-height: 95%;
+}
+
+.box-home-header > img{
+    max-width:20%;
+    max-height:12%;
+    width: auto;
+    height: auto;
+}
+
+.box-home-header:first-child{
+    font-weight: bolder;
+    font-size: large;
+    font-size: 2.5rem !important;
+}
+
+.home-box-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    font-size: 12rem !important;
+    color: white;
+}
+
+.panel-progress{
+    margin-top: 10%;
+    width: 100%;
+}
+
+progress{
+    width: 100% !important;
+    margin: none !important;
+}
+
+.panel-title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 15px !important;
+}
+
+.panel-title > p{
+    font-weight: bolder;
+    font-size: 3rem;
+}
+
+.panel-title> .form-check{
+    margin-left: 50px;
+}
+
+.panel-title> .form-check > label{
+    font-weight: lighter !important;
+    font-size: 1.2rem !important;
+}
 
 @media (max-width: 1220px){
     #quick-access-nav{
@@ -471,6 +579,87 @@ html, body {
 
     .customer-master-label{
         margin-left: 20px;
+    }
+}
+
+@media (max-width: 1450px){
+
+    .home-box-text{
+        font-size: 8rem !important;
+    }
+
+    .schedule-box-status{
+        height: 200px;
+        min-height: 200px;
+    }
+}
+
+
+@media (max-width: 1350px){
+
+    .home-box-text{
+        font-size: 6rem !important;
+    }
+
+    .schedule-box-status{
+        height: 150px;
+        min-height: 150px;
+    }
+
+    .box-home-header:first-child{
+        font-size: 1.5rem !important;
+    }
+
+    .panel-progress{
+        margin-top: 15% !important;
+    }
+}
+
+@media (max-width: 1280px){
+
+    .home-box-text{
+        font-size: 6rem !important;
+    }
+
+    .schedule-box-status{
+        height: 150px;
+        min-height: 150px;
+    }
+
+    .box-home-header:first-child{
+        font-size: 1.5rem !important;
+    }
+
+    .panel-progress{
+        margin-top: 15% !important;
+    }
+
+    .display-2{
+        font-size: 2.5rem !important;
+    }
+}
+
+@media (max-width: 860px){
+
+    .home-box-text{
+        font-size: 6rem !important;
+    }
+
+    .schedule-box-status{
+        height: 120px;
+        min-height: 120px;
+    }
+
+    .box-home-header:first-child{
+        font-size: 1rem !important;
+    }
+
+    .panel-progress{
+        margin-top: 5% !important;
+    }
+
+    .display-2{
+        font-size: 1.5rem !important;
     }
 }
 

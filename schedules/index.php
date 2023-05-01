@@ -29,7 +29,7 @@ if($_SESSION['tipo'] == 'user'){
     $tipoUsuario = 2;
 }
 
-$conteudo = "home.php";
+$conteudo = "panel.php";
 
 if(isset($_GET['action']) && $_GET['action'] != null){
 
@@ -134,6 +134,16 @@ if(isset($_GET['conteudo'])) {
             </ul>
            
             <ul <?=$_SESSION['FUNCTION_ACCESS']['schedule'] ?> class="nav navbar-top-links navbar-right" id="quick-access-nav">
+                    
+                <ul class="dropdown-menu dropdown-user">
+                    <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_new'] ?> >
+                        <a href="index.php?conteudo=newSchedule.php">Novo</a>
+                    </li>
+                    <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_list'] ?>>
+                        <a href="index.php?conteudo=searchSchedule.php">Pesquisar</a>
+                    </li>
+                </ul>
+                
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <span> Agendamentos</span>
@@ -154,6 +164,9 @@ if(isset($_GET['conteudo'])) {
             <div class="navbar-default sidebar vertical-menu" id="menu-nav-bar" role="navigation" >
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu" >
+                        <li class="dropdown">
+                            <a href="index.php?conteudo=panel.php">Painel</a>
+                        </i>
                         <li <?=$_SESSION['FUNCTION_ACCESS']['schedule'] ?>>
                             <a href="#"><i></i> Agendamentos </a>
                             <ul class="nav nav-second-level">

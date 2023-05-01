@@ -1,6 +1,8 @@
 <?php
 
-function sec_session_start() {
+define('ROOT_PATH', dirname(__FILE__));
+
+function sec_session_start() {  
     error_reporting(0);
     date_default_timezone_set("America/Sao_Paulo");
     $session_name = 'logado'; 

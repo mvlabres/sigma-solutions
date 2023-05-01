@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once('../controller/scheduleController.php');
 require_once('../utils.php');
 
@@ -128,7 +132,7 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                 </form>
                 <div class="btn-functions-group">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#columnOrder" onclick="readColumns()"><i class="glyphicon glyphicon-sort-by-attributes"></i> Ordenar Colunas</button>
-                    <button type="button" class="btn btn-secondary"><i class="fa fa-file-excel-o"></i> Exportar</button>
+                    <a href="export/schedule-export.php?startDate=<?=$startDate?>&endDate=<?=$endDate?>&status=<?=$status?>"><button type="button" class="btn btn-secondary"><i class="fa fa-file-excel-o"></i> Exportar</button></a>
                 </div>
             </div>
         </div>

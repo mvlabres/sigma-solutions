@@ -1,10 +1,10 @@
 <?php
 
-require_once('../repository/scheduleRepository.php');
-require_once('../model/schedule.php');
-require_once('../model/columnsPreference.php');
-require_once('../repository/columnsPreferencesRepository.php');
-require_once('../repository/attachmentRepository.php');
+require_once(ROOT_PATH.'\repository\scheduleRepository.php');
+require_once(ROOT_PATH.'\model\schedule.php');
+require_once(ROOT_PATH.'\model\columnsPreference.php');
+require_once(ROOT_PATH.'\repository\columnsPreferencesRepository.php');
+require_once(ROOT_PATH.'\repository\attachmentRepository.php');
 
 class ScheduleController{
 
@@ -278,20 +278,20 @@ class ScheduleController{
             $schedule['getPlacaCavalo'] = $data['placa_cavalo'];
             $schedule['getOperacao'] = $data['operacao'];
             $schedule['getNf'] = $data['nf'];
-            $schedule['getHoraChegada'] = date("d/m/Y h:i:s", strtotime($data['horaChegada']));
+            $schedule['getHoraChegada'] = date("d/m/Y H:i:s", strtotime($data['horaChegada']));
             if($data['horaChegada'] == '0000-00-00 00:00:00') $schedule['getHoraChegada'] = '';
 
-            $schedule['getInicioOperacao'] = date("d/m/Y h:i:s", strtotime($data['inicio_operacao']));
+            $schedule['getInicioOperacao'] = date("d/m/Y H:i:s", strtotime($data['inicio_operacao']));
             if($data['inicio_operacao'] == '0000-00-00 00:00:00') $schedule['getInicioOperacao'] = '';
 
-            $schedule['getFimOperacao'] = date("d/m/Y h:i:s", strtotime($data['fim_operacao']));
+            $schedule['getFimOperacao'] = date("d/m/Y H:i:s", strtotime($data['fim_operacao']));
             if($data['fim_operacao'] == '0000-00-00 00:00:00') $schedule['getFimOperacao'] = '';
 
             $schedule['getNomeUsuario'] = $data['usuario'];
-            $schedule['getDataInclusao'] = date("d/m/Y h:i:s", strtotime($data['dataInclusao']));
+            $schedule['getDataInclusao'] = date("d/m/Y H:i:s", strtotime($data['dataInclusao']));
             $schedule['getPeso'] = $data['peso'];
-            $schedule['getDataAgendamento'] = date("d/m/Y h:i:s", strtotime($data['data_agendamento']));
-            $schedule['getSaida'] = date("d/m/Y h:i:s", strtotime($data['saida']));
+            $schedule['getDataAgendamento'] = date("d/m/Y H:i:s", strtotime($data['data_agendamento']));
+            $schedule['getSaida'] = date("d/m/Y H:i:s", strtotime($data['saida']));
             if($data['saida'] == '0000-00-00 00:00:00') $schedule['getSaida'] = '';
 
             $schedule['getSeparacao'] = $data['separacao'];
@@ -327,20 +327,20 @@ class ScheduleController{
             $schedule->setPlacaCavalo($data['placa_cavalo']);
             $schedule->setOperacao($data['operacao']);
             $schedule->setNf($data['nf']);
-            $schedule->setHoraChegada( date("d/m/Y h:i:s", strtotime($data['horaChegada'])));
+            $schedule->setHoraChegada( date("d/m/Y H:i:s", strtotime($data['horaChegada'])));
             if($data['horaChegada'] == '0000-00-00 00:00:00') $schedule->setHoraChegada('');
 
-            $schedule->setInicioOperacao(date("d/m/Y h:i:s", strtotime($data['inicio_operacao'])));
+            $schedule->setInicioOperacao(date("d/m/Y H:i:s", strtotime($data['inicio_operacao'])));
             if($data['inicio_operacao'] == '0000-00-00 00:00:00') $schedule->setInicioOperacao('');
 
-            $schedule->setFimOperacao(date("d/m/Y h:i:s", strtotime($data['fim_operacao'])));
+            $schedule->setFimOperacao(date("d/m/Y H:i:s", strtotime($data['fim_operacao'])));
             if($data['fim_operacao'] == '0000-00-00 00:00:00') $schedule->setFimOperacao('');
 
             $schedule->setNomeUsuario($data['usuario']);
-            $schedule->setDataInclusao(date("d/m/Y h:i:s", strtotime($data['dataInclusao'])));
+            $schedule->setDataInclusao(date("d/m/Y H:i:s", strtotime($data['dataInclusao'])));
             $schedule->setPeso($data['peso']);
-            $schedule->setDataAgendamento(date("d/m/Y h:i:s", strtotime($data['data_agendamento'])));
-            $schedule->setSaida(date("d/m/Y h:i:s", strtotime($data['saida'])));
+            $schedule->setDataAgendamento(date("d/m/Y H:i:s", strtotime($data['data_agendamento'])));
+            $schedule->setSaida(date("d/m/Y H:i:s", strtotime($data['saida'])));
             if($data['saida'] == '0000-00-00 00:00:00') $schedule->setSaida('');
 
             $schedule->setSeparacao($data['separacao']);

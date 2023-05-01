@@ -8,6 +8,12 @@ let inactiveColumnsTemp = [];
 
 const dt = new DataTransfer();
 
+const PROGRESS_TIME = 60000;
+
+let automatedTimeIsOn = true;
+
+let idInterval;
+
 function dateTimeMask(value) {
     let x = value.replace(/\D+/g, '').match(/(\d{0,2})(\d{0,2})(\d{0,4})(\d{0,2})(\d{0,2})(\d{0,2})/);
     return !x[2] ? x[1] : `${x[1]}/${x[2]}` + (!x[3] ? `` : `/${x[3]}` + ` `) + (!x[4] ? `` : x[4]) + (!x[5] ? `` : `:${x[5]}`) + (!x[6] ? `` : `:${x[6]}`);   
@@ -448,4 +454,28 @@ const customAlert = (type, message) => {
         if(alert) document.body.removeChild(alert);
 
     }, 5000);
+}
+
+const HandleChangeAutomatedTimeSwitch = () => {
+    const automatedTimeSwitch = document.getElementById('automatedTimeSwitch');
+
+    if(!automatedTimeSwitch.checked) automatedTimeIsOn = false;
+    else {
+        automatedTimeIsOn = true;
+        progressTimer();
+    }
+}
+
+const progressTimer = () => {
+
+    let time = PROGRESS_TIME;
+    idInterval = setInterval(() => {
+
+        if(!automatedTimeIsOn) clearInterval(idInterval);
+
+        time = time - 10;
+        document.getElementById('panel-progress').value = time;
+
+        if(time === 0) document.getElementById('panel-form').submit();
+    }, 10);
 }

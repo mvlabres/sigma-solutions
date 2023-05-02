@@ -145,8 +145,9 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                         <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                                 <tr>
-                                    <th scope="column" class="td-70">Detalhes</th>
-                                    <th scope="column" class="td-70">Editar</th>
+                                    <th scope="column" class="td-30">Detalhes</th>
+                                    <th scope="column" class="td-30">Editar</th>
+                                    <th scope="column" class="td-30">Imprimir</th>
 
                                     <?php
                                     foreach ($columns as $key => $value) {
@@ -164,7 +165,7 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                                         echo '<tr>';
                                         echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newSchedule.php&search='.$schedule["getId"].'"><span class="fa fa-search text-primary"></span></a></td>';
                                         echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newSchedule.php&edit='.$schedule["getId"].'"><span class="fa fa-edit text-primary"></span></a></td>';
-                                        
+                                        echo '<td class="text-center"><a href="schedulePrint.php?id='.$schedule["getId"].'"><span class="glyphicon glyphicon-print text-primary"></span></a></td>';
                                         foreach ($columns as $key => $value) {
 
                                             if(!$value['show']) continue;

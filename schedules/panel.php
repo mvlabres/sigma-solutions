@@ -22,6 +22,7 @@ $waiting = 0;
 $inOperation = 0;
 $operationDone = 0;
 $done = 0;
+$inlocal = 0;
 
 if(isset($_GET['startDate']) && $_GET['startDate'] != null){
 
@@ -75,14 +76,17 @@ foreach ($schedules as $schedule) {
 
         case 'Aguardando':
             $waiting++;
+            $inlocal++;
             break;
 
         case 'Em operação':
             $inOperation++;
+            $inlocal++;
             break;
 
         case 'Fim de operação':
             $operationDone++;
+            $inlocal++;
             break;
 
         case 'Liberado':
@@ -141,6 +145,12 @@ foreach ($schedules as $schedule) {
         <div class="col-lg-12">
             <div class="panel-title">
                 <h1 class="display-2">Agendamentos</h1>
+            </div>
+            <div class="label-terminal-panel">
+                <div>
+                    <span>Total de <span class="label-big-number"><?=$inlocal ?></span> veículos no terminal</span>
+                    
+                </div>
             </div>
             <div class="panel-home">
                 <div class="schedule-box-status box-gray">

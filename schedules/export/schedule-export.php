@@ -1,43 +1,12 @@
 <?php
+
 require_once('../../session.php');
-require_once('../../controller/scheduleController.php');
-require_once('../../utils.php');
 require_once('../../conn.php');
 
-date_default_timezone_set("America/Sao_Paulo");
-
-$scheduleController = new ScheduleController($MySQLi);
 
 $startDate;
 $endDate;
 $status;
-
-$columns = [
-    'status'               => ['name' => 'status',                'label'=> 'Status',          'value' => 'getStatus'            ],
-    'operationScheduleTime'=> ['name' => 'operationScheduleTime', 'label'=> 'Agendamento',     'value' => 'getDataAgendamento'   ],
-    'arrival'              => ['name' => 'arrival',               'label'=> 'Chegada',         'value' => 'getHoraChegada'       ],
-    'operationStart'       => ['name' => 'operationStart',        'label'=> 'Início',          'value' => 'getInicioOperacao'    ],
-    'operationDone'        => ['name' => 'operationDone',         'label'=> 'Fim',             'value' => 'getFimOperacao'       ],
-    'operationExit'        => ['name' => 'operationExit',         'label'=> 'Saída',           'value' => 'getSaida'             ],
-    'operationType'        => ['name' => 'operationType',         'label'=> 'Operação',        'value' => 'getOperacao'          ],
-    'shippingCompany'      => ['name' => 'shippingCompany',       'label'=> 'Transportadora',  'value' => 'getTransportadora'    ],
-    'city'                 => ['name' => 'city',                  'label'=> 'Cidade',          'value' => 'getCidade'            ],
-    'documentDriver'       => ['name' => 'documentDriver',        'label'=> 'CPF',             'value' => 'getDocumentoMotorista'],
-    'driverName'           => ['name' => 'driverName',            'label'=> 'Nome Motorista',  'value' => 'getNomeMotorista'     ],
-    'licenceTruck'         => ['name' => 'licenceTruck',          'label'=> 'Placa Cavalo',    'value' => 'getPlacaCavalo'       ],
-    'licenceTrailer2'      => ['name' => 'licenceTrailer2',       'label'=> 'Placa carreta',   'value' => 'getPlacaCarreta'      ],
-    'licenceTrailer'       => ['name' => 'licenceTrailer',        'label'=> 'Placa Carreta 2', 'value' => 'getPlacaCarreta2'     ],
-    'binSeparation'        => ['name' => 'binSeparation',         'label'=> 'Separação BIN',   'value' => 'getSeparacao'         ],
-    'shipmentId'           => ['name' => 'shipmentId',            'label'=> 'Shipment ID',     'value' => 'getShipmentId'        ],
-    'dock'                 => ['name' => 'dock',                  'label'=> 'Doca',            'value' => 'getDoca'              ],
-    'truckType'            => ['name' => 'truckType',             'label'=> 'Tipo Veículo',    'value' => 'getTipoVeiculo'       ],
-    'dos'                  => ['name' => 'dos',                   'label'=> 'DOs',             'value' => 'getDo_s'              ],
-    'invoice'              => ['name' => 'invoice',               'label'=> 'NF',              'value' => 'getNf'                ],
-    'grossWeight'          => ['name' => 'grossWeight',           'label'=> 'Peso Final',      'value' => 'getPeso'              ],
-    'pallets'              => ['name' => 'pallets',               'label'=> 'Paletes',         'value' => 'getCargaQtde'         ],
-    'material'             => ['name' => 'material',              'label'=> 'Material',        'value' => 'getDadosGerais'       ],
-    'observation'          => ['name' => 'observation',           'label'=> 'Observação',      'value' => 'getObservacao'        ]
-];
 
 
 if((isset($_GET['startDate']) && $_GET['startDate'] != null) && (isset($_GET['endDate']) && $_GET['endDate'] != null)){
@@ -46,38 +15,112 @@ if((isset($_GET['startDate']) && $_GET['startDate'] != null) && (isset($_GET['en
     $endDate = $_GET['endDate'];
     $status = $_GET['status'];
 
-    $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSION['customerName'], $status, $startDate, $endDate);
+    $startDate = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $startDate )));
+    $endDate = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $endDate )));
+
+    if($status == 'Todos'){
+        $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta
+                FROM janela
+                WHERE cliente = '".$_SESSION['customerName']."'
+                AND data_agendamento >= '".$startDate."'
+                AND data_agendamento <= '".$endDate."'
+                ORDER BY data_agendamento";  
+    }else {
+        $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta
+                FROM janela
+                WHERE cliente = '".$_SESSION['customerName']."'
+                AND status = '".$status."' 
+                AND data_agendamento >= '".$startDate."'
+                AND data_agendamento <= '".$endDate."'
+                ORDER BY data_agendamento";  
+    }
+
+    $schedules = $MySQLi->query($sql);
 }
+
+$file = '';
 
 $file .= '<table><thead><tr>';
            
-    foreach ($columns as $key => $value) {
-        $file .= '<th>'.utf8_decode($value["label"]).'</th>';
-    }
-            
-$file .= '</tr></thead><tbody>';
-    foreach ($schedules as $schedule) {
-        $file .= '<tr>';
-        
-        foreach ($columns as $key => $value) {
-            $file .= '<td>'.utf8_decode($schedule[$value['value']]).'</td>';
-        }
-        $file .= '</tr>';
-    }
+    
+        $file .= '<th>Status</th>';
+        $file .= '<th>Agendamento</th>';
+        $file .= '<th>Chegada</th>';
+        $file .= '<th>'.utf8_decode("Início").'</th>';
+        $file .= '<th>Fim</th>';
+        $file .= '<th>'.utf8_decode("Saída").'</th>';
+        $file .= '<th>'.utf8_decode("Operação").'</th>';
+        $file .= '<th>Transportadora</th>';
+        $file .= '<th>Cidade</th>';
+        $file .= '<th>CPF</th>';
+        $file .= '<th>Nome Motorista</th>';
+        $file .= '<th>Placa Cavalo</th>';
+        $file .= '<th>Placa carreta</th>';
+        $file .= '<th>Placa Carreta 2</th>';
+        $file .= '<th>'.utf8_decode("Separação BIN").'</th>';
+        $file .= '<th>Shipment ID</th>';
+        $file .= '<th>Doca</th>';
+        $file .= '<th>'.utf8_decode("Tipo Veículo").'</th>';
+        $file .= '<th>DOs</th>';
+        $file .= '<th>NF</th>';
+        $file .= '<th>Peso Final</th>';
+        $file .= '<th>Paletes</th>';
+        $file .= '<th>Dados Gerais</th>';
+        $file .= '<th>'.utf8_decode("Observação").'</th>';
+
+
+while ($data = $schedules->fetch_assoc()){ 
+    $file .= '<tr>';
+    $file .= '<td>'.utf8_decode($data['status']).'</td>';
+    $file .= '<td>'.utf8_decode(date("d/m/Y H:i:s", strtotime($data['data_agendamento']))).'</td>';
+
+    $arrive = ($data['horaChegada'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['horaChegada']));
+    $file .= '<td>'.utf8_decode($arrive).'</td>';
+
+    $operationStart = ($data['inicio_operacao'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['inicio_operacao']));
+    $file .= '<td>'.utf8_decode($operationStart).'</td>';
+
+    $operationEnd = ($data['fim_operacao'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['fim_operacao'])); 
+    $file .= '<td>'.utf8_decode( $operationEnd ).'</td>';
+
+    $exit = ($data['saida'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['saida']));
+    $file .= '<td>'.utf8_decode( $exit ).'</td>';
+
+    $file .= '<td>'.utf8_decode( $data['operacao'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['transportadora'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['cidade'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['documento_motorista'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['nome_motorista'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['placa_cavalo'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['placa_carreta'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['placa_carreta2'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['separacao'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['shipment_id'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['doca'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['tipoVeiculo'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['do_s'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['nf'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['peso'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['carga_qtde'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['dados_gerais'] ).'</td>';
+    $file .= '<td>'.utf8_decode( $data['observacao'] ).'</td>';
+    $file .= '<td>'.utf8_decode(  ).'</td>';
+
+    $file .= '</tr>';
+}
 
 $file .= '</tbody></table>';
 
-header("Expires: 0");
-header("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-header("Cache-Control: no-cache, must-revalidate");
-header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-header("Cache-Control: private",false);
-header("Pragma: no-cache");
-header("Content-Type: application/vnd.ms-excel; charset=utf-8");
-header("Content-Disposition: attachment; filename=\"agendamentos.xls\"" );
-header("Content-Description: PHP Generated Data" );
+
+
+header ("Expires: Mon, 29 Out 2015 15:00:00 GMT");
+header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+header ("Cache-Control: no-cache, must-revalidate");
+header ("Pragma: no-cache");
+header ("Content-type: application/x-msexcel"); 
+header ("Content-Disposition: attachment; filename=agendamentos.xls" );
+header ("Content-Description: PHP Generated Data" );
 
 echo $file;
-exit;
 
 ?>

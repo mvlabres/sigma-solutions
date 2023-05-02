@@ -257,7 +257,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Veículo</label>
-                                <select name="truckType" class="form-control placeholder" aria-label="Default select example" id="truckType" <?=$disabled ?> <?=$fieldAcces['truckType'] ?>>
+                                <select name="truckType" class="form-control placeholder" aria-label="Default select example" id="truckType" <?=$disabled ?> <?=$fieldAcces['truckType'] ?> required>
                                     <option value="">Selecione...</option>
                                     <?php
 
@@ -287,7 +287,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>DO's</label>
-                                <input class="form-control" id="dos" value="Não" type="text" value="<?=$schedule->getDo_s() ?>" name="dos" <?=$readonly ?> <?=$fieldAcces['dos'] ?> >
+                                <input class="form-control" id="dos" value="Não" type="text" value="<?=$schedule->getDo_s() ?>" name="dos" <?=$readonly ?> <?=$fieldAcces['dos'] ?> required>
                             </div>
                             <div class="form-group">
                                 <label>Nota Fiscal</label>
@@ -307,7 +307,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Observação</label>
-                                <textarea class="form-control" type="text"  name="observation" <?=$readonly ?> <?=$fieldAcces['observation'] ?> id="observation" ><?=$schedule->getObservacao() ?></textarea>
+                                <textarea class="form-control" type="text"  name="observation" <?=$readonly ?> <?=$fieldAcces['observation'] ?> id="observation" required><?=$schedule->getObservacao() ?></textarea>
                             </div>
                         </div> 
                     </div>

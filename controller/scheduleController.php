@@ -1,10 +1,10 @@
 <?php
 
-require_once(ROOT_PATH.'\repository\scheduleRepository.php');
-require_once(ROOT_PATH.'\model\schedule.php');
-require_once(ROOT_PATH.'\model\columnsPreference.php');
-require_once(ROOT_PATH.'\repository\columnsPreferencesRepository.php');
-require_once(ROOT_PATH.'\repository\attachmentRepository.php');
+require_once(ROOT_PATH.'/repository/scheduleRepository.php');
+require_once(ROOT_PATH.'/model/schedule.php');
+require_once(ROOT_PATH.'/model/columnsPreference.php');
+require_once(ROOT_PATH.'/repository/columnsPreferencesRepository.php');
+require_once(ROOT_PATH.'/repository/attachmentRepository.php');
 
 class ScheduleController{
 
@@ -97,18 +97,20 @@ class ScheduleController{
 
     public function saveFiles($scheduleId, $action){
 
+        $countfiles = count($_FILES['file']['name']);
+
         try {
-            foreach ($_FILES as $file) {
+            for($i=0;$i<$countfiles;$i++){
     
-                $fileName = $file['name'][0];
+                $fileName =  $_FILES['file']['name'][$i];
     
                 $scheduleDirectory = 'files/schedule_'.$scheduleId.'/';
     
                 if (!file_exists($scheduleDirectory)) mkdir($scheduleDirectory, 0755);
                 
-                $tempName = $file['tmp_name'][0];
+                $tempName = $_FILES['file']['tmp_name'][$i];
                 $pathFile = $scheduleDirectory.$fileName;
-             
+
                 if (!file_exists($pathFile)) {
                     move_uploaded_file($tempName,$pathFile);
                     $this->attachmentRepository->save($scheduleId, $pathFile);
@@ -120,7 +122,6 @@ class ScheduleController{
         } catch (Exception $e) {
             return 'SAVE_ERROR';
         }
-
     }
 
     public function savePreferences($columnsDefault, $post){

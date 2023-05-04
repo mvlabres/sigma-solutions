@@ -108,28 +108,30 @@ const resetShippingCompany = () =>{
 
 const validateStatus = () => {
 
+    document.getElementById('btn-salvar').disabled = true;
+
+    const operationExit = document.getElementById('operationExit').value;
+
     const arrival = document.getElementById('arrival').value;
 
-    if(!arrival) {
+    if(!arrival && !operationExit) {
         document.getElementById('scheduleStatus').value = 'Agendado';
         return true;
     }
 
     const operationStart = document.getElementById('operationStart').value;
 
-    if(!operationStart) {
+    if(!operationStart && !operationExit) {
         document.getElementById('scheduleStatus').value = 'Aguardando';
         return true;
     }
 
     const operationDone = document.getElementById('operationDone').value;
 
-    if(!operationDone) {
+    if(!operationDone && !operationExit) {
         document.getElementById('scheduleStatus').value = 'Em operação';
         return true;
     }
-
-    const operationExit = document.getElementById('operationExit').value;
 
     if(!operationExit) {
         document.getElementById('scheduleStatus').value = 'Fim de operação';
@@ -185,6 +187,7 @@ const validationFields = () => {
         if(element) continue;
 
         isValid = false;
+        document.getElementById('btn-salvar').disabled = false;
 
         customAlert('alert-danger', `Favor preencher o campo ${field.label}`);
         break;

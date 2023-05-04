@@ -252,7 +252,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Separação/Bin</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getSeparacao() ?>" name="binSeparation" id="binSeparation" <?=$readonly ?> <?=$fieldAcces['binSeparation'] ?> >
+                                <input class="form-control" type="text" value="<?=$schedule->getSeparacao() ?>" name="binSeparation" id="binSeparation" <?=$readonly ?> <?=$fieldAcces['binSeparation'] ?>  <?=$requiredOperatorField ?>>
                             </div>
                         
                         </div>

@@ -120,7 +120,7 @@ foreach ($schedules as $schedule) {
                         <div class="form-group">
                             <label>Data inicial</label>
                             <div class='input-group date' id='datetimepicker1'>
-                                <input name="startDate" type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$startDate ?>" onblur="dateTimeHandleBlur(this)" required  minlength="19" maxlength="19" />
+                                <input name="startDate" id="startDate" type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$startDate ?>" onblur="dateTimeHandleBlur(this)" required  minlength="19" maxlength="19" />
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
@@ -128,7 +128,7 @@ foreach ($schedules as $schedule) {
                         <div class="form-group">
                             <label>Data final</label>
                             <div class='input-group date' id='datetimepicker1'>
-                                <input name="endDate" type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" onblur="dateTimeHandleBlur(this)" value="<?=$endDate ?>" minlength="19" maxlength="19"  required/>
+                                <input name="endDate" id="endDate" type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" onblur="dateTimeHandleBlur(this)" value="<?=$endDate ?>" minlength="19" maxlength="19"  required/>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
@@ -153,35 +153,35 @@ foreach ($schedules as $schedule) {
                 </div>
             </div>
             <div class="panel-home">
-                <div class="schedule-box-status box-gray">
+                <div class="schedule-box-status box-gray" onclick="navigateToSearch('Agendado')">
                     <div class="box-home-header">
                         <p>Agendados</p>
                         <img src="../images/home-icons/schedule-truck.png"></img>
                         <p class="home-box-text"><?=$scheduled ?></p>
                     </div>
                 </div>
-                <div class="schedule-box-status box-orange">
+                <div class="schedule-box-status box-orange" onclick="navigateToSearch('Aguardando')">
                     <div class="box-home-header">
                         <p>Aguardando</p>
                         <img src="../images/home-icons/empty-truck.png"></img>
                         <p class="home-box-text"><?=$waiting ?></p>
                     </div>
                 </div>
-                <div class="schedule-box-status box-blue">
+                <div class="schedule-box-status box-blue" onclick="navigateToSearch('Em operação')">
                     <div class="box-home-header">
                         <p>Em operação</p>
                         <img src="../images/home-icons/operation-truck.png"></img>
                         <p class="home-box-text"><?=$inOperation ?></p>
                     </div>
                 </div>
-                <div class="schedule-box-status box-yellow">
+                <div class="schedule-box-status box-yellow" onclick="navigateToSearch('Fim de operação')">
                     <div class="box-home-header">
                         <p>Fim de operação</p>
                         <img src="../images/home-icons/full-truck.png"></img>
                         <p class="home-box-text"><?=$operationDone ?></p>
                     </div>
                 </div>
-                <div class="schedule-box-status box-green">
+                <div class="schedule-box-status box-green" onclick="navigateToSearch('Liberado')">
                     <div class="box-home-header">
                         <p>Liberados</p>
                         <img src="../images/home-icons/done-truck.png"></img>

@@ -212,7 +212,7 @@ if(isset($_GET['id']) && $_GET['id'] != null){
     function printValues(){
         window.print();
         window.onafterprint = function() {
-            history.go(-1);
+            window.location='index.php?conteudo=searchSchedule.php';
         };
     }
 </script>

@@ -1,13 +1,17 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
+
 require_once('../../session.php');
 require_once('../../conn.php');
-
 
 $startDate;
 $endDate;
 $status;
-
 
 if((isset($_GET['startDate']) && $_GET['startDate'] != null) && (isset($_GET['endDate']) && $_GET['endDate'] != null)){
 
@@ -39,53 +43,50 @@ if((isset($_GET['startDate']) && $_GET['startDate'] != null) && (isset($_GET['en
 }
 
 $file = '';
-
-$file .= '<table><thead><tr>';
-           
+$file .= '<table><thead><tr>';        
     
-        $file .= '<th>Status</th>';
-        $file .= '<th>Agendamento</th>';
-        $file .= '<th>Chegada</th>';
-        $file .= '<th>'.utf8_decode("Início").'</th>';
-        $file .= '<th>Fim</th>';
-        $file .= '<th>'.utf8_decode("Saída").'</th>';
-        $file .= '<th>'.utf8_decode("Operação").'</th>';
-        $file .= '<th>Transportadora</th>';
-        $file .= '<th>Cidade</th>';
-        $file .= '<th>CPF</th>';
-        $file .= '<th>Nome Motorista</th>';
-        $file .= '<th>Placa Cavalo</th>';
-        $file .= '<th>Placa carreta</th>';
-        $file .= '<th>Placa Carreta 2</th>';
-        $file .= '<th>'.utf8_decode("Separação BIN").'</th>';
-        $file .= '<th>Shipment ID</th>';
-        $file .= '<th>Doca</th>';
-        $file .= '<th>'.utf8_decode("Tipo Veículo").'</th>';
-        $file .= '<th>DOs</th>';
-        $file .= '<th>NF</th>';
-        $file .= '<th>Peso Final</th>';
-        $file .= '<th>Paletes</th>';
-        $file .= '<th>Dados Gerais</th>';
-        $file .= '<th>'.utf8_decode("Observação").'</th>';
-
+$file .= '<th>Status</th>';
+$file .= '<th>Agendamento</th>';
+$file .= '<th>Chegada</th>';
+$file .= '<th>'.utf8_decode("Início").'</th>';
+$file .= '<th>Fim</th>';
+$file .= '<th>'.utf8_decode("Saída").'</th>';
+$file .= '<th>'.utf8_decode("Operação").'</th>';
+$file .= '<th>Transportadora</th>';
+$file .= '<th>Cidade</th>';
+$file .= '<th>CPF</th>';
+$file .= '<th>Nome Motorista</th>';
+$file .= '<th>Placa Cavalo</th>';
+$file .= '<th>Placa carreta</th>';
+$file .= '<th>Placa Carreta 2</th>';
+$file .= '<th>'.utf8_decode("Separação BIN").'</th>';
+$file .= '<th>Shipment ID</th>';
+$file .= '<th>Doca</th>';
+$file .= '<th>'.utf8_decode("Tipo Veículo").'</th>';
+$file .= '<th>DOs</th>';
+$file .= '<th>NF</th>';
+$file .= '<th>Peso Final</th>';
+$file .= '<th>Paletes</th>';
+$file .= '<th>Dados Gerais</th>';
+$file .= '<th>'.utf8_decode("Observação").'</th>';
 
 while ($data = $schedules->fetch_assoc()){ 
     $file .= '<tr>';
     $file .= '<td>'.utf8_decode($data['status']).'</td>';
     $file .= '<td>'.utf8_decode(date("d/m/Y H:i:s", strtotime($data['data_agendamento']))).'</td>';
-
+    
     $arrive = ($data['horaChegada'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['horaChegada']));
     $file .= '<td>'.utf8_decode($arrive).'</td>';
-
+    
     $operationStart = ($data['inicio_operacao'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['inicio_operacao']));
     $file .= '<td>'.utf8_decode($operationStart).'</td>';
-
+    
     $operationEnd = ($data['fim_operacao'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['fim_operacao'])); 
     $file .= '<td>'.utf8_decode( $operationEnd ).'</td>';
-
+    
     $exit = ($data['saida'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['saida']));
     $file .= '<td>'.utf8_decode( $exit ).'</td>';
-
+    
     $file .= '<td>'.utf8_decode( $data['operacao'] ).'</td>';
     $file .= '<td>'.utf8_decode( $data['transportadora'] ).'</td>';
     $file .= '<td>'.utf8_decode( $data['cidade'] ).'</td>';
@@ -104,14 +105,10 @@ while ($data = $schedules->fetch_assoc()){
     $file .= '<td>'.utf8_decode( $data['carga_qtde'] ).'</td>';
     $file .= '<td>'.utf8_decode( $data['dados_gerais'] ).'</td>';
     $file .= '<td>'.utf8_decode( $data['observacao'] ).'</td>';
-    $file .= '<td>'.utf8_decode(  ).'</td>';
-
     $file .= '</tr>';
 }
 
 $file .= '</tbody></table>';
-
-
 
 header ("Expires: Mon, 29 Out 2015 15:00:00 GMT");
 header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");

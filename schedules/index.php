@@ -6,7 +6,7 @@ require_once('../controller/customerController.php');
 require_once('../utils.php');
 
 if($_SESSION['nome'] == null){
-	header('LOCATION:../../index.php');
+	header('LOCATION:../index.php');
 }
 
 $customerName = null;
@@ -42,7 +42,8 @@ if(isset($_POST['conteudo'])) $conteudo = $_POST['conteudo'];
 if(isset($_GET['conteudo'])) {
     $conteudo = $_GET['conteudo'];
     if($conteudo == 'logout') {
-        session_destroy();
+        session_unset();     
+        session_destroy();  
         header('Location:../index.php');
     }
 }   

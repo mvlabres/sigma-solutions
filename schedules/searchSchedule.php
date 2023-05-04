@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require_once('../controller/scheduleController.php');
 require_once('../utils.php');
 
@@ -72,6 +68,13 @@ if(isset($_POST['status']) && $_POST['status'] != null){
     $status = $_POST['status'];
     $startDate = $_POST['startDate'];
     $endDate = $_POST['endDate'];
+}
+
+if(isset($_GET['status']) && $_GET['status'] != null){
+
+    $status = $_GET['status'];
+    $startDate = $_GET['startDate'];
+    $endDate = $_GET['endDate'];
 }
 
 $preference = $scheduleController->findPreferenceByUser();
@@ -145,9 +148,9 @@ $schedules = $scheduleController->findByClientStatusStartDateAndEndDate($_SESSIO
                         <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                                 <tr>
-                                    <th scope="column" class="td-30">Detalhes</th>
-                                    <th scope="column" class="td-30">Editar</th>
-                                    <th scope="column" class="td-30">Imprimir</th>
+                                    <th scope="column" class="td-70">Detalhes</th>
+                                    <th scope="column" class="td-70">Editar</th>
+                                    <th scope="column" class="td-70">Imprimir</th>
 
                                     <?php
                                     foreach ($columns as $key => $value) {

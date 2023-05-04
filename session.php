@@ -10,7 +10,7 @@ function sec_session_start() {
     $httponly = true;
 
     if (ini_set('session.use_only_cookies', 1) === FALSE) {
-        header('Location:index.php');
+       header('Location:index.php');
         exit();
     }
     $cookieParams = session_get_cookie_params();
@@ -27,8 +27,9 @@ function sec_session_start() {
     
 }
 
-$pagesNotClearPost = ['searchSchedule.php'];
+$pagesNotClearPost = ['searchSchedule.php', 'newSchedule.php'];
 
+//session_cache_limiter('private_no_expire');
 sec_session_start();
 
 $contentPost = '';
@@ -37,7 +38,7 @@ if(isset($_GET['conteudo']) && $_GET['conteudo'] != null){
     $contentPost = $_GET['conteudo'];
 }
 
-if( $_SERVER['REQUEST_METHOD'] =='POST' && !in_array($contentPost, $pagesNotClearPost) && $_GET['comteudo'] != 'newSchedule.php'){
+if( $_SERVER['REQUEST_METHOD'] =='POST' && !in_array($contentPost, $pagesNotClearPost)){
     
     $request = md5(implode( $_POST ) );
 
@@ -121,7 +122,7 @@ function login_check($mysqli) {
             $stmt->store_result();
 
             if($stmt->num_rows == 1) {
-                if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 15000)) {
+                if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 7200)) {
                     session_unset();     
                     session_destroy();  
                     return false;
@@ -137,5 +138,3 @@ function login_check($mysqli) {
         
     } else  return false;
 }
-
-

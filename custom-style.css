@@ -479,6 +479,8 @@ html, body {
 }
 
 .schedule-box-status{
+    text-decoration: none !important;
+    color: #333 !important;
     width: 16%;
     min-width: 16%;
     height: 280px;
@@ -491,6 +493,7 @@ html, body {
 }
 
 .schedule-box-status:hover{
+    text-decoration: none !important;
     transform: scale(1.05); 
     box-shadow: 0 5px 15px rgba(0,0,0,0.6);
 }
@@ -638,6 +641,44 @@ progress{
     border-bottom: gray solid 1px !important;
 }
 
+select[readonly] {
+    background: #eee;
+    pointer-events: none;
+    touch-action: none;
+  }
+
+@media (max-width: 1750px){
+
+    .home-box-text{
+        font-size: 7rem !important;
+    }
+
+    .schedule-box-status{
+        height: 100px;
+        min-height: 170px;
+    }
+
+    .box-home-header:first-child{
+        font-size: 1.7rem !important;
+    }
+
+    .label-terminal-panel > div:first-child{
+        font-size: 1.7rem;
+    }
+    
+    .label-big-number{
+        font-size: 3rem;
+    }
+
+    .display-2{
+        font-size: 2rem !important;
+    }
+
+    .panel-progress{
+        margin-top: 5% !important;
+    }
+}
+
 @media (max-width: 1220px){
     #quick-access-nav{
         margin-right: 30px !important;
@@ -658,6 +699,10 @@ progress{
         height: 200px;
         min-height: 200px;
     }
+
+    .panel-progress{
+        margin-top: 5% !important;
+    }
 }
 
 
@@ -677,7 +722,7 @@ progress{
     }
 
     .panel-progress{
-        margin-top: 15% !important;
+        margin-top: 7% !important;
     }
 }
 
@@ -697,7 +742,7 @@ progress{
     }
 
     .panel-progress{
-        margin-top: 15% !important;
+        margin-top: 10% !important;
     }
 
     .display-2{

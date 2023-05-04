@@ -1,10 +1,10 @@
 <?php
 
-require_once(ROOT_PATH.'/repository/scheduleRepository.php');
-require_once(ROOT_PATH.'/model/schedule.php');
-require_once(ROOT_PATH.'/model/columnsPreference.php');
-require_once(ROOT_PATH.'/repository/columnsPreferencesRepository.php');
-require_once(ROOT_PATH.'/repository/attachmentRepository.php');
+require_once('../repository/scheduleRepository.php');
+require_once('../model/schedule.php');
+require_once('../model/columnsPreference.php');
+require_once('../repository/columnsPreferencesRepository.php');
+require_once('../repository/attachmentRepository.php');
 
 class ScheduleController{
 

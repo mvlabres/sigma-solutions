@@ -479,3 +479,11 @@ const progressTimer = () => {
         if(time === 0) document.getElementById('panel-form').submit();
     }, 10);
 }
+
+const navigateToSearch = (scheduleStatus) => {
+
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    window.location =  `index.php?conteudo=searchSchedule.php&status=${scheduleStatus}&startDate=${startDate}&endDate=${endDate}`;
+}

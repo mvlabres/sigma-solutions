@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once('../controller/shippingCompanyController.php');
 require_once('../controller/truckTypeController.php');
@@ -7,9 +10,15 @@ require_once('../controller/operationTypeController.php');
 require_once('../model/schedule.php');
 require_once('../utils.php');
 
-if($_SESSION['FUNCTION_ACCESS']['schedule_new'] == 'hidden' && (!isset($_GET['edit']) || $_GET['edit'] == null)) {
+if($_SESSION['FUNCTION_ACCESS']['schedule_new'] == 'hidden' && ((!isset($_GET['edit']) || $_GET['edit'] == null) && (!isset($_GET['search']) || $_GET['search'] == null))) {
     echo "<script>window.location='/sigma-solutions/schedules/index.php'</script>";
 }
+
+$requiredOperatorField = '';
+$requiredPorterField = '';
+
+if($_SESSION['tipo'] == 'operator') $requiredOperatorField = 'required';
+if($_SESSION['tipo'] == 'porter') $requiredPorterField = 'required';
 
 $userTypeFieldAccess = [
     'operationScheduleTime' => ['operator', 'porter'],
@@ -46,13 +55,13 @@ $fieldAcces = [
     'operationStart'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationStart'] )) ? 'readonly' : '',
     'operationDone'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationDone'] )) ? 'readonly' : '',
     'operationExit'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationExit'] )) ? 'readonly' : '',
-    'operationType'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationType'] )) ? 'disabled' : '',
-    'shippingCompany'       => (in_array($_SESSION['tipo'], $userTypeFieldAccess['shippingCompany'] )) ? 'disabled' : '',
+    'operationType'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationType'] )) ? 'readonly' : '',
+    'shippingCompany'       => (in_array($_SESSION['tipo'], $userTypeFieldAccess['shippingCompany'] )) ? 'readonly' : '',
     'city'                  => (in_array($_SESSION['tipo'], $userTypeFieldAccess['city'] )) ? 'readonly' : '',
     'binSeparation'         => (in_array($_SESSION['tipo'], $userTypeFieldAccess['binSeparation'] )) ? 'readonly' : '',
     'shipmentId'            => (in_array($_SESSION['tipo'], $userTypeFieldAccess['shipmentId'] )) ? 'readonly' : '',
     'dock'                  => (in_array($_SESSION['tipo'], $userTypeFieldAccess['dock'] )) ? 'readonly' : '',
-    'truckType'             => (in_array($_SESSION['tipo'], $userTypeFieldAccess['truckType'] )) ? 'disabled' : '',
+    'truckType'             => (in_array($_SESSION['tipo'], $userTypeFieldAccess['truckType'] )) ? 'readonly' : '',
     'licenceTruck'          => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTruck'] )) ? 'readonly' : '',
     'dos'                   => (in_array($_SESSION['tipo'], $userTypeFieldAccess['dos'] )) ? 'readonly' : '',
     'invoice'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['invoice'] )) ? 'readonly' : '',
@@ -60,7 +69,7 @@ $fieldAcces = [
     'pallets'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['pallets'] )) ? 'readonly' : '',
     'material'              => (in_array($_SESSION['tipo'], $userTypeFieldAccess['material'] )) ? 'readonly' : '',
     'observation'           => (in_array($_SESSION['tipo'], $userTypeFieldAccess['observation'] )) ? 'readonly' : '',
-    'files'                 => (in_array($_SESSION['tipo'], $userTypeFieldAccess['files'] )) ? 'disabled' : '',
+    'files'                 => (in_array($_SESSION['tipo'], $userTypeFieldAccess['files'] )) ? 'readonly' : '',
     'documentDriver'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['documentDriver'] )) ? 'readonly' : '',
     'driverName'            => (in_array($_SESSION['tipo'], $userTypeFieldAccess['driverName'] )) ? 'readonly' : '',
     'licenceTrailer2'       => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTrailer2'] )) ? 'readonly' : '',
@@ -73,6 +82,7 @@ $action = 'save';
 
 $readonly = '';
 $disabled = '';
+
 
 $shippingCompanyController = new ShippingCompanyController($MySQLi);
 $truckTypeController = new TruckTypeController($MySQLi);
@@ -163,7 +173,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Chegada</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" id="arrival" <?=$readonly ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['arrival'] ?> minlength="19" maxlength="19" />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" id="arrival" <?=$readonly ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['arrival'] ?> minlength="19" maxlength="19" <?=$requiredPorterField ?> />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -171,7 +181,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Início</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getInicioOperacao() ?>" name="operationStart" id="operationStart" <?=$readonly ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationStart'] ?> minlength="19" maxlength="19" />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getInicioOperacao() ?>" name="operationStart" id="operationStart" <?=$readonly ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['operationStart'] ?> minlength="19" maxlength="19" <?=$requiredOperatorField?> />
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -194,11 +204,11 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Nome Motorista</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getNomeMotorista() ?>" name="driverName" id="driverName"  <?=$readonly ?> <?=$fieldAcces['driverName'] ?>>
+                                <input class="form-control" type="text" value="<?=$schedule->getNomeMotorista() ?>" name="driverName" id="driverName"  <?=$readonly ?> <?=$fieldAcces['driverName'] ?> <?=$requiredPorterField ?>>
                             </div>
                             <div class="form-group">
                                 <label>CPF Motorista</label>
-                                <input class="form-control cpf" id="cpf" type="text" value="<?=$schedule->getDocumentoMotorista() ?>" name="documentDriver"  <?=$readonly ?> <?=$fieldAcces['documentDriver'] ?>>
+                                <input class="form-control cpf" id="cpf" type="text" value="<?=$schedule->getDocumentoMotorista() ?>" name="documentDriver"  <?=$readonly ?> <?=$fieldAcces['documentDriver'] ?> <?=$requiredPorterField ?>>
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Operação</label>
@@ -253,7 +263,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Doca </label>
-                                <input class="form-control" type="text" value="<?=$schedule->getDoca() ?>" name="dock" id="dock" <?=$readonly ?> <?=$fieldAcces['dock'] ?> >
+                                <input class="form-control" type="text" value="<?=$schedule->getDoca() ?>" name="dock" id="dock" <?=$readonly ?> <?=$fieldAcces['dock'] ?>  <?=$requiredOperatorField ?>>
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Veículo</label>
@@ -275,7 +285,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Placa do cavalo</label>
-                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCavalo() ?>" name="licenceTruck" id="licenceTruck" <?=$readonly ?> <?=$fieldAcces['licenceTruck'] ?> >
+                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCavalo() ?>" name="licenceTruck" id="licenceTruck" <?=$readonly ?> <?=$fieldAcces['licenceTruck'] ?> <?=$requiredPorterField ?>>
                             </div>
                             <div class="form-group">
                                 <label>Placa Carreta 1</label>
@@ -291,11 +301,11 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Nota Fiscal</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getNf() ?>" name="invoice" id="invoice" <?=$readonly ?> <?=$fieldAcces['invoice'] ?> >
+                                <input class="form-control" type="text" value="<?=$schedule->getNf() ?>" name="invoice" id="invoice" <?=$readonly ?> <?=$fieldAcces['invoice'] ?> <?=$requiredOperatorField ?>>
                             </div>
                             <div class="form-group">
                                 <label>Peso Bruto</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getPeso() ?>" name="grossWeight" id="grossWeight" <?=$readonly ?> <?=$fieldAcces['grossWeight'] ?> >
+                                <input class="form-control" type="text" value="<?=$schedule->getPeso() ?>" name="grossWeight" id="grossWeight" <?=$readonly ?> <?=$fieldAcces['grossWeight'] ?> <?=$requiredOperatorField ?>>
                             </div>
                             <div class="form-group">
                                 <label>Paletes</label>
@@ -314,10 +324,10 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                     <div class="full-container">
                         <p class="mt-5 text-left">
                             <label for="attachment">
-                                <a class="btn btn-primary text-light" role="button" aria-disabled="false" <?=$fieldAcces['files'] ?> <?=$fileFieldDisabled ?>>+ Anexos</a>
+                                <a class="btn btn-primary text-light" role="button" aria-disabled="false" <?=$fieldAcces['files'] ?> >+ Anexos</a>
                                 
                             </label>
-                            <input type="file" name="file[]"  id="attachment" style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles()" <?=$fieldAcces['files'] ?> <?=$fileFieldDisabled ?>/>
+                            <input type="file" name="file[]"  id="attachment" style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles()" <?=$fieldAcces['files'] ?> />
                             
                         </p>
                         <p id="files-area">

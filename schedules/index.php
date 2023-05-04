@@ -138,7 +138,7 @@ if(isset($_GET['conteudo'])) {
                     
                 <ul class="dropdown-menu dropdown-user">
                     <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_new'] ?> >
-                        <a href="index.php?conteudo=newSchedule.php">Novo</a>
+                        <a href="index.php?conteudo=newSchedule.php&function=new">Novo</a>
                     </li>
                     <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_list'] ?>>
                         <a href="index.php?conteudo=searchSchedule.php">Pesquisar</a>
@@ -152,7 +152,7 @@ if(isset($_GET['conteudo'])) {
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_new'] ?> >
-                            <a href="index.php?conteudo=newSchedule.php">Novo</a>
+                            <a href="index.php?conteudo=newSchedule.php&function=new">Novo</a>
                         </li>
                         <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_list'] ?>>
                             <a href="index.php?conteudo=searchSchedule.php">Pesquisar</a>
@@ -172,7 +172,7 @@ if(isset($_GET['conteudo'])) {
                             <a href="#"><i></i> Agendamentos </a>
                             <ul class="nav nav-second-level">
                                 <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_new'] ?> >
-                                    <a href="index.php?conteudo=newSchedule.php">Novo</a>
+                                    <a href="index.php?conteudo=newSchedule.php&function=new">Novo</a>
                                 </li>
                                 <li <?=$_SESSION['FUNCTION_ACCESS']['schedule_list'] ?>>
                                     <a href="index.php?conteudo=searchSchedule.php">Pesquisar</a>

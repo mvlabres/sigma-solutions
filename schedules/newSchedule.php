@@ -10,6 +10,12 @@ require_once('../controller/operationTypeController.php');
 require_once('../model/schedule.php');
 require_once('../utils.php');
 
+$function = '';
+
+if(isset($_GET['function']) && $_GET['function'] != null){
+    $function = $_GET['function'];
+}
+
 if($_SESSION['FUNCTION_ACCESS']['schedule_new'] == 'hidden' && ((!isset($_GET['edit']) || $_GET['edit'] == null) && (!isset($_GET['search']) || $_GET['search'] == null))) {
     echo "<script>window.location='/sigma-solutions/schedules/index.php'</script>";
 }
@@ -17,11 +23,11 @@ if($_SESSION['FUNCTION_ACCESS']['schedule_new'] == 'hidden' && ((!isset($_GET['e
 $requiredOperatorField = '';
 $requiredPorterField = '';
 
-if($_SESSION['tipo'] == 'operator') $requiredOperatorField = 'required';
+if($_SESSION['tipo'] == 'operator' && $function != 'new') $requiredOperatorField = 'required';
 if($_SESSION['tipo'] == 'porter') $requiredPorterField = 'required';
 
 $userTypeFieldAccess = [
-    'operationScheduleTime' => ['operator', 'porter'],
+    'operationScheduleTime' => ['porter'],
     'arrival'               => ['client', 'operator'],
     'operationStart'        => ['client', 'porter'],
     'operationDone'         => ['client', 'porter'],
@@ -30,7 +36,7 @@ $userTypeFieldAccess = [
     'shippingCompany'       => ['porter'],
     'city'                  => ['porter'],
     'binSeparation'         => ['porter'],
-    'shipmentId'            => ['operator', 'porter'],
+    'shipmentId'            => ['porter'],
     'dock'                  => ['porter'],
     'truckType'             => ['porter'],
     'licenceTruck'          => [],
@@ -173,7 +179,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <div class="form-group">
                                 <label>Chegada</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" id="arrival" <?=$readonly ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['arrival'] ?> minlength="19" maxlength="19" <?=$requiredPorterField ?> />
+                                    <input type='text' data-date-format="DD/MM/YYYY HH:mm:ss" class="form-control" value="<?=$schedule->getHoraChegada() ?>" name="arrival" id="arrival" <?=$readonly ?> onblur="dateTimeHandleBlur(this)" <?=$fieldAcces['arrival'] ?> minlength="19" maxlength="19" <?=$requiredPorterField ?>  <?=$requiredOperatorField?>/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>

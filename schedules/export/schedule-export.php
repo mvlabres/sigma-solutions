@@ -1,11 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-
 require_once('../../session.php');
 require_once('../../conn.php');
 
@@ -75,16 +69,16 @@ while ($data = $schedules->fetch_assoc()){
     $file .= '<td>'.utf8_decode($data['status']).'</td>';
     $file .= '<td>'.utf8_decode(date("d/m/Y H:i:s", strtotime($data['data_agendamento']))).'</td>';
     
-    $arrive = ($data['horaChegada'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['horaChegada']));
+    $arrive = (empty($data['horaChegada'])) ? '' : date("d/m/Y H:i:s", strtotime($data['horaChegada']));
     $file .= '<td>'.utf8_decode($arrive).'</td>';
     
-    $operationStart = ($data['inicio_operacao'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['inicio_operacao']));
+    $operationStart = (empty($data['inicio_operacao'])) ? '' : date("d/m/Y H:i:s", strtotime($data['inicio_operacao']));
     $file .= '<td>'.utf8_decode($operationStart).'</td>';
     
-    $operationEnd = ($data['fim_operacao'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['fim_operacao'])); 
+    $operationEnd = (empty($data['fim_operacao'])) ? '' : date("d/m/Y H:i:s", strtotime($data['fim_operacao'])); 
     $file .= '<td>'.utf8_decode( $operationEnd ).'</td>';
     
-    $exit = ($data['saida'] == '0000-00-00 00:00:00') ? '' : date("d/m/Y H:i:s", strtotime($data['saida']));
+    $exit = (empty($data['saida'])) ? '' : date("d/m/Y H:i:s", strtotime($data['saida']));
     $file .= '<td>'.utf8_decode( $exit ).'</td>';
     
     $file .= '<td>'.utf8_decode( $data['operacao'] ).'</td>';

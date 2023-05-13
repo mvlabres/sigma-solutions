@@ -280,20 +280,20 @@ class ScheduleController{
             $schedule['getOperacao'] = $data['operacao'];
             $schedule['getNf'] = $data['nf'];
             $schedule['getHoraChegada'] = date("d/m/Y H:i:s", strtotime($data['horaChegada']));
-            if($data['horaChegada'] == '0000-00-00 00:00:00') $schedule['getHoraChegada'] = '';
+            if(empty($data['horaChegada'])) $schedule['getHoraChegada'] = '';
 
             $schedule['getInicioOperacao'] = date("d/m/Y H:i:s", strtotime($data['inicio_operacao']));
-            if($data['inicio_operacao'] == '0000-00-00 00:00:00') $schedule['getInicioOperacao'] = '';
+            if(empty($data['inicio_operacao'])) $schedule['getInicioOperacao'] = '';
 
             $schedule['getFimOperacao'] = date("d/m/Y H:i:s", strtotime($data['fim_operacao']));
-            if($data['fim_operacao'] == '0000-00-00 00:00:00') $schedule['getFimOperacao'] = '';
+            if(empty($data['fim_operacao'])) $schedule['getFimOperacao'] = '';
 
             $schedule['getNomeUsuario'] = $data['usuario'];
             $schedule['getDataInclusao'] = date("d/m/Y H:i:s", strtotime($data['dataInclusao']));
             $schedule['getPeso'] = $data['peso'];
             $schedule['getDataAgendamento'] = date("d/m/Y H:i:s", strtotime($data['data_agendamento']));
             $schedule['getSaida'] = date("d/m/Y H:i:s", strtotime($data['saida']));
-            if($data['saida'] == '0000-00-00 00:00:00') $schedule['getSaida'] = '';
+            if(empty($data['saida'])) $schedule['getSaida'] = '';
 
             $schedule['getSeparacao'] = $data['separacao'];
             $schedule['getShipmentId'] = $data['shipment_id'];
@@ -329,20 +329,20 @@ class ScheduleController{
             $schedule->setOperacao($data['operacao']);
             $schedule->setNf($data['nf']);
             $schedule->setHoraChegada( date("d/m/Y H:i:s", strtotime($data['horaChegada'])));
-            if($data['horaChegada'] == '0000-00-00 00:00:00') $schedule->setHoraChegada('');
+            if(empty($data['horaChegada'])) $schedule->setHoraChegada('');
 
             $schedule->setInicioOperacao(date("d/m/Y H:i:s", strtotime($data['inicio_operacao'])));
-            if($data['inicio_operacao'] == '0000-00-00 00:00:00') $schedule->setInicioOperacao('');
+            if(empty($data['inicio_operacao'])) $schedule->setInicioOperacao('');
 
             $schedule->setFimOperacao(date("d/m/Y H:i:s", strtotime($data['fim_operacao'])));
-            if($data['fim_operacao'] == '0000-00-00 00:00:00') $schedule->setFimOperacao('');
+            if(empty($data['fim_operacao'])) $schedule->setFimOperacao('');
 
             $schedule->setNomeUsuario($data['usuario']);
             $schedule->setDataInclusao(date("d/m/Y H:i:s", strtotime($data['dataInclusao'])));
             $schedule->setPeso($data['peso']);
             $schedule->setDataAgendamento(date("d/m/Y H:i:s", strtotime($data['data_agendamento'])));
             $schedule->setSaida(date("d/m/Y H:i:s", strtotime($data['saida'])));
-            if($data['saida'] == '0000-00-00 00:00:00') $schedule->setSaida('');
+            if(empty($data['saida'])) $schedule->setSaida('');
 
             $schedule->setSeparacao($data['separacao']);
             $schedule->setShipmentId($data['shipment_id']);

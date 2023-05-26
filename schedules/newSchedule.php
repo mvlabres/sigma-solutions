@@ -80,6 +80,7 @@ $fieldAcces = [
 ];
 
 $schedule = new Schedule();
+$schedule->setDo_s('Não');
 
 $action = 'save'; 
 
@@ -300,7 +301,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>DO's</label>
-                                <input class="form-control" id="dos" value="Não" type="text" value="<?=$schedule->getDo_s() ?>" name="dos" <?=$readonly ?> <?=$fieldAcces['dos'] ?> required>
+                                <input class="form-control" id="dos" type="text" value="<?=$schedule->getDo_s() ?>" name="dos" <?=$readonly ?> <?=$fieldAcces['dos'] ?> required>
                             </div>
                             <div class="form-group">
                                 <label>Nota Fiscal</label>

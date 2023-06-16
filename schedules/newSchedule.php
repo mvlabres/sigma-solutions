@@ -293,11 +293,11 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Placa Carreta 1</label>
-                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCarreta() ?>" name="licenceTrailer" id="licenceTrailer"  <?=$readonly ?> <?=$fieldAcces['licenceTrailer'] ?> >
+                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCarreta() ?>" name="licenceTrailer" id="licenceTrailer"  <?=$readonly ?> <?=$fieldAcces['licenceTrailer'] ?>  <?=$requiredPorterField ?>>
                             </div>
                             <div class="form-group">
                                 <label>Placa Carreta 2</label>
-                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCarreta2() ?>" name="licenceTrailer2" id="licenceTrailer2" <?=$readonly ?> <?=$fieldAcces['licenceTrailer2'] ?> >
+                                <input class="form-control" type="text"  value="<?=$schedule->getPlacaCarreta2() ?>" name="licenceTrailer2" id="licenceTrailer2" <?=$readonly ?> <?=$fieldAcces['licenceTrailer2'] ?> <?=$requiredPorterField ?>>
                             </div>
                             <div class="form-group">
                                 <label>DO's</label>
@@ -305,11 +305,11 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Nota Fiscal</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getNf() ?>" name="invoice" id="invoice" <?=$readonly ?> <?=$fieldAcces['invoice'] ?> <?=$requiredOperatorField ?>>
+                                <input class="form-control" type="text" value="<?=$schedule->getNf() ?>" name="invoice" id="invoice" <?=$readonly ?> <?=$fieldAcces['invoice'] ?>>
                             </div>
                             <div class="form-group">
                                 <label>Peso Bruto</label>
-                                <input class="form-control" type="text" value="<?=$schedule->getPeso() ?>" name="grossWeight" id="grossWeight" <?=$readonly ?> <?=$fieldAcces['grossWeight'] ?> <?=$requiredOperatorField ?>>
+                                <input class="form-control" type="text" value="<?=$schedule->getPeso() ?>" name="grossWeight" id="grossWeight" <?=$readonly ?> <?=$fieldAcces['grossWeight'] ?>>
                             </div>
                             <div class="form-group">
                                 <label>Paletes</label>

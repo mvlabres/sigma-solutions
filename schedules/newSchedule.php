@@ -24,7 +24,7 @@ if($_SESSION['tipo'] == 'operator' && $function != 'new') $requiredOperatorField
 if($_SESSION['tipo'] == 'porter') $requiredPorterField = 'required';
 
 $userTypeFieldAccess = [
-    'operationScheduleTime' => ['porter'],
+    'operationScheduleTime' => [],
     'arrival'               => ['client', 'operator'],
     'operationStart'        => ['client', 'porter'],
     'operationDone'         => ['client', 'porter'],

@@ -86,6 +86,11 @@ $action = 'save';
 
 $readonly = '';
 $disabled = '';
+$deleteButtonStyle = 'btn btn-danger';
+
+if($_SESSION['tipo'] != 'adm'){
+    $deleteButtonStyle .= ' btn-hidden';
+}
 
 
 $shippingCompanyController = new ShippingCompanyController($MySQLi);
@@ -102,6 +107,8 @@ if(isset($_POST['action'])){
         $result = $scheduleController->save($_POST);
     } else if($_POST['action'] == 'edit'){
         $result = $scheduleController->update($_POST);
+    } else if($_POST['action'] == 'delete'){
+        $result = $scheduleController->delete($_POST['idDelete']);
     }
     
     switch ($result) {
@@ -109,17 +116,24 @@ if(isset($_POST['action'])){
             echo "<script>window.location='index.php?conteudo=searchSchedule.php&action=schedule-save'</script>";	
             break;
         
-        
         case 'UPDATED':
             echo "<script>window.location='index.php?conteudo=searchSchedule.php&action=schedule-update'</script>";	
             break;
-        
+
+        case 'DELETED':
+            echo "<script>window.location='index.php?conteudo=searchSchedule.php&action=schedule-delete'</script>";	
+            break;
         
         case 'SAVE_ERROR':
             errorAlert('Ocorreu um erro ao salvar o agendamento. Tente novamente ou entre em contato com o administrador.');
             break;
+
+        case 'DELETE_ERROR':
+            errorAlert('Ocorreu um erro ao excluir o agendamento. Tente novamente mais tarde');
+            break;
     }
 }
+$deleteId = ''; 
 
 if(isset($_GET['search']) && $_GET['search'] != null){
 
@@ -127,6 +141,7 @@ if(isset($_GET['search']) && $_GET['search'] != null){
     $schedule = $scheduleController->findById($searchId);
     $readonly = 'readonly';
     $disabled = 'disabled';
+    $deleteId = $searchId;
 }
 
 if(isset($_GET['edit']) && $_GET['edit'] != null){
@@ -136,7 +151,9 @@ if(isset($_GET['edit']) && $_GET['edit'] != null){
     $schedule = $scheduleController->findById($editId);
     $readonly = '';
     $disabled = '';
+    $deleteId = $editId;
 }
+
 
 
 $shippingCompanys = $shippingCompanyController->findByClient($_SESSION['customerName']);
@@ -359,10 +376,32 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                     </div> 
                     <div class="btn-group-end">
                         <button id="btn-salvar" type="submit" class="btn btn-primary" <?=$disabled ?>>Salvar</button>
-                        <a href="index.php?conteudo=searchSchedule.php" type="reset" class="btn btn-danger">Cancelar</a> 
+                        <button id="btn-delete" type="button" class="<?=$deleteButtonStyle ?>" data-toggle="modal" data-target="#confirmModal">Excluir</button>
+                        <a href="index.php?conteudo=searchSchedule.php" type="reset" class="btn btn-light">Cancelar</a> 
                     </div> 
                 </form>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="form-delete" method="post" action="#">
+                <input type="hidden" name="idDelete" value="<?=$deleteId ?>">
+                <input type="hidden" name="action" value="delete" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Excluir</h4>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja deletar esse agendamento?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-primary" id="confirm">Sim</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

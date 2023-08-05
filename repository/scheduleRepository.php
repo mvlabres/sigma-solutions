@@ -87,6 +87,18 @@ class ScheduleRepository{
         }
     }
 
+    public function delete($id){
+
+        try {
+            $sql = "DELETE FROM janela WHERE Id = ".$id; 
+            $this->mySql->query($sql);
+            return 'DELETED';
+
+        } catch (Exception $e) {
+            return 'DELETE_ERROR';
+        }
+    }
+
     public function save($schedule){
 
         try{

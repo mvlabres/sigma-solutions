@@ -40,6 +40,10 @@ class ScheduleController{
         }
     }
 
+    public function delete($id){
+        return $this->scheduleRepository->delete($id);
+    }
+
     public function update($post){
 
         try {

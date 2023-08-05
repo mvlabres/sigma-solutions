@@ -475,6 +475,14 @@ td{
     margin-left: 10px;
 }
 
+.btn-group-end > button{
+    margin-left: 10px;
+}
+
+.btn-hidden{
+    display: none !important;
+}
+
 .panel-title{
     width: 100%;
     display: flex;

@@ -35,6 +35,7 @@ if(isset($_GET['action']) && $_GET['action'] != null){
 
     if($_GET['action'] == 'schedule-save') successAlert('Agendamento realizado com sucesso!');
     if($_GET['action'] == 'schedule-update') successAlert('Agendamento atualizado com sucesso!');
+    if($_GET['action'] == 'schedule-delete') successAlert('Agendamento excluído com sucesso!');
 }
 
 if(isset($_POST['conteudo'])) $conteudo = $_POST['conteudo'];   

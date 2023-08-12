@@ -382,7 +382,7 @@ const handleChangeFiles = () => {
         const fileDelete = document.createElement("span");
         fileDelete.classList.add("file-delete");
         fileDelete.innerHTML = '+';
-        fileDelete.setAttribute("onclick","removeFile(this)");
+        fileDelete.setAttribute("onclick","removeFile(this, false)");
 
         parentSpan.appendChild(fileDelete);
         parentSpan.appendChild(childSpan);
@@ -397,7 +397,10 @@ const handleChangeFiles = () => {
     attachment.files = dt.files;
 }
 
-const removeFile = (element) => {
+const removeFile = (element, removeToEdit) => {
+
+    console.log(element);
+    if(removeToEdit) addToRemove(element.id);
     const sibling = element.nextSibling;
     const parent = element.parentElement;
 
@@ -418,6 +421,18 @@ const removeFile = (element) => {
 
     document.getElementById('attachment').files = dt.files;
 
+}
+
+const addToRemove = (attachmentId) => {
+
+    const elements = document.getElementById('filesToRemove');
+
+    let ids = elements.value;
+
+    if(elements.value) ids += `,${attachmentId}`;
+    else ids = attachmentId;
+
+    elements.value = ids;
 }
 
 const customAlert = (type, message) => {
@@ -489,4 +504,8 @@ const navigateToSearch = (scheduleStatus) => {
     const endDate = document.getElementById('endDate').value;
 
     window.location =  `index.php?conteudo=searchSchedule.php&status=${scheduleStatus}&startDate=${startDate}&endDate=${endDate}`;
+}
+
+const backHistory = () => {
+    history.back()
 }

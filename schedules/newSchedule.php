@@ -334,11 +334,11 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                             <div class="form-group">
                                 <label>Material</label>
-                                <textarea class="form-control" type="text"  name="material" <?=$readonly ?> <?=$fieldAcces['material'] ?> id="material" required><?=$schedule->getDadosGerais() ?></textarea>
+                                <textarea class="form-control" type="text"  name="material" maxlength="499" <?=$readonly ?> <?=$fieldAcces['material'] ?> id="material" required><?=$schedule->getDadosGerais() ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Observação</label>
-                                <textarea class="form-control" type="text"  name="observation" <?=$readonly ?> <?=$fieldAcces['observation'] ?> id="observation" required><?=$schedule->getObservacao() ?></textarea>
+                                <textarea class="form-control" type="text"  name="observation" maxlength="149" <?=$readonly ?> <?=$fieldAcces['observation'] ?> id="observation" required><?=$schedule->getObservacao() ?></textarea>
                             </div>
                         </div> 
                     </div>
@@ -358,12 +358,17 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
 
                                     if((isset($_GET['search']) && $_GET['search'] != null) || (isset($_GET['edit']) && $_GET['edit'] != null)){
 
-                                        foreach ($schedule->getFilesPath() as $path) {
-
-                                            $fileName = substr($path, strrpos($path, '/') + 1);
+                                        foreach ($schedule->getFilesPath() as $key => $value) {
+                    
+                                            $fileName = substr($value, strrpos($value, '/') + 1);
 
                                             echo '<span class="file-block">';
-                                            echo    '<a class="file-saved" href="'.$path.'" download>';
+
+                                            if($readonly != 'readonly'){
+                                                echo    '<span class="file-delete" id="'.$key.'" onclick="removeFile(this, true)">+</span>';
+                                            }
+
+                                            echo    '<a class="file-saved" href="'.$value.'" download>';
                                             echo        '<span class="name">'.$fileName.'</span>';
                                             echo    '</a>';
                                             echo '</span>';
@@ -374,6 +379,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </span>
                         </p>
                     </div> 
+                    <input id="filesToRemove" name="filesToRemove" type="hidden" value="">
                     <div class="btn-group-end">
                         <button id="btn-salvar" type="submit" class="btn btn-primary" <?=$disabled ?>>Salvar</button>
                         <button id="btn-delete" type="button" class="<?=$deleteButtonStyle ?>" data-toggle="modal" data-target="#confirmModal">Excluir</button>

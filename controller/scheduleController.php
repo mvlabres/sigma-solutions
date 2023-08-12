@@ -53,14 +53,25 @@ class ScheduleController{
 
             $schedule = $this->setFields($post, $schedule);
             $result =  $this->scheduleRepository->updateById($schedule, $post['id']);
-
+            
             if($result == 'SAVE_ERROR') return $result;
+
+            if($post['filesToRemove'] != '') $this->deleteAttachment($post['filesToRemove']);
+
+            if($result == 'DELETE_ERROR') throw new Exception("Erro ao deletar anexos", 1);
 
             return $this->saveFiles($schedule->getId(), 'UPDATED'); 
         
         } catch (Exception $e) {
             return 'SAVE_ERROR';
         }
+    }
+
+    public function deleteAttachment($idsString){
+
+        print_r($idsString);
+
+        $result = $this->attachmentRepository->deleteByCondition(str_replace(';', ',', $idsString));
     }
 
     public function findByClient($client){
@@ -206,7 +217,7 @@ class ScheduleController{
 
         while ($data = $result->fetch_assoc()){ 
 
-            array_push($paths, $data['path']);
+            $paths[$data['id']] = $data['path'];
         }
         
         $schedule->setFilesPath($paths);

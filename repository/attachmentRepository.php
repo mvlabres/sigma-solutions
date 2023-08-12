@@ -39,5 +39,19 @@ class AttachmentRepository{
             return 'SAVE_ERROR';
         }
     }
+
+    public function deleteByCondition($condition){
+
+        try{
+            $sql = "DELETE FROM attachment
+                    WHERE id IN (".$condition.")";  
+
+            $result = $this->mySql->query($sql);
+            return 'DELETED';
+
+        }catch(Exception $e){
+            return 'DELETE_ERROR';
+        }
+    }
 }
 ?>

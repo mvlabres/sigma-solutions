@@ -8,6 +8,7 @@ require_once('../model/schedule.php');
 require_once('../utils.php');
 
 $function = '';
+$hasError = false;
 
 if(isset($_GET['function']) && $_GET['function'] != null){
     $function = $_GET['function'];
@@ -124,9 +125,14 @@ if(isset($_POST['action'])){
             echo "<script>window.location='index.php?conteudo=searchSchedule.php&action=schedule-delete'</script>";	
             break;
         
-        case 'SAVE_ERROR':
-            errorAlert('Ocorreu um erro ao salvar o agendamento. Tente novamente ou entre em contato com o administrador.');
+        case 'SAVE_ERROR':{
+
+            $id = $scheduleController->getIdLastError();
+
+            errorAlert('Ocorreu um erro ao salvar o agendamento. Informe o número do registro ocorrido ao administrador - Registro do erro: 00'. $id);
+            $hasError = true;
             break;
+        }
 
         case 'DELETE_ERROR':
             errorAlert('Ocorreu um erro ao excluir o agendamento. Tente novamente mais tarde');
@@ -166,8 +172,14 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Novo Agendamento</h1>
-    </div>                
+        <h1 class="page-header">Novo Agendamento </h1>
+        <?php
+    if($hasError){
+        echo '<div class="row dev-link"><span>Registro do Erro: 00'. $id . '</span><br><button class="btn btn-primary " onclick="backHistory()">Recuperar Dados</button></div>';
+    }
+    ?>
+    </div>   
+    
 </div>
 <div class="row">
     <div class="col-lg-12">

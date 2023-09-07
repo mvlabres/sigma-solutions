@@ -181,5 +181,18 @@ class ScheduleRepository{
             return 'SAVE_ERROR';
         }
     }
+
+    public function getLastError(){
+
+        try{
+            $sql = "SELECT id FROM logError order by id desc limit 1";  
+            $result = $this->mySql->query($sql);
+
+            return $result;
+
+        }catch(Exception $e){
+            return false;
+        }
+    }
 }
 ?>

@@ -36,6 +36,15 @@ class ScheduleController{
             return $this->saveFiles($result, 'SAVED');  
             
         } catch (Exception $e) {
+
+            $description = $e->getMessage() . '- ' . $e->getTraceAsString();
+
+            $description = str_replace('\'', '"', $description);
+
+            $sql = "INSERT INTO logError SET userId = ".$_SESSION['id'] .", dateError = '".date("Y-m-d H:i:s")."', description = '". $description ."' "; 
+
+            $this->mySql->query($sql);
+    
             return 'SAVE_ERROR';
         }
     }
@@ -378,6 +387,18 @@ class ScheduleController{
         }
 
         return $schedules;
+    }
+
+    public function getIdLastError(){
+    
+        $result = $this->scheduleRepository->getLastError();
+        $id = '';
+
+        while ($data = $result->fetch_assoc()){ 
+           $id = $data['id'];
+        }
+
+        return $id;
     }
 }
 

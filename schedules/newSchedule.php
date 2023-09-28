@@ -127,9 +127,7 @@ if(isset($_POST['action'])){
         
         case 'SAVE_ERROR':{
 
-            $id = $scheduleController->getIdLastError();
-
-            errorAlert('Ocorreu um erro ao salvar o agendamento. Informe o número do registro ocorrido ao administrador - Registro do erro: 00'. $id);
+            errorAlert('Ocorreu um erro ao salvar o agendamento. Um registro de falha foi gerado. ');
             $hasError = true;
             break;
         }
@@ -140,6 +138,7 @@ if(isset($_POST['action'])){
     }
 }
 $deleteId = ''; 
+$editId = '';
 
 if(isset($_GET['search']) && $_GET['search'] != null){
 
@@ -149,6 +148,8 @@ if(isset($_GET['search']) && $_GET['search'] != null){
     $disabled = 'disabled';
     $deleteId = $searchId;
 }
+
+
 
 if(isset($_GET['edit']) && $_GET['edit'] != null){
 

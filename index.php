@@ -41,6 +41,11 @@ if (isset($_SESSION['username'])) {
             <div class="login-logo">
                 <img class="login-img-logo" src="images/sigma_logo.png">
                 <p class="login-title">Solutions</p>
+                <?php 
+                    if(!$isProduction){
+                        echo '<span class="env-info">Homologation</span>';
+                    }
+                ?>
             </div>
             <div class="login-box">
                 <div class="login-box-info">

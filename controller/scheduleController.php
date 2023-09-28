@@ -40,10 +40,8 @@ class ScheduleController{
             $description = $e->getMessage() . '- ' . $e->getTraceAsString();
 
             $description = str_replace('\'', '"', $description);
-
-            $sql = "INSERT INTO logError SET userId = ".$_SESSION['id'] .", dateError = '".date("Y-m-d H:i:s")."', description = '". $description ."' "; 
-
-            $this->mySql->query($sql);
+            
+            echo $description;
     
             return 'SAVE_ERROR';
         }

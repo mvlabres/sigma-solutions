@@ -58,7 +58,7 @@ function login($usuario, $senha, $mysqli) {
     $data = date('d/m/Y');
     $hora = date('h:i');
 
-    if ($stmt = $mysqli->prepare("SELECT id,nome, username, password, dataInclusao, tipo FROM usuario  WHERE username = ? LIMIT 1")){ 
+    if ($stmt = $mysqli->prepare("SELECT id,nome, username, password, dataInclusao, tipo FROM usuario  WHERE username = ? LIMIT 1")){  
         
         $stmt->bind_param('s', $usuario);
         $stmt->execute();
@@ -94,7 +94,8 @@ function getAccess($mysqli){
         'register_truck_type'=> 'hidden',
         'register_shipping_company'=> 'hidden',
         'register_log'=> 'hidden',
-        'register_report'=> 'hidden'
+        'register_report'=> 'hidden',
+        'register_operation_source' => 'hidden'
     ];
 
     $sql = "SELECT id, userType, functionName

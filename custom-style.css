@@ -669,7 +669,23 @@ select[readonly] {
     background: #eee;
     pointer-events: none;
     touch-action: none;
-  }
+}
+
+.feedback{
+    color: #dc3545 !important;
+    display: none;
+}
+
+.column-end{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.action-area{
+    margin-bottom: 20px !important;
+}
 
 @media (max-width: 1750px){
 

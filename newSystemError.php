@@ -164,7 +164,7 @@ if(isset($_GET['edit']) && $_GET['edit'] != null){
                             <input id="filesToRemove" name="filesToRemove" type="hidden" value="">
                         </div>
                         <div class="column-end col-lg-6">
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <?php
                                     if($action == 'save'){

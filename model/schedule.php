@@ -33,6 +33,7 @@ class Schedule{
     private $documentoMotorista;
     private $placaCarreta;
     private $filesPath;
+    private $operationId;
 
     public function setId($id){
         $this->id = $id;
@@ -226,6 +227,12 @@ class Schedule{
     public function getFilesPath(){
         return $this->filesPath;
     } 
+    public function setOperationId($operationId){
+        $this->operationId = $operationId;
+    }
+    public function getOperationId(){
+        return $this->operationId;
+    }
 }
 
 ?>

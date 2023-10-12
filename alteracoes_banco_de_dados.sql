@@ -43,3 +43,25 @@ ALTER TABLE janela
 ADD CONSTRAINT otifk FOREIGN KEY (operation_type_id) REFERENCES operation_type(id);
 
 /*===================================================== já alterado*/
+
+DELIMITER $$
+CREATE TRIGGER `updateJanelaOperation` BEFORE INSERT ON `janela` FOR EACH ROW BEGIN
+    DECLARE operation_name varchar(50);
+    SET operation_name = (SELECT name FROM operation_type WHERE Id = NEW.operation_type_id LIMIT 1);
+    
+    SET NEW.operacao = operation_name;
+END
+$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE TRIGGER `updateJanelaOperationUp` BEFORE UPDATE ON `janela` FOR EACH ROW BEGIN
+    DECLARE operation_name varchar(50);
+    SET operation_name = (SELECT name FROM operation_type WHERE Id = NEW.operation_type_id LIMIT 1);
+    
+    SET NEW.operacao = operation_name;
+END
+$$
+DELIMITER ;

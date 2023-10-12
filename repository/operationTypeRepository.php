@@ -11,8 +11,9 @@ class OperationTypeRepository{
     public function findAll(){
 
         try{
-            $sql = "SELECT id, name, label
-                    FROM operation_type";  
+            $sql = "SELECT operation_type.id, operation_type.name, operation_type.label, operation_source_id AS operationSourceId, operation_source.name AS operationSourceName  
+                    FROM operation_type
+                    INNER JOIN operation_source ON (operation_source.id = operation_source_id || operation_source_id IS NULL)";
 
             $result = $this->mySql->query($sql);
 
@@ -26,9 +27,10 @@ class OperationTypeRepository{
     public function findByClient($client){
 
         try{
-            $sql = "SELECT id, name, label
+            $sql = "SELECT operation_type.id, operation_type.name, operation_type.label, operation_source_id AS operationSourceId, operation_source.name AS operationSourceName  
                     FROM operation_type
-                    WHERE cliente = '".$client."'";  
+                    INNER JOIN operation_source ON (operation_source.id = operation_source_id || operation_source_id IS NULL)
+                    WHERE operation_type.cliente = '".$client."'";  
 
             return $this->mySql->query($sql);
 
@@ -40,9 +42,10 @@ class OperationTypeRepository{
     public function findByName($name){
 
         try{
-            $sql = "SELECT id, name, label
+            $sql = "SELECT operation_type.id, operation_type.name, operation_type.label, operation_source_id AS operationSourceId, operation_source.name AS operationSourceName 
                     FROM operation_type
-                    WHERE name = '".$name."'";  
+                    INNER JOIN operation_source ON (operation_source.id = operation_source_id || operation_source_id IS NULL)
+                    WHERE operation_type.name = '".$name."'";  
 
             return $this->mySql->query($sql);
 
@@ -51,11 +54,11 @@ class OperationTypeRepository{
         }
     }
 
-    public function save($name, $label, $client){
+    public function save($name, $label, $client, $operationSourceId){
 
         try{
             $sql = "INSERT INTO operation_type
-                    SET name = '".$name."', label = '".$label."', cliente = '".$client."'";  
+                    SET name = '".$name."', label = '".$label."', cliente = '".$client."', operation_source_id = ".$operationSourceId ;  
 
             $result = $this->mySql->query($sql);
             return 'SAVED';
@@ -65,11 +68,11 @@ class OperationTypeRepository{
         }
     }
 
-    public function updateById($id, $name, $label){
+    public function updateById($id, $name, $label, $operationSourceId){
 
         try{
             $sql = "UPDATE operation_type
-                    SET name = '".$name."', label = '".$label."'
+                    SET name = '".$name."', label = '".$label."', operation_source_id = ". $operationSourceId . "
                     WHERE ID = ".$id;  
 
             $result = $this->mySql->query($sql);

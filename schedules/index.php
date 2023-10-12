@@ -86,7 +86,7 @@ if(isset($_GET['conteudo'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="../utils.js?n=1"></script>  
+    <script src="../utils.js"></script>  
     <script src="/jQuery-Mask-Plugin-master/"></script>
     <script src="../dist/js/sb-admin-2.js"></script> 
     <script src="../assets/js/jquery-1.11.1.min.js"></script>
@@ -186,6 +186,9 @@ if(isset($_GET['conteudo'])) {
                                 <li <?=$_SESSION['FUNCTION_ACCESS']['register_operation_type'] ?>>
                                     <a href="index.php?conteudo=newOperationType.php">Tipo de Operação</a>
                                 </li>
+                                <li <?=$_SESSION['FUNCTION_ACCESS']['register_operation_type'] ?>>
+                                    <a href="index.php?conteudo=newOperationSource.php">Natureza da Operação</a>
+                                </li>
                                 <li <?=$_SESSION['FUNCTION_ACCESS']['register_truck_type'] ?>>
                                     <a href="index.php?conteudo=newTruckType.php">Tipo de veículo</a>
                                 </li>
@@ -194,7 +197,7 @@ if(isset($_GET['conteudo'])) {
                                 </li>
                             </ul>
                         </li>
-                        <li <?=$_SESSION['FUNCTION_ACCESS']['register_log'] ?>>
+                       <li <?=$_SESSION['FUNCTION_ACCESS']['register_log'] ?>>
                             <a href="#"><i></i> LOG sistema  </a>
                         </li>
                         <li <?=$_SESSION['FUNCTION_ACCESS']['register_report'] ?>>

@@ -6,6 +6,7 @@ class OperationType{
     private $id;
     private $name;
     private $label;
+    private $operationSource;
     private $cliente;
 
     public function setId($id){
@@ -34,6 +35,13 @@ class OperationType{
     }
     public function getCliente(){
         return $this->cliente;
+    }
+    
+    public function setOperationSource($operationSource){
+        $this->operationSource = $operationSource;
+    }
+    public function getoperationSource(){
+        return $this->operationSource;
     }
 }
 ?>

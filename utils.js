@@ -108,12 +108,21 @@ const resetNewTruck = () =>{
     document.getElementById('action').value = 'save';
 }
 
-const editOperationType = (id, name) => {
+const editOperationType = (id, name, operationSource) => {
+
+    document.getElementById('id').value = id;
+    document.getElementById('name').value = name;
+    document.getElementById('operationSource').value = operationSource;
+    document.getElementById('action').value = 'edit';
+    document.getElementById('title').innerHTML = 'Tipo de Operação - Editar';
+}
+
+const editOperationSource = (id, name) => {
 
     document.getElementById('id').value = id;
     document.getElementById('name').value = name;
     document.getElementById('action').value = 'edit';
-    document.getElementById('title').innerHTML = 'Tipo de Operação - Editar';
+    document.getElementById('title').innerHTML = 'Natureza da Operação - Editar';
 }
 
 const resetOperationType = () =>{

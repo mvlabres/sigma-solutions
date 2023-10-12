@@ -1,6 +1,7 @@
 <?php
 
 require_once('../controller/operationTypeController.php');
+require_once('../controller/operationSourceController.php');
 require_once('../utils.php');
 
 if($_SESSION['FUNCTION_ACCESS']['register_operation_type'] == 'hidden') {
@@ -10,6 +11,7 @@ if($_SESSION['FUNCTION_ACCESS']['register_operation_type'] == 'hidden') {
 $action = 'save';
 
 $operationTypeController = new OperationTypeController($MySQLi);
+$operationSourceController = new OperationSourceController($MySQLi);
 
 if(isset($_POST['action']) && $_POST['action'] == 'save'){
     
@@ -53,7 +55,7 @@ if(isset($_GET['delete']) && $_SERVER['REQUEST_METHOD'] !='POST'){
 
 if(isset($_POST['action']) && $_POST['action'] == 'edit'){
 
-    $result = $operationTypeController->updateById($_POST['id'], $_POST['name']);
+    $result = $operationTypeController->updateById($_POST['id'], $_POST['name'], $_POST['operationSource']);
 
     switch ($result) {
         case 'UPDATED':
@@ -66,7 +68,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'edit'){
     }
 }
 
-$operationTypes = $operationTypeController->findAll();
+$operationTypes= $operationTypeController->findByClient($_SESSION['customerName']);
+$operationSources = $operationSourceController->findAll();
 
 ?>
 
@@ -88,9 +91,22 @@ $operationTypes = $operationTypeController->findAll();
                                 <label>Nome</label>
                                 <input class="form-control" maxlength="100" name="name" id="name" required>
                             </div>
+                            <div class="form-group">
+                                <label>Natureza da Operação</label>
+                                <select name="operationSource" id="operationSource" class="form-control" aria-label="Default select example" required>
+                                    <option value="">Selecione...</option>
+                                    <?php
+
+                                    if(count($operationSources) > 0){
+                                        foreach ($operationSources as $operationSource) {
+                                            echo '<option value="'.$operationSource->getId().'" '.$selected.' >'.$operationSource->getName().'</option>';
+                                        }
+                                    }
+                                    ?>
+                                  </select>
+                            </div>
                         
                             <button id="btn-salvar" type="submit" class="btn btn-primary">Salvar</button>
-                            <button type="reset" onclick="resetNewOperationType()" class="btn btn-danger">Cancelar</button>
                         </form>
                     </div>
                 </div>    
@@ -108,6 +124,7 @@ $operationTypes = $operationTypeController->findAll();
                         <tr>
                             <th>Id</th>
                             <th>Nome</th>
+                            <th>Natureza da Operação</th>
                             <th>Editar</th>
                             <th>Excluir</th>
                         </tr>
@@ -120,7 +137,12 @@ $operationTypes = $operationTypeController->findAll();
                                     echo '<tr class="odd gradeX">';
                                     echo '<td>'.$operationType->getId().'</td>';
                                     echo '<td>'.$operationType->getName().'</td>';
-                                    echo '<td class="text-center clickble" onclick="editOperationType('.$operationType->getId().', \''.$operationType->getName().'\' )"><span class="fa fa-edit text-primary"></span></td>';
+                                    if($operationType->getOperationSource()->getId() != null){
+                                        echo '<td>'.$operationType->getOperationSource()->getName().'</td>';    
+                                    }else{
+                                        echo '<td> - </td>';
+                                    }
+                                    echo '<td class="text-center clickble" onclick="editOperationType('.$operationType->getId().', \''.$operationType->getName().'\', '.$operationType->getOperationSource()->getId(). ')"><span class="fa fa-edit text-primary"></span></td>';
                                     echo '<td class="text-center"><a href="index.php?customer=tetrapak&conteudo=newOperationType.php&delete='.$operationType->getId().'"><span class="fa fa-trash-o text-danger"></span></a></td>';
                                     echo '</tr>';
 

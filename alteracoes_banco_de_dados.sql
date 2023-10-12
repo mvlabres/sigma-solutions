@@ -8,8 +8,6 @@ create table logError(
 );
 
 
-/*=====================================================*/
-
 CREATE TABLE operation_source(
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -23,8 +21,6 @@ INSERT INTO user_access set userType = 'adm', functionName = 'register_operation
 ALTER TABLE operation_type ADD COLUMN operation_source_id int,
 ADD CONSTRAINT otfk FOREIGN KEY (operation_source_id) REFERENCES operation_source(id);
 
-
-/*=====================================================*/
 
 
 create table system_error_info(
@@ -40,4 +36,10 @@ create table system_error_info(
 alter table system_error_info add COLUMN status varchar(50);
 alter table system_error_info add COLUMN resolution varchar(100);
 
-/*=====================================================*/
+
+ALTER TABLE janela ADD COLUMN operation_type_id int null ;
+
+ALTER TABLE janela
+ADD CONSTRAINT otifk FOREIGN KEY (operation_type_id) REFERENCES operation_type(id);
+
+/*===================================================== já alterado*/

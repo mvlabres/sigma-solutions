@@ -1,21 +1,25 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-/*$MySQL = array(
+$isProduction = false;
+
+$productionConn = array(
     'servidor' => 'localhost',  
     'usuario' => 'labsoftt_marcos',   
     'senha' => 'getnis2018',       
-    'banco' => 'labsoftt_sigmaScheduling'  
-);*/
+    'banco' => 'labsoftt_sigma'  
+);
 
-$MySQL = array(
+$homolConn = array(
     'servidor' => 'localhost',  
     'usuario' => 'root',   
     'senha' => '',       
-    'banco' => 'sigmascheduling'  
-); 
+    'banco' => 'sigma'  
+);
 
+$MySQL = ($isProduction) ? $productionConn : $homolConn;
 
 $MySQLi = new MySQLi($MySQL['servidor'], $MySQL['usuario'], $MySQL['senha'], $MySQL['banco']);
 $MySQLi->set_charset("utf8");
+
 ?>

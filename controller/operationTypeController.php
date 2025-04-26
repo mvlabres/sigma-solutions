@@ -2,6 +2,7 @@
 
 require_once('../repository/operationTypeRepository.php');
 require_once('../model/operationType.php');
+require_once('../model/operationSource.php');
 
 class OperationTypeController{
 
@@ -35,6 +36,7 @@ class OperationTypeController{
 
         try {
             $name = $post['name'];
+            $operationSourceId = $post['operationSource'];
 
             $label = $this->buildLabel($name);
 
@@ -46,18 +48,18 @@ class OperationTypeController{
                 return 'ALREADY_EXISTS';
             }
 
-            return $this->operationTypeRepository->save($name, $label, $_SESSION['customerName']);
+            return $this->operationTypeRepository->save($name, $label, $_SESSION['customerName'], $operationSourceId);
         
         } catch (Exception $e) {
             return 'SAVE_ERROR';
         }
     }
 
-    public function updateById($id, $name){
+    public function updateById($id, $name, $operationSourceId){
 
         $label = $this->buildLabel($name);
 
-        return $this->operationTypeRepository->updateById($id, $name, $label);
+        return $this->operationTypeRepository->updateById($id, $name, $label, $operationSourceId);
     }
 
     public function deleteById($id){
@@ -72,14 +74,20 @@ class OperationTypeController{
     }
 
     public function loadData($records){
-
         $operationTypes = array();
 
         while ($data = $records->fetch_assoc()){ 
             $operationType = new OperationType();
+            $operationSource = new OperationSource();
+
             $operationType->setId($data['id']);
             $operationType->setName($data['name']);
             $operationType->setLabel($data['label']);
+
+            $operationSource->setName($data['operationSourceName']);
+            $operationSource->setId($data['operationSourceId']);
+
+            $operationType->setOperationSource($operationSource);
             
             array_push($operationTypes, $operationType);
         }

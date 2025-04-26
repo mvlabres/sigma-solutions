@@ -127,10 +127,7 @@ if(isset($_POST['action'])){
         
         case 'SAVE_ERROR':{
 
-            $id = $scheduleController->getIdLastError();
-
-            errorAlert('Ocorreu um erro ao salvar o agendamento. Informe o número do registro ocorrido ao administrador - Registro do erro: 00'. $id);
-            $hasError = true;
+            errorAlert('Ocorreu um erro ao salvar o agendamento. Tente mais tarde ou reporte o erro ao administrador. ');
             break;
         }
 
@@ -140,6 +137,7 @@ if(isset($_POST['action'])){
     }
 }
 $deleteId = ''; 
+$editId = '';
 
 if(isset($_GET['search']) && $_GET['search'] != null){
 
@@ -149,6 +147,8 @@ if(isset($_GET['search']) && $_GET['search'] != null){
     $disabled = 'disabled';
     $deleteId = $searchId;
 }
+
+
 
 if(isset($_GET['edit']) && $_GET['edit'] != null){
 
@@ -173,11 +173,6 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Novo Agendamento </h1>
-        <?php
-    if($hasError){
-        echo '<div class="row dev-link"><span>Registro do Erro: 00'. $id . '</span><br><button class="btn btn-primary " onclick="backHistory()">Recuperar Dados</button></div>';
-    }
-    ?>
     </div>   
     
 </div>
@@ -253,9 +248,11 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                                         foreach ($operationTypes as $operationType) {
     
                                             $selected = null;
-                                            if($schedule->getOperacao() == $operationType->getName()) $selected = 'selected';
+                                            if($schedule->getOperacao() == $operationType->getName()) {
+                                                $selected = 'selected';
+                                            }
     
-                                            echo '<option value="'.$operationType->getName().'" '.$selected.' >'.$operationType->getName().'</option>';
+                                            echo '<option value="'.$operationType->getId().'" '.$selected.' >'.$operationType->getName().'</option>';
                                         }
                                     }
                                     ?>

@@ -64,6 +64,36 @@ jQuery(function($){
     
 });
 
+const errorReportValidate = (action) => {
+
+    if(action != 'edit'){
+        const attachment = document.getElementById('attachment').value;
+        
+        if(!attachment) {
+            alert('Favor anexar uma evidência!');
+            return false;
+        }
+    }    
+
+    return validateEmail();
+}
+
+const validateEmail = () =>{
+
+    const mail = document.getElementById('email').value;
+    const feedback = document.getElementById('mail-feedback');
+    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    
+    if(mail.match(mailformat)){
+        feedback.style.display = 'none';
+        return true;
+
+    } else {
+        feedback.style.display = 'block';
+        return false;
+    }
+}
+
 const editTruckType = (id, description) => {
 
     document.getElementById('id').value = id;
@@ -78,12 +108,21 @@ const resetNewTruck = () =>{
     document.getElementById('action').value = 'save';
 }
 
-const editOperationType = (id, name) => {
+const editOperationType = (id, name, operationSource) => {
+
+    document.getElementById('id').value = id;
+    document.getElementById('name').value = name;
+    document.getElementById('operationSource').value = operationSource;
+    document.getElementById('action').value = 'edit';
+    document.getElementById('title').innerHTML = 'Tipo de Operação - Editar';
+}
+
+const editOperationSource = (id, name) => {
 
     document.getElementById('id').value = id;
     document.getElementById('name').value = name;
     document.getElementById('action').value = 'edit';
-    document.getElementById('title').innerHTML = 'Tipo de Operação - Editar';
+    document.getElementById('title').innerHTML = 'Natureza da Operação - Editar';
 }
 
 const resetOperationType = () =>{
@@ -395,6 +434,43 @@ const handleChangeFiles = () => {
 	}
 
     attachment.files = dt.files;
+}
+
+const handleReportChangeFiles = () => {
+
+    const attachment = document.querySelector('#attachment');
+
+    Array.from(attachment.files).forEach(file => {
+
+        const size = file.size / 1000000;
+
+        if(size > 5){
+            alert('São permitidos apenas anexos com até 5MB!');
+        }else{
+            const parentSpan = document.createElement("span");
+            parentSpan.classList.add("file-block");
+    
+            const childSpan = document.createElement("span");
+            childSpan.classList.add("name");
+            childSpan.innerHTML = file.name;
+    
+            const fileDelete = document.createElement("span");
+            fileDelete.classList.add("file-delete");
+            fileDelete.innerHTML = '+';
+            fileDelete.setAttribute("onclick","removeFile(this, false)");
+    
+            parentSpan.appendChild(fileDelete);
+            parentSpan.appendChild(childSpan);
+    
+            const filesNames = document.querySelector('#files-names');
+    
+            while (filesNames.firstChild) {
+                filesNames.removeChild(filesNames.firstChild);
+            }
+    
+            filesNames.appendChild(parentSpan);
+        }
+    });
 }
 
 const removeFile = (element, removeToEdit) => {

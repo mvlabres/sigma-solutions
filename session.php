@@ -2,6 +2,8 @@
 
 define('ROOT_PATH', dirname(__FILE__));
 
+$GLOBAL_MONTHS = ['01'=>'JANEIRO', '02'=>'FEVEREIRO', '03'=>'MARÇO', '04'=>'ABRIL', '05'=>'MAIO', '06'=>'JUNHO', '07'=>'JULHO', '08'=>'AGOSTO', '09'=>'SETEMBRO', '10'=>'OUTUBRO', '11'=>'NOVEMBRO', '12'=>'DEZEMBRO'];
+
 function sec_session_start() {  
     error_reporting(0);
     date_default_timezone_set("America/Sao_Paulo");
@@ -27,7 +29,7 @@ function sec_session_start() {
     
 }
 
-$pagesNotClearPost = ['searchSchedule.php', 'newSchedule.php'];
+$pagesNotClearPost = ['searchSchedule.php', 'newSchedule.php', 'searchDailyInfo.php', 'newDailyInfo.php'];
 
 //session_cache_limiter('private_no_expire');
 sec_session_start();
@@ -58,7 +60,7 @@ function login($usuario, $senha, $mysqli) {
     $data = date('d/m/Y');
     $hora = date('h:i');
 
-    if ($stmt = $mysqli->prepare("SELECT id,nome, username, password, dataInclusao, tipo FROM usuario  WHERE username = ? LIMIT 1")){ 
+    if ($stmt = $mysqli->prepare("SELECT id,nome, username, password, dataInclusao, tipo FROM usuario  WHERE username = ? LIMIT 1")){  
         
         $stmt->bind_param('s', $usuario);
         $stmt->execute();
@@ -94,7 +96,8 @@ function getAccess($mysqli){
         'register_truck_type'=> 'hidden',
         'register_shipping_company'=> 'hidden',
         'register_log'=> 'hidden',
-        'register_report'=> 'hidden'
+        'register_report'=> 'hidden',
+        'register_operation_source' => 'hidden'
     ];
 
     $sql = "SELECT id, userType, functionName

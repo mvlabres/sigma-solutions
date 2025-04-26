@@ -1,0 +1,208 @@
+[23-Sep-2023 14:27:59 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:27:59 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:28:18 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:28:18 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:28:23 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:28:23 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:28:36 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:28:36 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:28:38 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:28:38 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:29:43 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:29:43 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:29:45 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:29:45 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:33:42 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:33:42 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:33:44 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:33:44 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:36:49 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:36:49 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:36:52 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:36:52 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:36:59 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:36:59 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:37:01 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:37:01 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:37:03 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:37:03 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:37:28 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:37:28 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:37:32 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:37:32 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:37:47 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:37:47 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:37:49 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:37:49 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:39:09 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:39:09 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:39:13 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:39:13 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:40:44 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:40:44 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:40:47 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:40:47 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:40:49 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:40:49 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:41:00 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:41:00 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:41:02 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:41:02 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:41:04 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:41:04 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:41:06 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:41:06 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[23-Sep-2023 14:42:00 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_sigma' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[23-Sep-2023 14:42:00 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[24-Sep-2023 00:20:51 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_scheduling' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[24-Sep-2023 00:20:51 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[24-Sep-2023 00:21:07 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'labsoftt_marcos'@'localhost' to database 'labsoftt_scheduling' in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 19
+[24-Sep-2023 00:21:07 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma-solutions/conn.php on line 20
+[28-Sep-2023 19:55:19 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[28-Sep-2023 19:55:19 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[28-Sep-2023 19:55:31 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[28-Sep-2023 19:55:31 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[30-Sep-2023 13:30:19 America/Fortaleza] PHP Parse error:  syntax error, unexpected '<' in /home2/labsoftt/public_html/sigma/home.php on line 14
+[30-Sep-2023 13:30:42 America/Fortaleza] PHP Parse error:  syntax error, unexpected '<' in /home2/labsoftt/public_html/sigma/home.php on line 14
+[30-Sep-2023 13:30:47 America/Fortaleza] PHP Parse error:  syntax error, unexpected '<' in /home2/labsoftt/public_html/sigma/home.php on line 14
+[30-Sep-2023 13:33:09 America/Sao_Paulo] PHP Warning:  require_once(controller/systemErrorController.php): failed to open stream: No such file or directory in /home2/labsoftt/public_html/sigma/searchSystemError.php on line 7
+[30-Sep-2023 13:33:09 America/Sao_Paulo] PHP Fatal error:  require_once(): Failed opening required 'controller/systemErrorController.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home2/labsoftt/public_html/sigma/searchSystemError.php on line 7
+[30-Sep-2023 13:37:00 America/Sao_Paulo] PHP Warning:  mkdir(): No such file or directory in /home2/labsoftt/public_html/sigma/controller/systemErrorController.php on line 133
+[30-Sep-2023 13:37:43 America/Sao_Paulo] PHP Warning:  mkdir(): No such file or directory in /home2/labsoftt/public_html/sigma/controller/systemErrorController.php on line 133
+[30-Sep-2023 13:37:43 America/Sao_Paulo] PHP Warning:  move_uploaded_file(error_files/error_1/maravilha.pdf): failed to open stream: No such file or directory in /home2/labsoftt/public_html/sigma/controller/systemErrorController.php on line 139
+[30-Sep-2023 13:37:43 America/Sao_Paulo] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/php7cFLVv' to 'error_files/error_1/maravilha.pdf' in /home2/labsoftt/public_html/sigma/controller/systemErrorController.php on line 139
+[07-Feb-2024 19:00:36 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:00:36 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:01:58 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:01:58 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:00 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:00 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:02 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:02 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:03 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:03 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:03 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:03 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:03 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:03 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:08 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:08 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:09 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:09 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:12 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:12 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:20 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:20 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:22 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:22 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:32 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:32 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:32 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:32 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:34 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:34 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:35 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:35 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:46 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:46 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:02:50 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:02:50 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:00 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:00 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:00 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:00 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:01 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:01 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:02 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:02 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:04 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:04 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:05 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:05 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:09 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:09 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:11 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:11 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:29 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:29 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:31 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:31 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:33 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:33 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:34 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:34 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:43 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:43 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:46 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:46 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:51 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:51 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:52 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:52 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:53 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:53 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:53 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:53 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:56 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:56 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:04:56 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:04:56 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:04 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:04 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:04 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:04 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:05 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:05 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:06 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:06 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:09 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:09 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:14 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:14 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:19 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:19 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:26 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:26 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:26 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:26 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:30 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:30 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:31 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:31 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:38 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:38 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:40 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:40 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:44 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:44 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:45 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:45 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:53 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:53 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:05:54 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:05:54 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:06:01 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:06:01 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:06:02 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:06:02 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:08:30 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:08:30 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:08:32 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:08:32 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:08:33 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:08:33 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:08:37 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:08:37 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:08:38 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:08:38 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:08:43 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:08:43 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:08:45 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:08:45 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:08:47 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:08:47 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[07-Feb-2024 19:09:09 America/Fortaleza] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home2/labsoftt/public_html/sigma/conn.php on line 22
+[07-Feb-2024 19:09:09 America/Fortaleza] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home2/labsoftt/public_html/sigma/conn.php on line 23
+[28-Apr-2024 08:33:14 America/Sao_Paulo] PHP Notice:  Undefined index: tipo in /home2/labsoftt/public_html/sigma/searchSystemError.php on line 12
+[28-Apr-2024 08:33:14 America/Sao_Paulo] PHP Notice:  Undefined index: id in /home2/labsoftt/public_html/sigma/controller/systemErrorController.php on line 98
+[28-Apr-2024 08:33:14 America/Sao_Paulo] PHP Notice:  Undefined index: tipo in /home2/labsoftt/public_html/sigma/searchSystemError.php on line 65

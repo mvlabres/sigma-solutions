@@ -25,7 +25,7 @@ class ScheduleController{
         try {
 
             $schedule = new Schedule();
-            $schedule->setStatus('Agendado'); 
+            // $schedule->setStatus('Agendado'); 
             
             $schedule = $this->setFields($post, $schedule);
 
@@ -40,10 +40,8 @@ class ScheduleController{
             $description = $e->getMessage() . '- ' . $e->getTraceAsString();
 
             $description = str_replace('\'', '"', $description);
-
-            $sql = "INSERT INTO logError SET userId = ".$_SESSION['id'] .", dateError = '".date("Y-m-d H:i:s")."', description = '". $description ."' "; 
-
-            $this->mySql->query($sql);
+            
+            echo $description;
     
             return 'SAVE_ERROR';
         }
@@ -236,10 +234,11 @@ class ScheduleController{
     public function setFields($post, $schedule){
 
         if($post['id'] && $post['id'] != null) $schedule->setId($post['id']);
+        $schedule->setStatus($post['scheduleStatus']);
         $schedule->setTransportadora($post['shippingCompany']);
         $schedule->setTipoVeiculo($post['truckType']);
         $schedule->setPlacaCavalo($post['licenceTruck']);
-        $schedule->setOperacao($post['operationType']);
+        // $schedule->setOperacao($operation->getName());
         $schedule->setNf($post['invoice']);
         $schedule->setHoraChegada(date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $post['arrival'] ))));
         if($post['arrival'] == '') $schedule->setHoraChegada('');
@@ -274,6 +273,7 @@ class ScheduleController{
         $schedule->setPlacaCarreta2($post['licenceTrailer2']);
         $schedule->setDocumentoMotorista($post['documentDriver']);
         $schedule->setPlacaCarreta($post['licenceTrailer']);
+        $schedule->setOperationId($post['operationType']);
 
         return $schedule;
     }
@@ -333,6 +333,7 @@ class ScheduleController{
             $schedule['getPlacaCarreta2'] = $data['placa_carreta2'];
             $schedule['getDocumentoMotorista'] = $data['documento_motorista'];
             $schedule['getPlacaCarreta'] = $data['placa_carreta'];
+            $schedule['getOperationId'] = $data['operation_type_id'];
             
             array_push($schedules, $schedule);
         }
@@ -382,6 +383,7 @@ class ScheduleController{
             $schedule->setPlacaCarreta2($data['placa_carreta2']);
             $schedule->setDocumentoMotorista($data['documento_motorista']);
             $schedule->setPlacaCarreta($data['placa_carreta']);
+            $schedule->setOperationId($data['operation_type_id']);
     
             array_push($schedules, $schedule);
         }

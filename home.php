@@ -90,22 +90,24 @@ if(isset($_GET['conteudo'])) {
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-
+                        <li>
                         <?php
                         if($_SESSION['tipo'] == 'adm'){
-                            echo '<li>
-                                <a href="#"><i class="fa fa-user"></i> Usuários  <span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="home.php?conteudo=new-user.php">Cadastrar Usuário</a>
-                                    </li>
-                                    <li>
-                                        <a href="home.php?conteudo=listarUsuarios.php">Listar Usuários</a>
-                                    </li>
-                                </ul>
-                            </li>';
-                        }
-                        ?>
+                        echo '<a href="#"><i class="fa fa-user"></i> Usuários </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="home.php?conteudo=new-user.php">Cadastrar Usuário</a>
+                                </li>
+                                <li>
+                                    <a href="home.php?conteudo=listarUsuarios.php">Listar Usuários</a>
+                                </li>
+                            </ul>
+                        </li>';
+                        }?>
+
+                        <li>
+                            <a href="home.php?conteudo=searchSystemError.php">Reportar um problema</a>
+                        </li>
                     </ul>
                 </div>
             </div>

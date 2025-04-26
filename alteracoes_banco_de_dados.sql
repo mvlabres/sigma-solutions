@@ -22,3 +22,48 @@ INSERT INTO user_access set userType = 'adm', functionName = 'register_operation
 
 ALTER TABLE operation_type ADD COLUMN operation_source_id int,
 ADD CONSTRAINT otfk FOREIGN KEY (operation_source_id) REFERENCES operation_source(id);
+
+
+
+create table system_error_info(
+	id int not null auto_increment primary key,
+    user_id int not null,
+    contact_email varchar(100) not null,
+    created_date datetime not null,
+    attachment_name varchar(100),
+    description varchar(200) not null,
+    CONSTRAINT uifk FOREIGN KEY (user_id) REFERENCES usuario(id)
+);
+
+alter table system_error_info add COLUMN status varchar(50);
+alter table system_error_info add COLUMN resolution varchar(100);
+
+
+ALTER TABLE janela ADD COLUMN operation_type_id int null ;
+
+ALTER TABLE janela
+ADD CONSTRAINT otifk FOREIGN KEY (operation_type_id) REFERENCES operation_type(id);
+
+/*===================================================== já alterado*/
+
+DELIMITER $$
+CREATE TRIGGER `updateJanelaOperation` BEFORE INSERT ON `janela` FOR EACH ROW BEGIN
+    DECLARE operation_name varchar(50);
+    SET operation_name = (SELECT name FROM operation_type WHERE Id = NEW.operation_type_id LIMIT 1);
+    
+    SET NEW.operacao = operation_name;
+END
+$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE TRIGGER `updateJanelaOperationUp` BEFORE UPDATE ON `janela` FOR EACH ROW BEGIN
+    DECLARE operation_name varchar(50);
+    SET operation_name = (SELECT name FROM operation_type WHERE Id = NEW.operation_type_id LIMIT 1);
+    
+    SET NEW.operacao = operation_name;
+END
+$$
+DELIMITER ;

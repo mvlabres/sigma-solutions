@@ -83,7 +83,6 @@ if(isset($_GET['edit']) && $_GET['edit'] != null){
             echo "<script>window.location='home.php?conteudo=searchSystemError.php&feedback=NOT_RESULT'</script>";
         }
     }
-    
     $readonly = '';
     $disabled = '';
 }

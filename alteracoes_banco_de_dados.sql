@@ -8,8 +8,6 @@ create table logError(
 );
 
 
-/*=====================================================*/
-
 CREATE TABLE operation_source(
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -44,7 +42,6 @@ ALTER TABLE janela ADD COLUMN operation_type_id int null ;
 ALTER TABLE janela
 ADD CONSTRAINT otifk FOREIGN KEY (operation_type_id) REFERENCES operation_type(id);
 
-/*===================================================== já alterado*/
 
 DELIMITER $$
 CREATE TRIGGER `updateJanelaOperation` BEFORE INSERT ON `janela` FOR EACH ROW BEGIN
@@ -67,3 +64,18 @@ CREATE TRIGGER `updateJanelaOperationUp` BEFORE UPDATE ON `janela` FOR EACH ROW 
 END
 $$
 DELIMITER ;
+
+
+CREATE TABLE employee(
+  id int(11) primary key NOT NULL AUTO_INCREMENT,
+  name varchar(50) NOT NULL,
+  position varchar(20) NOT NULL,
+  created_date datetime not null,
+  created_by int(11) not null,
+  last_modified_date datetime DEFAULT NULL,
+  last_modified_by int(11) DEFAULT NULL,
+  CONSTRAINT cbefk FOREIGN KEY (created_by) REFERENCES usuario(id),
+  CONSTRAINT lmbefk FOREIGN KEY (last_modified_by) REFERENCES usuario(id)
+);
+
+INSERT INTO user_access set userType = 'adm', functionName = 'register_employee';

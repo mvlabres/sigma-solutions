@@ -183,6 +183,9 @@ if(isset($_GET['conteudo'])) {
                         <li <?=$_SESSION['FUNCTION_ACCESS']['register'] ?>>
                             <a href="#"><i></i> Cadastros</a>
                             <ul class="nav nav-second-level">
+                                <li <?=$_SESSION['FUNCTION_ACCESS']['register_employee'] ?>>
+                                    <a href="index.php?conteudo=newEmployee.php">Colaborador</a>
+                                </li>
                                 <li <?=$_SESSION['FUNCTION_ACCESS']['register_operation_type'] ?>>
                                     <a href="index.php?conteudo=newOperationType.php">Tipo de Operação</a>
                                 </li>

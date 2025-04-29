@@ -117,6 +117,15 @@ const editOperationType = (id, name, operationSource) => {
     document.getElementById('title').innerHTML = 'Tipo de Operação - Editar';
 }
 
+const editEmployee = (id, name, position) => {
+
+    document.getElementById('id').value = id;
+    document.getElementById('name').value = name;
+    document.getElementById('position').value = position;
+    document.getElementById('action').value = 'edit';
+    document.getElementById('title').innerHTML = 'Colaborador - Editar';
+}
+
 const editOperationSource = (id, name) => {
 
     document.getElementById('id').value = id;

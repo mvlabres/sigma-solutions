@@ -31,7 +31,6 @@ function sec_session_start() {
 
 $pagesNotClearPost = ['searchSchedule.php', 'newSchedule.php', 'searchDailyInfo.php', 'newDailyInfo.php'];
 
-//session_cache_limiter('private_no_expire');
 sec_session_start();
 
 $contentPost = '';
@@ -97,7 +96,8 @@ function getAccess($mysqli){
         'register_shipping_company'=> 'hidden',
         'register_log'=> 'hidden',
         'register_report'=> 'hidden',
-        'register_operation_source' => 'hidden'
+        'register_operation_source' => 'hidden',
+        'register_employee' => 'hidden'
     ];
 
     $sql = "SELECT id, userType, functionName

@@ -43,6 +43,21 @@ class EmployeeRepository{
         }
     }
 
+    public function findByNameAndPosition($name, $position){
+        try{
+            $sql = "SELECT id, name, position, created_date
+                    FROM employee
+                    WHERE name = '".$name."' 
+                    AND position = '".$position."'"; 
+
+            $result = $this->mySql->query($sql);
+
+            return $result;
+
+        }catch(Exception $e){
+            return false;
+        }
+    }
 
     public function save($post){
 

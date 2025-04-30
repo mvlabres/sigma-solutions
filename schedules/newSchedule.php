@@ -4,7 +4,9 @@ require_once('../controller/shippingCompanyController.php');
 require_once('../controller/truckTypeController.php');
 require_once('../controller/scheduleController.php');
 require_once('../controller/operationTypeController.php');
+require_once('../controller/employeeController.php');
 require_once('../model/schedule.php');
+require_once('../model/employee.php');
 require_once('../utils.php');
 
 $function = '';
@@ -20,8 +22,9 @@ if($_SESSION['FUNCTION_ACCESS']['schedule_new'] == 'hidden' && ((!isset($_GET['e
 
 $requiredOperatorField = '';
 $requiredPorterField = '';
+$sectionAccess = ($_SESSION['tipo'] == 'client') ? 'hidden' : '';
 
-if($_SESSION['tipo'] == 'operator' && $function != 'new') $requiredOperatorField = 'required';
+if(($_SESSION['tipo'] == 'operator' || $_SESSION['tipo'] == 'adm') && $function != 'new') $requiredOperatorField = 'required';
 if($_SESSION['tipo'] == 'porter') $requiredPorterField = 'required';
 
 $userTypeFieldAccess = [
@@ -48,11 +51,12 @@ $userTypeFieldAccess = [
     'documentDriver'        => [],
     'driverName'            => [],
     'licenceTrailer2'       => [],
-    'licenceTrailer'        => []
+    'licenceTrailer'        => [],
+    'operator'              => ['porter'],
+    'checker'               => ['porter']
 ];
 
 $teste = false;
-
 $fieldAcces = [
     'operationScheduleTime' => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operationScheduleTime'] )) ? 'readonly' : '',
     'arrival'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['arrival'] )) ? 'readonly' : '',
@@ -77,7 +81,9 @@ $fieldAcces = [
     'documentDriver'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['documentDriver'] )) ? 'readonly' : '',
     'driverName'            => (in_array($_SESSION['tipo'], $userTypeFieldAccess['driverName'] )) ? 'readonly' : '',
     'licenceTrailer2'       => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTrailer2'] )) ? 'readonly' : '',
-    'licenceTrailer'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTrailer'] )) ? 'readonly' : ''
+    'licenceTrailer'        => (in_array($_SESSION['tipo'], $userTypeFieldAccess['licenceTrailer'] )) ? 'readonly' : '',
+    'operator'              => (in_array($_SESSION['tipo'], $userTypeFieldAccess['operator'] )) ? 'readonly' : '',
+    'checker'               => (in_array($_SESSION['tipo'], $userTypeFieldAccess['checker'] )) ? 'readonly' : ''
 ];
 
 $schedule = new Schedule();
@@ -98,6 +104,7 @@ $shippingCompanyController = new ShippingCompanyController($MySQLi);
 $truckTypeController = new TruckTypeController($MySQLi);
 $scheduleController = new ScheduleController($MySQLi);
 $operationTypeController = new OperationTypeController($MySQLi);
+$employeeController = new EmployeeController($MySQLi); 
 
 if(isset($_POST['action'])){
 
@@ -165,6 +172,7 @@ if(isset($_GET['edit']) && $_GET['edit'] != null){
 $shippingCompanys = $shippingCompanyController->findByClient($_SESSION['customerName']);
 $truckTypes = $truckTypeController->findAll();
 $operationTypes = $operationTypeController->findByClient($_SESSION['customerName']);
+$employees = $employeeController->findAll();
 
 $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field' : 'warning-text-field';
 
@@ -174,7 +182,6 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
     <div class="col-lg-12">
         <h1 class="page-header">Novo Agendamento </h1>
     </div>   
-    
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -182,6 +189,11 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
             <div class="panel-body">
                 <form role="form-new-user" onsubmit="return validateStatus()" method="post" action="#" name="valida" enctype="multipart/form-data">
                     <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-box-header">
+                                <span>Dados do agendamento </span>
+                            </div>   
+                        </div>
                         <div class="col-lg-6">
                             <input type="hidden" name="id" value="<?=$editId ?>">
                             <input type="hidden" name="action" value="<?=$action ?>" >
@@ -350,6 +362,59 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                                 <textarea class="form-control" type="text"  name="observation" maxlength="149" <?=$readonly ?> <?=$fieldAcces['observation'] ?> id="observation" required><?=$schedule->getObservacao() ?></textarea>
                             </div>
                         </div> 
+                    </div>
+                    <div class="row" <?=$sectionAccess ?>>
+                        <div class="col-lg-12">
+                            <div class="page-box-header">
+                                <span>Dados da operação </span>
+                            </div>   
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Operador</label>
+                                    <select name="operator" class="form-control placeholder" aria-label="Default select example" id="operator" <?=$disabled ?> <?=$fieldAcces['truckType'] ?> <?=$requiredOperatorField ?>>
+                                        <option value="">Selecione...</option>
+                                        <?php
+    
+                                        if(count($employees) > 0){
+                                            foreach ($employees as $employee) {
+
+                                                if($employee->getPosition() != 'operador') continue;
+        
+                                                $selected = null;
+                                                if($schedule->getOperator() == $employee->getName()) $selected = 'selected';
+        
+                                                echo '<option value="'.$employee->getName().'" '.$selected.' >'.$employee->getName().'</option>';
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Conferente</label>
+                                    <select name="checker" class="form-control placeholder" aria-label="Default select example" id="checker" <?=$disabled ?> <?=$fieldAcces['truckType'] ?> <?=$requiredOperatorField ?>>
+                                        <option value="">Selecione...</option>
+                                        <?php
+    
+                                            if(count($employees) > 0){
+                                                foreach ($employees as $employee) {
+
+                                                    if($employee->getPosition() != 'conferente') continue;
+
+                                                    $selected = null;
+                                                    if($schedule->getChecker() == $employee->getName()) $selected = 'selected';
+
+                                                    echo '<option value="'.$employee->getName().'" '.$selected.' >'.$employee->getName().'</option>';
+                                                }
+                                            }
+                                        ?>
+                                    </select>
+                                </div>   
+                            </div>
+                        </div>
                     </div>
                     <div class="full-container">
                         <p class="mt-5 text-left">

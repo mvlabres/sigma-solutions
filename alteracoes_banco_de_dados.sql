@@ -79,3 +79,9 @@ CREATE TABLE employee(
 );
 
 INSERT INTO user_access set userType = 'adm', functionName = 'register_employee';
+
+
+#################################################
+
+ALTER TABLE janela ADD COLUMN operator varchar(50) default null;
+ALTER TABLE janela ADD COLUMN checker varchar(50) default null;

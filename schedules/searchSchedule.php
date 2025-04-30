@@ -4,6 +4,7 @@ require_once('../controller/scheduleController.php');
 require_once('../utils.php');
 
 date_default_timezone_set("America/Sao_Paulo");
+$fieldsAccess = ($_SESSION['tipo'] != 'client') ? true : false;
 
 $columns = [
     'status'               => ['name' => 'status',                'label'=> 'Status',         'order' => 0,  'value' => 'getStatus',             'columnSize'=> 'td-100', 'show' => true],
@@ -29,7 +30,9 @@ $columns = [
     'grossWeight'          => ['name' => 'grossWeight',           'label'=> 'Peso Final',     'order' => 20, 'value' => 'getPeso',               'columnSize'=> 'td-100', 'show' => true],
     'pallets'              => ['name' => 'pallets',               'label'=> 'Paletes',        'order' => 21, 'value' => 'getCargaQtde',          'columnSize'=> 'td-70',  'show' => true],
     'material'             => ['name' => 'material',              'label'=> 'Material',       'order' => 22, 'value' => 'getDadosGerais',        'columnSize'=> 'td-150', 'show' => true],
-    'observation'          => ['name' => 'observation',           'label'=> 'Observação',     'order' => 23, 'value' => 'getObservacao',         'columnSize'=> 'td-150', 'show' => true]
+    'observation'          => ['name' => 'observation',           'label'=> 'Observação',     'order' => 23, 'value' => 'getObservacao',         'columnSize'=> 'td-150', 'show' => true],
+    'operator'             => ['name' => 'operator',              'label'=> 'Operador',       'order' => 24, 'value' => 'getOperator',           'columnSize'=> 'td-150', 'show' => $fieldsAccess],
+    'checker'              => ['name' => 'checker',               'label'=> 'Conferente',     'order' => 25, 'value' => 'getChecker',            'columnSize'=> 'td-150', 'show' => $fieldsAccess],
 ];
 
 $scheduleController = new ScheduleController($MySQLi);

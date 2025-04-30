@@ -17,14 +17,14 @@ if((isset($_GET['startDate']) && $_GET['startDate'] != null) && (isset($_GET['en
     $endDate = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $endDate )));
 
     if($status == 'Todos'){
-        $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta
+        $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta,operator,checker
                 FROM janela
                 WHERE cliente = '".$_SESSION['customerName']."'
                 AND data_agendamento >= '".$startDate."'
                 AND data_agendamento <= '".$endDate."'
                 ORDER BY data_agendamento";  
     }else {
-        $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta
+        $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta,operator,checker
                 FROM janela
                 WHERE cliente = '".$_SESSION['customerName']."'
                 AND status = '".$status."' 
@@ -64,6 +64,11 @@ $file .= '<th>Paletes</th>';
 $file .= '<th>Dados Gerais</th>';
 $file .= '<th>'.utf8_decode("Observação").'</th>';
 
+if($_SESSION['tipo'] != 'client'){
+    $file .= '<th>Operador</th>';
+    $file .= '<th>Conferente</th>';
+}
+
 while ($data = $schedules->fetch_assoc()){ 
     $file .= '<tr>';
     $file .= '<td>'.utf8_decode($data['status']).'</td>';
@@ -99,6 +104,11 @@ while ($data = $schedules->fetch_assoc()){
     $file .= '<td>'.utf8_decode( $data['carga_qtde'] ).'</td>';
     $file .= '<td>'.utf8_decode( $data['dados_gerais'] ).'</td>';
     $file .= '<td>'.utf8_decode( $data['observacao'] ).'</td>';
+
+    if($_SESSION['tipo'] != 'client'){
+        $file .= '<td>'.utf8_decode( $data['operator'] ).'</td>';
+        $file .= '<td>'.utf8_decode( $data['checker'] ).'</td>';
+    }
     $file .= '</tr>';
 }
 

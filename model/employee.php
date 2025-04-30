@@ -47,6 +47,10 @@ class Employee{
     }
 
     public function setLastModifiedDate($lastModifiedDate){
+        if($lastModifiedDate == null) {
+            $this->lastModifiedDate = '';
+            return;
+        } 
         $this->lastModifiedDate = date("d/m/Y H:i:s", strtotime($lastModifiedDate));
     }
     public function getLastModifiedDate(){

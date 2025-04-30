@@ -31,9 +31,9 @@ class EmployeeController{
             $position = $post['position'];
             $name = $post['name'];
 
-            $result = $this->employeeRepository->findByName($name);
+            $result = $this->employeeRepository->findByNameAndPosition($name, $position);
 
-            if(!$result){
+            if($result->num_rows > 0){
                 echo 'erro ao buscar duplicado';
                 return 'SAVE_ERROR';
             }

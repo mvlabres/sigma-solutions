@@ -34,6 +34,8 @@ class Schedule{
     private $placaCarreta;
     private $filesPath;
     private $operationId;
+    private $operator;
+    private $checker;
 
     public function setId($id){
         $this->id = $id;
@@ -232,6 +234,19 @@ class Schedule{
     }
     public function getOperationId(){
         return $this->operationId;
+    }
+
+    public function setOperator($operator){
+        $this->operator = $operator;
+    }
+    public function getOperator(){
+        return $this->operator;
+    }
+    public function setChecker($checker){
+        $this->checker = $checker;
+    }
+    public function getChecker(){
+        return $this->checker;
     }
 }
 

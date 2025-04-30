@@ -274,6 +274,8 @@ class ScheduleController{
         $schedule->setDocumentoMotorista($post['documentDriver']);
         $schedule->setPlacaCarreta($post['licenceTrailer']);
         $schedule->setOperationId($post['operationType']);
+        $schedule->setOperator($post['operator']);
+        $schedule->setChecker($post['checker']);
 
         return $schedule;
     }
@@ -334,7 +336,9 @@ class ScheduleController{
             $schedule['getDocumentoMotorista'] = $data['documento_motorista'];
             $schedule['getPlacaCarreta'] = $data['placa_carreta'];
             $schedule['getOperationId'] = $data['operation_type_id'];
-            
+            $schedule['getOperator'] = $data['operator'];
+            $schedule['getChecker'] = $data['checker'];
+                        
             array_push($schedules, $schedule);
         }
 
@@ -384,6 +388,8 @@ class ScheduleController{
             $schedule->setDocumentoMotorista($data['documento_motorista']);
             $schedule->setPlacaCarreta($data['placa_carreta']);
             $schedule->setOperationId($data['operation_type_id']);
+            $schedule->setOperator($data['operator']);
+            $schedule->setChecker($data['checker']);
     
             array_push($schedules, $schedule);
         }

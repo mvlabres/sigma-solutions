@@ -167,6 +167,11 @@ if(isset($_GET['edit']) && $_GET['edit'] != null){
     $deleteId = $editId;
 }
 
+if((isset($_GET['edit']) && $_GET['edit'] != null) || (isset($_GET['search']) && $_GET['search'] != null)){
+    $ownerRecord = (empty($schedule->getLastModifiedBy())) ? $schedule->getNomeUsuario() : $schedule->getLastModifiedBy();
+    $labelOwnerRecord = (empty($schedule->getLastModifiedBy())) ? 'Criado por ' : 'Alterado última vez por ';
+}
+
 
 
 $shippingCompanys = $shippingCompanyController->findByClient($_SESSION['customerName']);
@@ -192,6 +197,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                         <div class="col-lg-12">
                             <div class="page-box-header">
                                 <span>Dados do agendamento </span>
+                                <span><?=$labelOwnerRecord ?>  <b><?=$ownerRecord ?></b></span>
                             </div>   
                         </div>
                         <div class="col-lg-6">

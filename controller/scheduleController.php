@@ -5,12 +5,14 @@ require_once('../model/schedule.php');
 require_once('../model/columnsPreference.php');
 require_once('../repository/columnsPreferencesRepository.php');
 require_once('../repository/attachmentRepository.php');
+require_once('../repository/scheduleLogRepository.php');
 
 class ScheduleController{
 
     private $schedule;
     private $scheduleRepository;
     private $attachmentRepository;
+    private $scheduleLogRepository;
     private $mySql;
 
     public function __construct($mySql){
@@ -18,6 +20,7 @@ class ScheduleController{
         $this->mySql = $mySql;
         $this->scheduleRepository = new ScheduleRepository($this->mySql);
         $this->attachmentRepository = new AttachmentRepository($this->mySql);
+        $this->$scheduleLogRepository = new ScheduleLogRepository($this->mySql);
     }
 
     public function save($post){
@@ -48,7 +51,20 @@ class ScheduleController{
     }
 
     public function delete($id){
-        return $this->scheduleRepository->delete($id);
+
+        try {
+            $result = $this->scheduleRepository->findById($id);
+
+            if($result->num_rows == 0) return;
+
+            $data = $this->loadData($result);
+            $this->scheduleRepository->delete($id);
+
+            // salvar registro de log de exclusão
+            return $this->$scheduleLogRepository->save($data[0]);
+        } catch (Exception $e) {
+            return 'DELETE_ERROR';
+        }
     }
 
     public function update($post){
@@ -338,7 +354,8 @@ class ScheduleController{
             $schedule['getOperationId'] = $data['operation_type_id'];
             $schedule['getOperator'] = $data['operator'];
             $schedule['getChecker'] = $data['checker'];
-                        
+            $schedule['getLastModifiedBy'] = $data['last_modified_by'];
+            $schedule['getLastModifiedDate'] = date("d/m/Y H:i:s", strtotime($data['last_modified_date']));       
             array_push($schedules, $schedule);
         }
 
@@ -390,6 +407,8 @@ class ScheduleController{
             $schedule->setOperationId($data['operation_type_id']);
             $schedule->setOperator($data['operator']);
             $schedule->setChecker($data['checker']);
+            $schedule->setLastModifiedBy($data['last_modified_by']);
+            $schedule->setLastModifiedDate(date("d/m/Y H:i:s", strtotime($data['last_modified_date'])));
     
             array_push($schedules, $schedule);
         }

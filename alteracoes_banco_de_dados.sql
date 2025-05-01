@@ -80,8 +80,66 @@ CREATE TABLE employee(
 
 INSERT INTO user_access set userType = 'adm', functionName = 'register_employee';
 
+ALTER TABLE janela ADD COLUMN operator varchar(50) default null;
+ALTER TABLE janela ADD COLUMN checker varchar(50) default null;
+
+ALTER TABLE janela ADD COLUMN created_date datetime not null;
+ALTER TABLE janela ADD COLUMN last_modified_date datetime default null;
+ALTER TABLE janela ADD COLUMN last_modified_by varchar(100) default null;
+
+drop table janela_log;
+
+CREATE TABLE `janela_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+  `status` varchar(50) DEFAULT NULL,
+  `tipoVeiculo` varchar(50) DEFAULT NULL,
+  `placa_carreta` varchar(50) DEFAULT NULL,
+  `operacao` varchar(50) DEFAULT NULL,
+  `nf` varchar(50) DEFAULT NULL,
+  `doca` varchar(50) DEFAULT NULL,
+  `usuario` varchar(100) DEFAULT NULL,
+  `dataInclusao` date DEFAULT NULL,
+  `inicio_operacao` datetime DEFAULT NULL,
+  `horaChegada` datetime DEFAULT NULL,
+  `fim_operacao` datetime DEFAULT NULL,
+  `transportadora` varchar(100) DEFAULT NULL,
+  `placa_cavalo` varchar(50) DEFAULT NULL,
+  `peso` varchar(10) DEFAULT NULL,
+  `data_agendamento` datetime DEFAULT NULL,
+  `saida` datetime DEFAULT NULL,
+  `separacao` varchar(20) DEFAULT NULL,
+  `shipment_id` varchar(15) DEFAULT NULL,
+  `do_s` varchar(50) DEFAULT NULL,
+  `cidade` varchar(50) DEFAULT NULL,
+  `carga_qtde` int(11) DEFAULT NULL,
+  `observacao` varchar(150) DEFAULT NULL,
+  `dados_gerais` varchar(500) DEFAULT NULL,
+  `cliente` varchar(50) DEFAULT NULL,
+  `nome_motorista` varchar(100) DEFAULT NULL,
+  `placa_carreta2` varchar(12) DEFAULT NULL,
+  `documento_motorista` varchar(14) DEFAULT NULL,
+  `operator` varchar(14) DEFAULT NULL,
+  `checker` varchar(14) DEFAULT NULL,
+  `action` varchar(20) NOT NULL,
+  `user_action` varchar(100) NOT NULL,
+  `date_time_action` datetime not null
+);
+
+DROP TRIGGER log_janela_update;
+DROP TRIGGER log_janela_delete;
+
+DELIMITER $$
+CREATE TRIGGER `log_janela_update` AFTER UPDATE ON `janela` FOR EACH ROW BEGIN
+    INSERT INTO janela_log (status,tipoVeiculo,placa_carreta,operacao,nf,doca,usuario,dataInclusao,inicio_operacao,horaChegada,fim_operacao,transportadora,placa_cavalo,peso,data_agendamento,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,nome_motorista,placa_carreta2,documento_motorista,operator,checker,action,user_action,date_time_action) 
+    VALUES(OLD.status,OLD.tipoVeiculo,OLD.placa_carreta,OLD.operacao,OLD.nf,OLD.doca,OLD.usuario,OLD.dataInclusao,OLD.inicio_operacao,OLD.horaChegada,OLD.fim_operacao,OLD.transportadora,OLD.placa_cavalo,OLD.peso,OLD.data_agendamento,OLD.saida,OLD.separacao,OLD.shipment_id,OLD.do_s,OLD.cidade,OLD.carga_qtde,OLD.observacao,OLD.dados_gerais,OLD.cliente,OLD.nome_motorista,OLD.placa_carreta2,OLD.documento_motorista,OLD.operator,OLD.checker,"update",NEW.last_modified_by,now()); 
+END
+$$
+DELIMITER ;
+
 
 #################################################
 
-ALTER TABLE janela ADD COLUMN operator varchar(50) default null;
-ALTER TABLE janela ADD COLUMN checker varchar(50) default null;
+
+
+
+

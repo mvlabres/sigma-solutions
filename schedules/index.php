@@ -5,6 +5,9 @@ require_once('../session.php');
 require_once('../controller/customerController.php');
 require_once('../utils.php');
 
+//controla versão de arquivos css e javascript para forçar o carregamento da versão atualizada
+define('Version', '1');
+
 if($_SESSION['nome'] == null){
 	header('LOCATION:../index.php');
 }
@@ -69,7 +72,7 @@ if(isset($_GET['conteudo'])) {
     <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
     <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <link href="../custom-style.css" rel="stylesheet">
+    <link href="../custom-style.css?<?php echo Version; ?>" rel="stylesheet">
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -86,7 +89,7 @@ if(isset($_GET['conteudo'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="../utils.js?n=1"></script>  
+    <script src="../utils.js?<?php echo Version; ?>"></script>  
     <script src="/jQuery-Mask-Plugin-master/"></script>
     <script src="../dist/js/sb-admin-2.js"></script> 
     <script src="../assets/js/jquery-1.11.1.min.js"></script>

@@ -36,6 +36,10 @@ class Schedule{
     private $operationId;
     private $operator;
     private $checker;
+    private $createdDate;
+    private $lastModifiedBy;
+    private $lastModifiedDate;
+
 
     public function setId($id){
         $this->id = $id;
@@ -247,6 +251,24 @@ class Schedule{
     }
     public function getChecker(){
         return $this->checker;
+    }
+    public function setCreatedDate($createdDate){
+        $this->createdDate = $createdDate;
+    }
+    public function getCreatedDate(){
+        return $this->createdDate;
+    }
+    public function setLastModifiedBy($lastModifiedBy){
+        $this->lastModifiedBy = $lastModifiedBy;
+    }
+    public function getLastModifiedBy(){
+        return $this->lastModifiedBy;
+    }
+    public function setLastModifiedDate($lastModifiedDate){
+        $this->lastModifiedDate = $lastModifiedDate;
+    }
+    public function getLastModifiedDate(){
+        return $this->lastModifiedDate;
     }
 }
 

@@ -239,8 +239,8 @@ class ScheduleController{
         $paths = array();
 
         while ($data = $result->fetch_assoc()){ 
-
-            $paths[$data['id']] = $data['path'];
+            $date = (str_contains($data['created_date'], '0000') || $data['created_date'] == null) ? '' : date("d/m/Y H:i", strtotime($data['created_date']));
+            $paths[$data['id']] = ['type'=> $data['type'], 'path' => $data['path'], 'datetime' => $date];
         }
         
         $schedule->setFilesPath($paths);

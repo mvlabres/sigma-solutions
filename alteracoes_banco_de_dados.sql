@@ -136,8 +136,19 @@ END
 $$
 DELIMITER ;
 
+ALTER TABLE `attachment` ADD COLUMN created_date DATETIME DEFAULT NULL;
+ALTER TABLE `attachment` ADD COLUMN created_by VARCHAR(100) DEFAULT NULL;
+ALTER TABLE `attachment` ADD COLUMN type VARCHAR(30) DEFAULT NULL;
 
 #################################################
+
+CREATE TABLE `notification` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `message` varchar(300) DEFAULT NULL,
+  `duration` int DEFAULT NULL,
+  `created_date` date DEFAULT NULL
+);
+
 
 
 

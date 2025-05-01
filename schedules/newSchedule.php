@@ -440,17 +440,23 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
 
                                         foreach ($schedule->getFilesPath() as $key => $value) {
                     
-                                            $fileName = substr($value, strrpos($value, '/') + 1);
+                                            $path = $value['path'];
+                                            $type = $value['type'];
+                                            $dateTime = $value['datetime'];
+                                            $fileName = substr($path, strrpos($path, '/') + 1);
 
+                                            echo '<span class="files-box">';
                                             echo '<span class="file-block">';
 
                                             if($readonly != 'readonly'){
                                                 echo    '<span class="file-delete" id="'.$key.'" onclick="removeFile(this, true)">+</span>';
                                             }
 
-                                            echo    '<a class="file-saved" href="'.$value.'" download>';
+                                            echo    '<a class="file-saved" href="'.$path.'" download>';
                                             echo        '<span class="name">'.$fileName.'</span>';
                                             echo    '</a>';
+                                            echo '</span>';
+                                            echo '<span class="min-size">'.$dateTime.'</span>';
                                             echo '</span>';
                                         }
                                     }

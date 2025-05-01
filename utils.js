@@ -420,6 +420,10 @@ const handleChangeFiles = () => {
     const attachment = document.querySelector('#attachment');
 
     Array.from(attachment.files).forEach(file => {
+
+        const parentDiv = document.createElement("div");
+        parentDiv.classList.add("files-box");
+
         const parentSpan = document.createElement("span");
         parentSpan.classList.add("file-block");
 
@@ -432,9 +436,10 @@ const handleChangeFiles = () => {
         fileDelete.innerHTML = '+';
         fileDelete.setAttribute("onclick","removeFile(this, false)");
 
+        parentDiv.appendChild(parentSpan);
         parentSpan.appendChild(fileDelete);
         parentSpan.appendChild(childSpan);
-        document.querySelector('#files-names').appendChild(parentSpan);
+        document.querySelector('#files-names').appendChild(parentDiv);
     });
 
 
@@ -484,10 +489,10 @@ const handleReportChangeFiles = () => {
 
 const removeFile = (element, removeToEdit) => {
 
-    console.log(element);
     if(removeToEdit) addToRemove(element.id);
     const sibling = element.nextSibling;
     const parent = element.parentElement;
+    const fileBlock = parent.parentElement;
 
     let name = sibling.innerHTML;
 
@@ -495,6 +500,8 @@ const removeFile = (element, removeToEdit) => {
     while (parent.firstChild) {
         parent.firstChild.remove()
     }
+
+    fileBlock.remove();
 
     for(let i = 0; i < dt.items.length; i++){
 

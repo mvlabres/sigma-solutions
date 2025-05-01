@@ -11,7 +11,7 @@ class AttachmentRepository{
     public function findByScheduleId($scheduleId){
 
         try{
-            $sql = "SELECT id, path, scheduleId
+            $sql = "SELECT id, path, scheduleId, created_by, created_date
                     FROM attachment
                     WHERE scheduleId = ".$scheduleId;  
 
@@ -30,6 +30,8 @@ class AttachmentRepository{
             $sql = "INSERT INTO attachment
                     SET 
                     scheduleId = '".$scheduleId."',
+                    created_by = '".$_SESSION['nome']."',
+                    created_date = '".date('Y-m-d H:i:s')."',
                     path = '".$path."'";  
 
             $result = $this->mySql->query($sql);

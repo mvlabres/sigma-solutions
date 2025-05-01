@@ -6,7 +6,7 @@ require_once('../controller/customerController.php');
 require_once('../utils.php');
 
 //controla versão de arquivos css e javascript para forçar o carregamento da versão atualizada
-define('Version', '1');
+define('Version', '2');
 
 if($_SESSION['nome'] == null){
 	header('LOCATION:../index.php');
@@ -33,6 +33,15 @@ if($_SESSION['tipo'] == 'user'){
 }
 
 $conteudo = "panel.php";
+
+//usado para informar o usuário para limpar o cache do navegador
+if($_SESSION['message'] != null && date("d/m/Y") <= date("d/m/Y", strtotime($_SESSION['created_date'] . $_SESSION['duration'] . " days"))){
+    
+    if(!$_SESSION['message_readed']){
+        warningNotification($_SESSION['message']);
+        $_SESSION['message_readed'] = true;
+    }
+}
 
 if(isset($_GET['action']) && $_GET['action'] != null){
 
@@ -250,10 +259,13 @@ if(isset($_GET['conteudo'])) {
             });
         });
 
-        $(".alert").fadeTo(5000, 10).slideUp(500, function(){
+        $(".notification").fadeTo(15000, 10).slideUp(500, function(){
             $(this).remove(); 
         });
 
+        $(".alert").fadeTo(5000, 10).slideUp(500, function(){
+            $(this).remove(); 
+        });
 
         $(function () {
             $('#datetimepicker1').datetimepicker();

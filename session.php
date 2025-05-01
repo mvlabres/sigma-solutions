@@ -53,6 +53,32 @@ if( $_SERVER['REQUEST_METHOD'] =='POST' && !in_array($contentPost, $pagesNotClea
     
 }
 
+function checkNotification($mysqli){
+
+    try {
+        if ($stmt = $mysqli->prepare("SELECT message, duration, created_date FROM notification LIMIT 1")){  
+        
+            $stmt->execute();
+            $stmt->store_result();
+    
+            $stmt->bind_result($message, $duration, $created_date);
+            $stmt->fetch();
+    
+            if ($stmt->num_rows == 1){ 
+                
+                $_SESSION['message'] = $message;
+                $_SESSION['duration'] = $duration;
+                $_SESSION['created_date'] = $created_date;
+                $_SESSION['message_readed'] = false;            
+            }
+        }
+        return;
+    } catch (Exception $ex) {
+        return;
+    }
+
+}
+
 
 function login($usuario, $senha, $mysqli) {
 

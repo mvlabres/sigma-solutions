@@ -214,6 +214,10 @@ html, body {
     overflow: auto !important;
 }
 
+.row {
+    margin-bottom: 20px !important;
+}
+
 /* table column width */
 
 .td-30{
@@ -423,7 +427,8 @@ td{
 
 #files-area{
 	width: 100%;
-	margin: 0 auto;
+    margin-left: 15px;
+	margin: 0px 0px 0px 15px;
 }
 
 #files-names{
@@ -483,6 +488,45 @@ td{
 
 .file-delete{
     transform: rotate(45deg) !important;
+}
+
+.files-group-type{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.file-action{
+    display: flex;
+    flex-direction: row;
+    background-color: #3fb159;
+    width: 170px;
+    max-width: 170px;
+    min-width: 170px;
+    height: 50px;
+    max-height: 50px;
+    min-height: 50px;
+    border-radius: 10px !important;
+    align-items: center;
+    justify-content:flex-start;
+    text-decoration: none;
+    padding-left: 10px;
+}
+.file-action:hover, .files-control:hover{
+    text-decoration: none;
+    text-decoration: none !important;
+    transform: scale(1.05); 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+}
+
+.files-control{
+    margin-left: 10px;
+}
+
+.fa {
+    z-index: 0 !important;
 }
 
 .btn-group-end{
@@ -596,6 +640,67 @@ td{
 progress{
     width: 100% !important;
     margin: none !important;
+}
+
+.tooltip-action {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Tooltip text */
+.tooltiptext {
+    visibility: hidden;
+    width: 350px;
+    background-color: #3a3a3a;
+    color: #000;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: start;
+    top: -150px;
+    left: 15px;
+}
+
+.tooltip-advisor{
+    display: flex;
+    align-items: start;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    z-index: 9999;
+}
+
+.tooltip-advisor > span {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tooltiptext > .tooltip-advisor{
+    background-color: #64d37e;
+    color: #fff;
+}
+
+.tooltiptext > .tooltip-advisor + .tooltip-advisor{
+    background-color: #ffd42a;
+    color: #000;
+}
+
+.tooltiptext > .tooltip-advisor + .tooltip-advisor + .tooltip-advisor{
+    background-color: #cf3b2e;
+    color: #fff;
+}
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+.tooltip-action:hover .tooltiptext {
+    visibility: visible;
 }
 
 .panel-title{
@@ -715,7 +820,7 @@ select[readonly] {
     margin-bottom: 15px;
 }
 
-.page-box-header > span{
+.page-box-header > span, .page-box-header > div > span{
     font-size: 2rem;
 }
 

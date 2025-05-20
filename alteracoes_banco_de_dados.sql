@@ -140,14 +140,65 @@ ALTER TABLE `attachment` ADD COLUMN created_date DATETIME DEFAULT NULL;
 ALTER TABLE `attachment` ADD COLUMN created_by VARCHAR(100) DEFAULT NULL;
 ALTER TABLE `attachment` ADD COLUMN type VARCHAR(30) DEFAULT NULL;
 
-#################################################
-
 CREATE TABLE `notification` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `message` varchar(300) DEFAULT NULL,
   `duration` int DEFAULT NULL,
   `created_date` date DEFAULT NULL
 );
+
+CREATE TABLE attachment_log(
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `path` varchar(100) DEFAULT NULL,
+  `shipmentId` VARCHAR(15) DEFAULT NULL,
+  `created_date` DATETIME DEFAULT NULL,
+  `type` varchar(30) DEFAULT NULL,
+  `action` varchar(20) NOT NULL,
+  `user_action` varchar(100) NOT NULL,
+  `date_time_action` datetime not null
+);
+
+DELIMITER $$
+CREATE TRIGGER `log_attachment_delete` AFTER DELETE ON `attachment` FOR EACH ROW BEGIN
+    INSERT INTO attachment_log (path,created_date,type,action,date_time_action) 
+    VALUES(OLD.path,OLD.created_date,OLD.type,"delete",now()); 
+END
+$$
+DELIMITER ;
+
+
+ALTER TABLE janela ADD COLUMN attatchment_picking_status VARCHAR(20) DEFAULT NULL;
+ALTER TABLE janela ADD COLUMN attatchment_certificate_status VARCHAR(20) DEFAULT NULL;
+ALTER TABLE janela ADD COLUMN attatchment_invoice_status VARCHAR(20) DEFAULT NULL;
+ALTER TABLE janela ADD COLUMN attatchment_boarding_status VARCHAR(20) DEFAULT NULL;
+
+
+ALTER TABLE janela_log ADD COLUMN attatchment_picking_status VARCHAR(20) DEFAULT NULL;
+ALTER TABLE janela_log ADD COLUMN attatchment_certificate_status VARCHAR(20) DEFAULT NULL;
+ALTER TABLE janela_log ADD COLUMN attatchment_invoice_status VARCHAR(20) DEFAULT NULL;
+ALTER TABLE janela_log ADD COLUMN attatchment_boarding_status VARCHAR(20) DEFAULT NULL;
+ALTER TABLE janela_log ADD COLUMN schedule_id INT(11) DEFAULT NULL;
+
+DROP TRIGGER log_janela_update;
+
+DELIMITER $$
+CREATE TRIGGER `log_janela_update` AFTER UPDATE ON `janela` FOR EACH ROW BEGIN
+    INSERT INTO janela_log (schedule_id,status,tipoVeiculo,placa_carreta,operacao,nf,doca,usuario,dataInclusao,inicio_operacao,horaChegada,fim_operacao,transportadora,placa_cavalo,peso,data_agendamento,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,nome_motorista,placa_carreta2,documento_motorista,operator,checker,attatchment_picking_status,attatchment_certificate_status,attatchment_invoice_status,attatchment_boarding_status,action,user_action,date_time_action) 
+    VALUES(OLD.id,NEW.status,NEW.tipoVeiculo,NEW.placa_carreta,NEW.operacao,NEW.nf,NEW.doca,NEW.usuario,NEW.dataInclusao,NEW.inicio_operacao,NEW.horaChegada,NEW.fim_operacao,NEW.transportadora,NEW.placa_cavalo,NEW.peso,NEW.data_agendamento,NEW.saida,NEW.separacao,NEW.shipment_id,NEW.do_s,NEW.cidade,NEW.carga_qtde,NEW.observacao,NEW.dados_gerais,NEW.cliente,NEW.nome_motorista,NEW.placa_carreta2,NEW.documento_motorista,NEW.operator,NEW.checker,NEW.attatchment_picking_status,NEW.attatchment_certificate_status,NEW.attatchment_invoice_status,NEW.attatchment_boarding_status,"update",NEW.last_modified_by,now()); 
+END
+$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER `log_janela_insert` AFTER INSERT ON `janela` FOR EACH ROW BEGIN
+    INSERT INTO janela_log (schedule_id,status,tipoVeiculo,placa_carreta,operacao,nf,doca,usuario,dataInclusao,inicio_operacao,horaChegada,fim_operacao,transportadora,placa_cavalo,peso,data_agendamento,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,nome_motorista,placa_carreta2,documento_motorista,operator,checker,attatchment_picking_status,attatchment_certificate_status,attatchment_invoice_status,attatchment_boarding_status,action,user_action,date_time_action) 
+    VALUES(NEW.id,NEW.status,NEW.tipoVeiculo,NEW.placa_carreta,NEW.operacao,NEW.nf,NEW.doca,NEW.usuario,NEW.dataInclusao,NEW.inicio_operacao,NEW.horaChegada,NEW.fim_operacao,NEW.transportadora,NEW.placa_cavalo,NEW.peso,NEW.data_agendamento,NEW.saida,NEW.separacao,NEW.shipment_id,NEW.do_s,NEW.cidade,NEW.carga_qtde,NEW.observacao,NEW.dados_gerais,NEW.cliente,NEW.nome_motorista,NEW.placa_carreta2,NEW.documento_motorista,NEW.operator,NEW.checker,NEW.attatchment_picking_status,NEW.attatchment_certificate_status,NEW.attatchment_invoice_status,NEW.attatchment_boarding_status,"save",NEW.usuario,now()); 
+END
+$$
+DELIMITER ;
+
+#################################################
+
 
 
 

@@ -39,6 +39,7 @@ class Schedule{
     private $createdDate;
     private $lastModifiedBy;
     private $lastModifiedDate;
+    private $attPickingStatus;
 
 
     public function setId($id){
@@ -270,6 +271,35 @@ class Schedule{
     public function getLastModifiedDate(){
         return $this->lastModifiedDate;
     }
+
+    public function setAttPickingStatus($attPickingStatus){
+        $this->attPickingStatus = $attPickingStatus;
+    }
+    public function getAttPickingStatus(){
+        return $this->attPickingStatus;
+    }
+
+    public function setAttInvoiceStatus($attInvoiceStatus){
+        $this->attInvoiceStatus = $attInvoiceStatus;
+    }
+    public function getAttInvoiceStatus(){
+        return $this->attInvoiceStatus;
+    }
+
+    public function setAttCertificateStatus($attCertificateStatus){
+        $this->attCertificateStatus = $attCertificateStatus;
+    }
+    public function getAttCertificateStatus(){
+        return $this->attCertificateStatus;
+    }
+
+    public function setAttBoardingStatus($attBoardingStatus){
+        $this->attBoardingStatus = $attBoardingStatus;
+    }
+    public function getAttBoardingStatus(){
+        return $this->attBoardingStatus;
+    }
+
 }
 
 ?>

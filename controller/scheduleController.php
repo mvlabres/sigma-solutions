@@ -6,6 +6,7 @@ require_once('../model/columnsPreference.php');
 require_once('../repository/columnsPreferencesRepository.php');
 require_once('../repository/attachmentRepository.php');
 require_once('../repository/scheduleLogRepository.php');
+require_once('../repository/attachmentLogRepository.php');
 
 class ScheduleController{
 
@@ -13,6 +14,7 @@ class ScheduleController{
     private $scheduleRepository;
     private $attachmentRepository;
     private $scheduleLogRepository;
+    private $attachmentLogRepository;
     private $mySql;
 
     public function __construct($mySql){
@@ -21,6 +23,7 @@ class ScheduleController{
         $this->scheduleRepository = new ScheduleRepository($this->mySql);
         $this->attachmentRepository = new AttachmentRepository($this->mySql);
         $this->$scheduleLogRepository = new ScheduleLogRepository($this->mySql);
+        $this->attachmentLogRepository = new AttachmentLogRepository($this->mySql);
     }
 
     public function save($post){
@@ -78,23 +81,24 @@ class ScheduleController{
             $result =  $this->scheduleRepository->updateById($schedule, $post['id']);
             
             if($result == 'SAVE_ERROR') return $result;
-
-            if($post['filesToRemove'] != '') $this->deleteAttachment($post['filesToRemove']);
-
+            if($post['filesToRemove'] != '') $this->deleteAttachment($post['filesToRemove'], $schedule->getShipmentId());
             if($result == 'DELETE_ERROR') throw new Exception("Erro ao deletar anexos", 1);
 
-            return $this->saveFiles($schedule->getId(), 'UPDATED'); 
-        
+            return $this->saveFiles($schedule->getId(), 'UPDATED');
         } catch (Exception $e) {
             return 'SAVE_ERROR';
         }
     }
 
-    public function deleteAttachment($idsString){
-
-        print_r($idsString);
-
+    public function deleteAttachment($idsString, $shipmentId){
         $result = $this->attachmentRepository->deleteByCondition(str_replace(';', ',', $idsString));
+
+        // inserir o nome do usuário  responsável pela deleção do arquivo na tabela de log de anexos 
+        try {
+
+            $numIds = count(explode(",", $idsString)) == null || count(explode(",", $idsString)) == 0 ? 1 : count(explode(",", $idsString));   
+            $this->attachmentLogRepository->updateLastCreated($shipmentId, $numIds);
+        } catch (Exception $ex) { }
     }
 
     public function findByClient($client){
@@ -135,32 +139,55 @@ class ScheduleController{
 
     public function saveFiles($scheduleId, $action){
 
-        $countfiles = count($_FILES['file']['name']);
-
+        $files = ['picking'=> $_FILES['file-picking'], 'invoice' => $_FILES['file-invoice'], 'certificate' => $_FILES['file-certificate'], 'boarding' => $_FILES['file-boarding']];
         try {
-            for($i=0;$i<$countfiles;$i++){
-    
-                $fileName =  $_FILES['file']['name'][$i];
-    
-                $scheduleDirectory = 'files/schedule_'.$scheduleId.'/';
-    
-                if (!file_exists($scheduleDirectory)) mkdir($scheduleDirectory, 0755);
-                
-                $tempName = $_FILES['file']['tmp_name'][$i];
-                $pathFile = $scheduleDirectory.$fileName;
 
-                if (!file_exists($pathFile)) {
-                    move_uploaded_file($tempName,$pathFile);
-                    $this->attachmentRepository->save($scheduleId, $pathFile);
-                }
+            foreach ($files as $key => $value) {
+                $this->iteratorSaveFiles($key, $value, $scheduleId);
             }
 
             return $action;
-
         } catch (Exception $e) {
             return 'SAVE_ERROR';
         }
     }
+
+    public function iteratorSaveFiles($type, $files, $scheduleId){
+
+        try {
+
+            if($files['name'] == null) return;
+            $countfiles = count($files['name']);
+
+            if($countfiles == null || $countfiles == 0)  return;
+
+            for($i=0;$i<$countfiles;$i++){
+                if(empty($files['name'][$i])) continue;
+
+                $fileName =  $files['name'][$i];
+                $scheduleDirectory = 'files/schedule_'.$scheduleId.'/';
+
+                //cria a pasta do agendamento
+                if (!file_exists($scheduleDirectory)) mkdir($scheduleDirectory, 0755);
+
+                // cria as pastas por tipo de arquivo
+                $scheduleDirectory .= $type.'/';
+                if (!file_exists($scheduleDirectory)) mkdir($scheduleDirectory, 0755);
+
+                $tempName = $files['tmp_name'][$i];
+                $pathFile = $scheduleDirectory.$fileName;
+
+                if (!file_exists($pathFile)) {
+                    move_uploaded_file($tempName,$pathFile);
+                    $this->attachmentRepository->save($scheduleId, $pathFile, $type);
+                }
+            }
+            
+        } catch (Exception $ex) {
+            throw $ex;
+            
+        }
+    } 
 
     public function savePreferences($columnsDefault, $post){
 
@@ -240,7 +267,7 @@ class ScheduleController{
 
         while ($data = $result->fetch_assoc()){ 
             $date = (str_contains($data['created_date'], '0000') || $data['created_date'] == null) ? '' : date("d/m/Y H:i", strtotime($data['created_date']));
-            $paths[$data['id']] = ['type'=> $data['type'], 'path' => $data['path'], 'datetime' => $date];
+            $paths[$data['id']] = ['id' => $data['id'], 'type'=> $data['type'], 'path' => $data['path'], 'datetime' => $date];
         }
         
         $schedule->setFilesPath($paths);
@@ -292,6 +319,11 @@ class ScheduleController{
         $schedule->setOperationId($post['operationType']);
         $schedule->setOperator($post['operator']);
         $schedule->setChecker($post['checker']);
+        
+        $schedule->setAttPickingStatus($post['picking-status']);
+        $schedule->setAttInvoiceStatus($post['invoice-status']);
+        $schedule->setAttCertificateStatus($post['certificate-status']);
+        $schedule->setAttBoardingStatus($post['boarding-status']);
 
         return $schedule;
     }
@@ -409,6 +441,12 @@ class ScheduleController{
             $schedule->setChecker($data['checker']);
             $schedule->setLastModifiedBy($data['last_modified_by']);
             $schedule->setLastModifiedDate(date("d/m/Y H:i:s", strtotime($data['last_modified_date'])));
+
+            $schedule->setAttPickingStatus($data['attatchment_picking_status']);
+
+            $schedule->setAttInvoiceStatus($data['attatchment_invoice_status']);
+            $schedule->setAttCertificateStatus($data['attatchment_certificate_status']);
+            $schedule->setAttBoardingStatus($data['attatchment_boarding_status']);
     
             array_push($schedules, $schedule);
         }

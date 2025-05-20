@@ -6,7 +6,15 @@ let inactiveScheduleColumnsSearch = [];
 let activeColumnsTemp = [];
 let inactiveColumnsTemp = [];
 
-const dt = new DataTransfer();
+const dts = {
+    'picking': new DataTransfer(),
+    'invoice': new DataTransfer(),
+    'certificate': new DataTransfer(),
+    'boarding': new DataTransfer()
+
+} 
+
+const ACTION_DIALOG_MESSAGE = 'Tem certeza que deseja $1 a inclusão de anexos($2)?';
 
 const PROGRESS_TIME = 60000;
 
@@ -415,9 +423,9 @@ const saveOrder = () => {
     document.getElementById('order-form').submit();
 }
 
-const handleChangeFiles = () => {
+const handleChangeFiles = (idFieldSufix) => {
 
-    const attachment = document.querySelector('#attachment');
+    const attachment = document.querySelector('#attachment-'+idFieldSufix);
 
     Array.from(attachment.files).forEach(file => {
 
@@ -439,15 +447,14 @@ const handleChangeFiles = () => {
         parentDiv.appendChild(parentSpan);
         parentSpan.appendChild(fileDelete);
         parentSpan.appendChild(childSpan);
-        document.querySelector('#files-names').appendChild(parentDiv);
+        document.querySelector('#files-names-'+idFieldSufix).appendChild(parentDiv);
     });
 
-
     for (let file of attachment.files) {
-		dt.items.add(file);
+		dts[idFieldSufix].items.add(file);
 	}
 
-    attachment.files = dt.files;
+    attachment.files = dts[idFieldSufix].files;
 }
 
 const handleReportChangeFiles = () => {
@@ -487,7 +494,109 @@ const handleReportChangeFiles = () => {
     });
 }
 
-const removeFile = (element, removeToEdit) => {
+const manageStatusModal = (statusFieldId, type, label) => {
+
+    const status = document.querySelector(`#${statusFieldId}`).value;
+    document.querySelector('#field-name').value = type;
+    let message = (status === 'open') ? ACTION_DIALOG_MESSAGE.replace('$1', 'encerrar').replace('$2', label) : ACTION_DIALOG_MESSAGE.replace('$1', 'reabrir').replace('$2', label);
+    document.querySelector(`#att-action-confirm-message`).innerHTML = message;
+
+}
+
+const ajaxSaveAction = () => {
+
+    const fieldName = document.querySelector('#field-name').value;
+
+    let actionValue = 'closed';
+    if(document.querySelector(`#${fieldName}-status`).value === 'closed') actionValue = 'open';
+    else {
+        actionValue = 'closed';
+        document.querySelector(`#${fieldName}-status`).value = actionValue; 
+    }
+
+    const scheduleId = document.querySelector('#scheduleId').value;
+    if(!scheduleId) {
+        manageActionStatus(fieldName, actionValue);
+        document.querySelector('#action-confirm-close').click();
+        return;
+    }
+    
+    if(window.XMLHttpRequest) {
+        req = new XMLHttpRequest();
+    }
+    else if(window.ActiveXObject) {
+        req = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    var url = `../controller/ajax/fileActionStatusAjaxController.php?scheduleId=${scheduleId}&field=${fieldName}&action=${actionValue}`;
+    req.open("Get", url, true); 
+
+    req.onreadystatechange = function() {
+        if(req.readyState == 4 && req.status == 200) {
+            if(req.response){
+                manageActionStatus(fieldName, actionValue);
+            }
+            document.querySelector('#action-confirm-close').click();
+
+        }else if(req.readyState == 4 && req.status != 200){
+            document.querySelector('#action-confirm-close').click();
+        }else{
+            console.log('Error');
+        }
+    }
+    req.send(null);
+}
+
+const manageActionStatus = (fieldName, actionValue) => {
+    const fieldStatus = document.querySelector(`#${fieldName}-status`);
+    const fileAction = document.querySelector(`#file-action-${fieldName}`);
+    const fileActionIcon = document.querySelector(`#file-action-icon-${fieldName}`);
+    const buttonActionIcon = document.querySelector(`#file-action-control-icon-${fieldName}`);
+    const inputFile = document.querySelector(`#attachment-${fieldName}`);
+    const buttonAction = document.querySelector(`#files-control-${fieldName}`);
+    const attParentElement = document.querySelector(`#files-names-${fieldName}`);
+    
+    if(actionValue == 'closed'){
+        fileAction.style ="background-color: #64d37e;color: #000000'";
+        fileActionIcon.classList.add('fa');
+        fileActionIcon.classList.add('fa-check-circle');
+        buttonActionIcon.classList.add('fa');
+        buttonActionIcon.classList.remove('fa-lock');
+        buttonActionIcon.classList.add('fa-unlock');
+        inputFile.disabled = true;
+        fileAction.style.pointerEvents = 'none';
+        fieldStatus.value = 'closed';
+        buttonAction.title = "Abrir";
+
+        //ocultar todos os botões de deletar arquivos
+        document.querySelectorAll('.file-delete').forEach(element => {
+            element.setAttribute('hidden', true);
+        })
+    }else{
+
+        if(attParentElement.children.length > 0){
+            fileAction.style ='background-color: #ffd42a;color: #000';
+            fileActionIcon.classList.add('fa-warning');
+        }else{
+            fileAction.style ='background-color: #cf3b2e;color: #ffffff';
+            fileActionIcon.classList.add('fa-times');
+        }
+        fileActionIcon.classList.add('fa');
+        buttonActionIcon.classList.add('fa');
+        buttonActionIcon.classList.remove('fa-unlock');
+        buttonActionIcon.classList.add('fa-lock');
+        inputFile.disabled = false;
+        fileAction.style.pointerEvents = 'auto';
+        fieldStatus.value = 'open';
+        buttonAction.title = "Fechar";
+
+        document.querySelectorAll('.file-delete').forEach(element => {
+            element.removeAttribute('hidden');
+        })
+    }
+}
+
+
+const removeFile = (element, removeToEdit, fieldType) => {
 
     if(removeToEdit) addToRemove(element.id);
     const sibling = element.nextSibling;
@@ -511,7 +620,7 @@ const removeFile = (element, removeToEdit) => {
         }
     }
 
-    document.getElementById('attachment').files = dt.files;
+    document.getElementById('attachment-'+fieldType).files = dt.files;
 
 }
 

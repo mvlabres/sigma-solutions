@@ -12,6 +12,9 @@ require_once('../utils.php');
 $function = '';
 $hasError = false;
 
+$scheduleId;
+$pickingActionStatus = $invoiceActionStatus = $certificateActionStatus = $boardingActionStatus = 'open';  
+
 if(isset($_GET['function']) && $_GET['function'] != null){
     $function = $_GET['function'];
 }
@@ -24,15 +27,17 @@ $requiredOperatorField = '';
 $requiredPorterField = '';
 $sectionAccess = ($_SESSION['tipo'] == 'client') ? 'hidden' : '';
 
+$pickingFileDeleteAccess = $invoiceFileDeleteAccess = $certificateFileDeleteAccess = $boardingFileDeleteAccess = '';
+
 if(($_SESSION['tipo'] == 'operator' || $_SESSION['tipo'] == 'adm') && $function != 'new') $requiredOperatorField = 'required';
 if($_SESSION['tipo'] == 'porter') $requiredPorterField = 'required';
 
 $userTypeFieldAccess = [
     'operationScheduleTime' => [],
-    'arrival'               => ['client', 'operator'],
+    'arrival'               => ['client'],
     'operationStart'        => ['client', 'porter'],
     'operationDone'         => ['client', 'porter'],
-    'operationExit'         => ['client', 'operator'],
+    'operationExit'         => ['client'],
     'operationType'         => ['porter'],
     'shippingCompany'       => ['porter'],
     'city'                  => ['porter'],
@@ -99,6 +104,10 @@ if($_SESSION['tipo'] != 'adm'){
     $deleteButtonStyle .= ' btn-hidden';
 }
 
+if($_SESSION['tipo'] == 'client'){
+    $fileActionButtonStyle .= ' btn-hidden';
+}
+
 
 $shippingCompanyController = new ShippingCompanyController($MySQLi);
 $truckTypeController = new TruckTypeController($MySQLi);
@@ -111,7 +120,6 @@ if(isset($_POST['action'])){
     $result;
 
     if($_POST['action'] == 'save'){
-
         $result = $scheduleController->save($_POST);
     } else if($_POST['action'] == 'edit'){
         $result = $scheduleController->update($_POST);
@@ -146,6 +154,23 @@ if(isset($_POST['action'])){
 $deleteId = ''; 
 $editId = '';
 
+//gerenciar icones e cores dos grupos de anexos
+$emptyStatus = ['style'=>'background-color: #cf3b2e;color: #ffffff;pointer-events:auto', 'icon'=>'times', 'status-icon'=> 'lock','status-icon-title'=> 'Fechar', 'access'=> ''];
+$openStatus =['style'=>'background-color: #ffd42a;color: #000000;pointer-events:auto','icon'=>'warning', 'status-icon'=> 'lock','status-icon-title'=> 'Fechar', 'access'=> ''];  
+$closeStatus = ['style'=>'background-color: #64d37e;color: #fff;pointer-events:none','icon'=>'check-circle', 'status-icon'=> 'unlock','status-icon-title'=> 'Abrir', 'access'=> 'disabled'];
+
+$pickingStatus = $emptyStatus;
+$invoiceStatus = $emptyStatus;
+$certificateStatus = $emptyStatus;
+$boardingStatus = $emptyStatus;
+
+$pickingFiles = array();
+$invoiceFiles = array();
+$certificateFiles = array();
+$boardingListFiles = array();
+
+$fileHelpMessage = 'Adicionar anexo';
+
 if(isset($_GET['search']) && $_GET['search'] != null){
 
     $searchId = $_GET['search'];
@@ -153,9 +178,8 @@ if(isset($_GET['search']) && $_GET['search'] != null){
     $readonly = 'readonly';
     $disabled = 'disabled';
     $deleteId = $searchId;
+    $scheduleId = $searchId;
 }
-
-
 
 if(isset($_GET['edit']) && $_GET['edit'] != null){
 
@@ -165,14 +189,72 @@ if(isset($_GET['edit']) && $_GET['edit'] != null){
     $readonly = '';
     $disabled = '';
     $deleteId = $editId;
+    $scheduleId = $editId;
+
+    if(($_SESSION['tipo'] == 'operator' || $_SESSION['tipo'] == 'adm') && empty($schedule->getInicioOperacao()) ) $requiredOperatorField = '';
 }
 
 if((isset($_GET['edit']) && $_GET['edit'] != null) || (isset($_GET['search']) && $_GET['search'] != null)){
     $ownerRecord = (empty($schedule->getLastModifiedBy())) ? $schedule->getNomeUsuario() : $schedule->getLastModifiedBy();
     $labelOwnerRecord = (empty($schedule->getLastModifiedBy())) ? 'Criado por ' : 'Alterado última vez por ';
+
+    foreach ($schedule->getFilesPath() as $key => $value) {
+                        
+        $type = $value['type'];
+        switch ($type) {
+            case 'picking':{
+                $pickingFiles[$key] = $value;
+                $pickingStatus = $openStatus;
+                break;
+            }
+
+            case 'certificate':{
+                $certificateFiles[$key] = $value;
+                $certificateStatus = $openStatus;
+                break;
+            }
+
+            case 'invoice':{
+                $invoiceFiles[$key] = $value;
+                $invoiceStatus = $openStatus;
+                break;
+            }
+
+            case 'boarding':
+                $boardingFiles[$key] = $value;
+                $boardingStatus = $openStatus;
+                break;
+            
+            default:{
+                $pickingFiles[$key] = $value;
+                $pickingStatus = $openStatus;
+                break;
+            }
+        }
+        $dateTime = $value['datetime'];
+        $fileName = substr($path, strrpos($path, '/') + 1);
+    }
+
+    if($schedule->getAttPickingStatus() == 'closed') {
+        $pickingStatus = $closeStatus;
+        $pickingFileDeleteAccess = 'hidden';
+    }
+
+    if($schedule->getAttInvoiceStatus() == 'closed') {
+        $invoiceStatus = $closeStatus;
+        $invoiceFileDeleteAccess = 'hidden';
+    }
+
+    if($schedule->getAttCertificateStatus() == 'closed') {
+        $certificateStatus = $closeStatus;
+        $certificateFileDeleteAccess = 'hidden';
+    }
+
+    if($schedule->getAttBoardingStatus() == 'closed') {
+        $boardingStatus = $closeStatus;
+        $boardingFileDeleteAccess = 'hidden';
+    }
 }
-
-
 
 $shippingCompanys = $shippingCompanyController->findByClient($_SESSION['customerName']);
 $truckTypes = $truckTypeController->findAll();
@@ -201,8 +283,12 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>   
                         </div>
                         <div class="col-lg-6">
-                            <input type="hidden" name="id" value="<?=$editId ?>">
+                            <input type="hidden" name="id" id="scheduleId" value="<?=$editId ?>">
                             <input type="hidden" name="action" value="<?=$action ?>" >
+                            <input type="hidden" name="picking-status" id="picking-status" value="<?php if($schedule->getAttPickingStatus() == null) echo 'open'; else echo $schedule->getAttPickingStatus() ?>" >
+                            <input type="hidden" name="invoice-status" id="invoice-status" value="<?php if($schedule->getAttInvoiceStatus() == null) echo 'open'; else echo $schedule->getAttInvoiceStatus() ?>" >
+                            <input type="hidden" name="certificate-status" id="certificate-status" value="<?php if($schedule->getAttCertificateStatus() == null) echo 'open'; else echo $schedule->getAttCertificateStatus() ?>" >
+                            <input type="hidden" name="boarding-status" id="boarding-status" value="<?php if($schedule->getAttBoardingStatus() == null) echo 'open'; else echo $schedule->getAttBoardingStatus() ?>" >
                             <div class="form-group">
                                 <label>Status</label>
                                 <input type='text' class="invisible-disabeld-field form-control <?=$statusFieldColor ?>" value="<?php if($schedule->getStatus()==null) echo 'Novo'; else echo $schedule->getStatus() ?>" name="scheduleStatus" id="scheduleStatus" readonly/> 
@@ -422,48 +508,193 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-box-header">
+                                <div>
+                                    <span>Anexos </span>
+                                    <a>
+                                        <span class="tooltip-action fa fa-info-circle">
+                                            <div class="tooltiptext">
+                                                <div class="tooltip-advisor"><span><b>verde</b> siginifica que todos os arquivos já foram adicionados :)</span></div>
+                                                <div class="tooltip-advisor"><span><b>Amarelo</b> significa que já contém arquivos mas ainda é possível adicionar novos arquivos :|</span></div>
+                                                <div class="tooltip-advisor"><span><b>Vermelho</b> siginifica que nenhum arquivo foi adicionado :(</span></div>
+                                            </div>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
                     <div class="full-container">
-                        <p class="mt-5 text-left">
-                            <label for="attachment">
-                                <a class="btn btn-primary text-light" role="button" aria-disabled="false" <?=$fieldAcces['files'] ?> >+ Anexos</a>
-                                
-                            </label>
-                            <input type="file" name="file[]"  id="attachment" style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles()" <?=$fieldAcces['files'] ?> />
-                            
-                        </p>
-                        <p id="files-area">
-                            <span id="filesList">
-                                <span id="files-names">
-                                    <?php
-
-                                    if((isset($_GET['search']) && $_GET['search'] != null) || (isset($_GET['edit']) && $_GET['edit'] != null)){
-
-                                        foreach ($schedule->getFilesPath() as $key => $value) {
-                    
-                                            $path = $value['path'];
-                                            $type = $value['type'];
-                                            $dateTime = $value['datetime'];
-                                            $fileName = substr($path, strrpos($path, '/') + 1);
-
-                                            echo '<span class="files-box">';
-                                            echo '<span class="file-block">';
-
-                                            if($readonly != 'readonly'){
-                                                echo    '<span class="file-delete" id="'.$key.'" onclick="removeFile(this, true)">+</span>';
+                        <!-- picking -->
+                        <div class="files-group-type">
+                            <div class="mt-5 text-left">
+                                <label for="attachment-picking">
+                                    <a class="file-action" id="file-action-picking" title="<?=$fileHelpMessage ?>" style="<?=$pickingStatus['style'] ?>" role="button" aria-disabled="false" <?=$fieldAcces['files'] ?> ><span id="file-action-icon-picking" class="fa fa-<?=$pickingStatus['icon'] ?>"></span>&nbsp; Picking</a>
+                                </label>
+                                <input type="file" name="file-picking[]"  id="attachment-picking" <?=$disabled ?> style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles('picking')" <?=$fieldAcces['files'] ?>  <?=$pickingStatus['access'] ?>/>
+                            </div>
+                            <button class="btn btn-light files-control <?=$fileActionButtonStyle ?>" id="files-control-picking" title="<?=$pickingStatus['status-icon-title'] ?>" type="button" data-target="#close-att-confirm" data-toggle="modal" onclick="manageStatusModal('picking-status','picking','Nota Fiscal')"><span id="file-action-control-icon-picking" class="fa fa-<?=$pickingStatus['status-icon'] ?>"></span></button>
+                            <p id="files-area">
+                                <span id="filesList">
+                                    <span id="files-names-picking">
+                                        <?php
+    
+                                        if((isset($_GET['search']) && $_GET['search'] != null) || (isset($_GET['edit']) && $_GET['edit'] != null)){
+                                            foreach ($pickingFiles as $file) {
+                        
+                                                $path = $file['path'];
+                                                $dateTime = $file['datetime'];
+                                                $fileName = substr($path, strrpos($path, '/') + 1);
+    
+                                                echo '<span class="files-box">';
+                                                echo '<span class="file-block">';
+    
+                                                if($readonly != 'readonly'){
+                                                    echo    '<span class="file-delete" id="'.$file['id'].'" onclick="removeFile(this, true, \'picking\')" '.$pickingFileDeleteAccess.'>+</span>';
+                                                }
+    
+                                                echo    '<a class="file-saved" href="'.$path.'" download>';
+                                                echo        '<span class="name">'.$fileName.'</span>';
+                                                echo    '</a>';
+                                                echo '</span>';
+                                                echo '<span class="min-size">'.$dateTime.'</span>';
+                                                echo '</span>';
                                             }
-
-                                            echo    '<a class="file-saved" href="'.$path.'" download>';
-                                            echo        '<span class="name">'.$fileName.'</span>';
-                                            echo    '</a>';
-                                            echo '</span>';
-                                            echo '<span class="min-size">'.$dateTime.'</span>';
-                                            echo '</span>';
                                         }
-                                    }
-                                    ?>
+                                        ?>
+                                    </span>
                                 </span>
-                            </span>
-                        </p>
+                            </p>
+                        </div>
+
+                        <!-- certificado -->
+                        <div class="files-group-type">
+                            <div class="mt-5 text-left">
+                                <label for="attachment-certificate">
+                                    <a class="file-action" id="file-action-certificate" title="<?=$fileHelpMessage ?>" style="<?=$certificateStatus['style'] ?>" role="button" aria-disabled="false" <?=$fieldAcces['files'] ?> ><span id="file-action-icon-certificate" class="fa fa-<?=$certificateStatus['icon'] ?>"></span>&nbsp; Certificado</a>
+                                </label>
+                                <input type="file" name="file-certificate[]"  id="attachment-certificate" <?=$disabled ?> style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles('certificate')" <?=$fieldAcces['files'] ?>  <?=$certificateStatus['access'] ?>/>
+                            </div>
+                            <button class="btn btn-light files-control <?=$fileActionButtonStyle ?>" id="files-control-certificate" title="<?=$certificateStatus['status-icon-title'] ?>" type="button" data-target="#close-att-confirm" data-toggle="modal" onclick="manageStatusModal('certificate-status','certificate','certificado')"><span id="file-action-control-icon-certificate" class="fa fa-<?=$certificateStatus['status-icon'] ?>"></span></button>
+                            <p id="files-area">
+                                <span id="filesList">
+                                    <span id="files-names-certificate">
+                                        <?php
+    
+                                        if((isset($_GET['search']) && $_GET['search'] != null) || (isset($_GET['edit']) && $_GET['edit'] != null)){
+                                            foreach ($certificateFiles as $file) {
+                        
+                                                $path = $file['path'];
+                                                $dateTime = $file['datetime'];
+                                                $fileName = substr($path, strrpos($path, '/') + 1);
+    
+                                                echo '<span class="files-box">';
+                                                echo '<span class="file-block">';
+    
+                                                if($readonly != 'readonly'){
+                                                    echo    '<span class="file-delete" id="'.$file['id'].'" onclick="removeFile(this, true, \'certificate\')" '.$certificateFileDeleteAccess.'>+</span>';
+                                                }
+    
+                                                echo    '<a class="file-saved" href="'.$path.'" download>';
+                                                echo        '<span class="name">'.$fileName.'</span>';
+                                                echo    '</a>';
+                                                echo '</span>';
+                                                echo '<span class="min-size">'.$dateTime.'</span>';
+                                                echo '</span>';
+                                            }
+                                        }
+                                        ?>
+                                    </span>
+                                </span>
+                            </p>
+                        </div>
+
+                        <!-- lista de embarque -->
+                        <div class="files-group-type">
+                            <div class="mt-5 text-left">
+                                <label for="attachment-boarding">
+                                    <a class="file-action" id="file-action-boarding" title="<?=$fileHelpMessage ?>" style="<?=$boardingStatus['style'] ?>" role="button" aria-disabled="false" <?=$fieldAcces['files'] ?> ><span id="file-action-icon-boarding" class="fa fa-<?=$boardingStatus['icon'] ?>"></span>&nbsp; Lista de Embarque</a>
+                                </label>
+                                <input type="file" name="file-boarding[]"  id="attachment-boarding" <?=$disabled ?> style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles('boarding')" <?=$fieldAcces['files'] ?>  <?=$boardingStatus['access'] ?>/>
+                            </div>
+                            <button class="btn btn-light files-control <?=$fileActionButtonStyle ?>" id="files-control-boarding" title="<?=$boardingStatus['status-icon-title'] ?>" type="button" data-target="#close-att-confirm" data-toggle="modal" onclick="manageStatusModal('boarding-status','boarding','Lista de Embarque')"><span id="file-action-control-icon-boarding" class="fa fa-<?=$boardingStatus['status-icon'] ?>"></span></button>
+                            <p id="files-area">
+                                <span id="filesList">
+                                    <span id="files-names-boarding">
+                                        <?php
+    
+                                        if((isset($_GET['search']) && $_GET['search'] != null) || (isset($_GET['edit']) && $_GET['edit'] != null)){
+                                            foreach ($boardingFiles as $file) {
+                        
+                                                $path = $file['path'];
+                                                $dateTime = $file['datetime'];
+                                                $fileName = substr($path, strrpos($path, '/') + 1);
+    
+                                                echo '<span class="files-box">';
+                                                echo '<span class="file-block">';
+    
+                                                if($readonly != 'readonly'){
+                                                    echo    '<span class="file-delete" id="'.$file['id'].'" onclick="removeFile(this, true, \'boarding\')" '.$boardingFileDeleteAccess.'>+</span>';
+                                                }
+    
+                                                echo    '<a class="file-saved" href="'.$path.'" download>';
+                                                echo        '<span class="name">'.$fileName.'</span>';
+                                                echo    '</a>';
+                                                echo '</span>';
+                                                echo '<span class="min-size">'.$dateTime.'</span>';
+                                                echo '</span>';
+                                            }
+                                        }
+                                        ?>
+                                    </span>
+                                </span>
+                            </p>
+                        </div>
+
+                        <!-- nota fiscal -->
+                        <div class="files-group-type">
+                            <div class="mt-5 text-left">
+                                <label for="attachment-invoice">
+                                    <a class="file-action" id="file-action-invoice" title="<?=$fileHelpMessage ?>" style="<?=$invoiceStatus['style'] ?>" role="button" aria-disabled="false" <?=$fieldAcces['files'] ?> ><span id="file-action-icon-invoice" class="fa fa-<?=$invoiceStatus['icon'] ?>"></span>&nbsp; Nota Fiscal</a>
+                                </label>
+                                <input type="file" name="file-invoice[]"  id="attachment-invoice" <?=$disabled ?> style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles('invoice')" <?=$fieldAcces['files'] ?>  <?=$invoiceStatus['access'] ?>/>
+                            </div>
+                            <button class="btn btn-light files-control <?=$fileActionButtonStyle ?>" id="files-control-invoice" title="<?=$invoiceStatus['status-icon-title'] ?>" type="button" data-target="#close-att-confirm" data-toggle="modal" onclick="manageStatusModal('invoice-status','invoice','Nota fiscal')"><span id="file-action-control-icon-invoice" class="fa fa-<?=$invoiceStatus['status-icon'] ?>"></span></button>
+                            <p id="files-area">
+                                <span id="filesList">
+                                    <span id="files-names-invoice">
+                                        <?php
+    
+                                        if((isset($_GET['search']) && $_GET['search'] != null) || (isset($_GET['edit']) && $_GET['edit'] != null)){
+                                            foreach ($invoiceFiles as $file) {
+                        
+                                                $path = $file['path'];
+                                                $dateTime = $file['datetime'];
+                                                $fileName = substr($path, strrpos($path, '/') + 1);
+    
+                                                echo '<span class="files-box">';
+                                                echo '<span class="file-block">';
+    
+                                                if($readonly != 'readonly'){
+                                                    echo    '<span class="file-delete" id="'.$file['id'].'" onclick="removeFile(this, true, \'invoice\')" '.$invoiceFileDeleteAccess.'>+</span>';
+                                                }
+    
+                                                echo    '<a class="file-saved" href="'.$path.'" download>';
+                                                echo        '<span class="name">'.$fileName.'</span>';
+                                                echo    '</a>';
+                                                echo '</span>';
+                                                echo '<span class="min-size">'.$dateTime.'</span>';
+                                                echo '</span>';
+                                            }
+                                        }
+                                        ?>
+                                    </span>
+                                </span>
+                            </p>
+                        </div>
+
                     </div> 
                     <input id="filesToRemove" name="filesToRemove" type="hidden" value="">
                     <div class="btn-group-end">
@@ -497,4 +728,21 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
         </div>
     </div>
 </div>
+<div class="modal fade" id="close-att-confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <input type="hidden" name="field-name" id="field-name" value="" >
+            <div class="modal-header">
+                <button type="button" id="action-confirm-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Excluir</h4>
+            </div>
+            <div id="att-action-confirm-message" class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                <button type="button" class="btn btn-primary" id="confirm" onclick="ajaxSaveAction()">Sim</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 

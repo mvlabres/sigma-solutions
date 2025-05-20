@@ -6,11 +6,15 @@ require_once('../controller/customerController.php');
 require_once('../utils.php');
 
 //controla versão de arquivos css e javascript para forçar o carregamento da versão atualizada
-define('Version', '2');
+define('Version', '3');
 
 if($_SESSION['nome'] == null){
 	header('LOCATION:../index.php');
 }
+// to panutention  ***  só descomentar para tirar o sistema do ar ****
+// session_unset();     
+// session_destroy();  
+//header('Location:../index.php');
 
 $customerName = null;
 $customerDescription = null;

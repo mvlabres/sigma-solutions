@@ -3,6 +3,11 @@
 require('conn.php');
 require('session.php');
 
+// to manutention
+// session_unset();     
+// session_destroy();  
+// header('Location:../index.php');
+
 if($_SESSION['nome'] == null) header('LOCATION:index.php');
 
 $conteudo = "systems.php";

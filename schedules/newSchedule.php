@@ -13,7 +13,7 @@ $function = '';
 $hasError = false;
 
 $scheduleId;
-$pickingActionStatus = $invoiceActionStatus = $certificateActionStatus = $boardingActionStatus = 'open';  
+$pickingActionStatus = $invoiceActionStatus = $certificateActionStatus = $boardingActionStatus = $otherActionStatus = 'open';  
 
 if(isset($_GET['function']) && $_GET['function'] != null){
     $function = $_GET['function'];
@@ -27,7 +27,7 @@ $requiredOperatorField = '';
 $requiredPorterField = '';
 $sectionAccess = ($_SESSION['tipo'] == 'client') ? 'hidden' : '';
 
-$pickingFileDeleteAccess = $invoiceFileDeleteAccess = $certificateFileDeleteAccess = $boardingFileDeleteAccess = '';
+$pickingFileDeleteAccess = $invoiceFileDeleteAccess = $certificateFileDeleteAccess = $boardingFileDeleteAccess = $otherFileDeleteAccess = '';
 
 if(($_SESSION['tipo'] == 'operator' || $_SESSION['tipo'] == 'adm') && $function != 'new') $requiredOperatorField = 'required';
 if($_SESSION['tipo'] == 'porter') $requiredPorterField = 'required';
@@ -163,11 +163,13 @@ $pickingStatus = $emptyStatus;
 $invoiceStatus = $emptyStatus;
 $certificateStatus = $emptyStatus;
 $boardingStatus = $emptyStatus;
+$otherStatus = $emptyStatus;
 
 $pickingFiles = array();
 $invoiceFiles = array();
 $certificateFiles = array();
 $boardingListFiles = array();
+$otherListFiles = array();
 
 $fileHelpMessage = 'Adicionar anexo';
 
@@ -220,14 +222,20 @@ if((isset($_GET['edit']) && $_GET['edit'] != null) || (isset($_GET['search']) &&
                 break;
             }
 
-            case 'boarding':
+            case 'boarding':{
                 $boardingFiles[$key] = $value;
                 $boardingStatus = $openStatus;
                 break;
+            }
+
+            case 'other':
+                $otherFiles[$key] = $value;
+                $otherStatus = $openStatus;
+                break;
             
             default:{
-                $pickingFiles[$key] = $value;
-                $pickingStatus = $openStatus;
+                $otherFiles[$key] = $value;
+                $otherStatus = $openStatus;
                 break;
             }
         }
@@ -253,6 +261,11 @@ if((isset($_GET['edit']) && $_GET['edit'] != null) || (isset($_GET['search']) &&
     if($schedule->getAttBoardingStatus() == 'closed') {
         $boardingStatus = $closeStatus;
         $boardingFileDeleteAccess = 'hidden';
+    }
+
+    if($schedule->getAttOtherStatus() == 'closed') {
+        $otherStatus = $closeStatus;
+        $otherFileDeleteAccess = 'hidden';
     }
 }
 
@@ -289,6 +302,7 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                             <input type="hidden" name="invoice-status" id="invoice-status" value="<?php if($schedule->getAttInvoiceStatus() == null) echo 'open'; else echo $schedule->getAttInvoiceStatus() ?>" >
                             <input type="hidden" name="certificate-status" id="certificate-status" value="<?php if($schedule->getAttCertificateStatus() == null) echo 'open'; else echo $schedule->getAttCertificateStatus() ?>" >
                             <input type="hidden" name="boarding-status" id="boarding-status" value="<?php if($schedule->getAttBoardingStatus() == null) echo 'open'; else echo $schedule->getAttBoardingStatus() ?>" >
+                            <input type="hidden" name="other-status" id="other-status" value="<?php if($schedule->getAttOtherStatus() == null) echo 'open'; else echo $schedule->getAttOtherStatus() ?>" >
                             <div class="form-group">
                                 <label>Status</label>
                                 <input type='text' class="invisible-disabeld-field form-control <?=$statusFieldColor ?>" value="<?php if($schedule->getStatus()==null) echo 'Novo'; else echo $schedule->getStatus() ?>" name="scheduleStatus" id="scheduleStatus" readonly/> 
@@ -694,7 +708,48 @@ $statusFieldColor = ($schedule->getStatus() == 'Liberado') ? 'success-text-field
                                 </span>
                             </p>
                         </div>
-
+                        
+                        <!-- outros -->
+                        <div class="files-group-type">
+                            <div class="mt-5 text-left">
+                                <label for="attachment-other">
+                                    <a class="file-action" id="file-action-other" title="<?=$fileHelpMessage ?>" style="<?=$otherStatus['style'] ?>" role="button" aria-disabled="false" <?=$fieldAcces['files'] ?> ><span id="file-action-icon-other" class="fa fa-<?=$otherStatus['icon'] ?>"></span>&nbsp; Outros</a>
+                                </label>
+                                <input type="file" name="file-other[]"  id="attachment-other" <?=$disabled ?> style="visibility: hidden; position: absolute;" multiple onchange="handleChangeFiles('other')" <?=$fieldAcces['files'] ?>  <?=$otherStatus['access'] ?>/>
+                            </div>
+                            <button class="btn btn-light files-control <?=$fileActionButtonStyle ?>" id="files-control-other" title="<?=$otherStatus['status-icon-title'] ?>" type="button" data-target="#close-att-confirm" data-toggle="modal" onclick="manageStatusModal('other-status','other','Outros')"><span id="file-action-control-icon-other" class="fa fa-<?=$otherStatus['status-icon'] ?>"></span></button>
+                            <p id="files-area">
+                                <span id="filesList">
+                                    <span id="files-names-other">
+                                        <?php
+    
+                                        if((isset($_GET['search']) && $_GET['search'] != null) || (isset($_GET['edit']) && $_GET['edit'] != null)){
+                                            foreach ($otherFiles as $file) {
+                        
+                                                $path = $file['path'];
+                                                $dateTime = $file['datetime'];
+                                                $fileName = substr($path, strrpos($path, '/') + 1);
+    
+                                                echo '<span class="files-box">';
+                                                echo '<span class="file-block">';
+    
+                                                if($readonly != 'readonly'){
+                                                    echo    '<span class="file-delete" id="'.$file['id'].'" onclick="removeFile(this, true, \'other\')" '.$otherFileDeleteAccess.'>+</span>';
+                                                }
+    
+                                                echo    '<a class="file-saved" href="'.$path.'" download>';
+                                                echo        '<span class="name">'.$fileName.'</span>';
+                                                echo    '</a>';
+                                                echo '</span>';
+                                                echo '<span class="min-size">'.$dateTime.'</span>';
+                                                echo '</span>';
+                                            }
+                                        }
+                                        ?>
+                                    </span>
+                                </span>
+                            </p>
+                        </div>
                     </div> 
                     <input id="filesToRemove" name="filesToRemove" type="hidden" value="">
                     <div class="btn-group-end">

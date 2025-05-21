@@ -10,7 +10,8 @@ const dts = {
     'picking': new DataTransfer(),
     'invoice': new DataTransfer(),
     'certificate': new DataTransfer(),
-    'boarding': new DataTransfer()
+    'boarding': new DataTransfer(),
+    'other': new DataTransfer()
 
 } 
 

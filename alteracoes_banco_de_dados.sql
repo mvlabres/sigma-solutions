@@ -199,6 +199,28 @@ DELIMITER ;
 
 #################################################
 
+ALTER TABLE janela ADD COLUMN attatchment_other_status VARCHAR(20) DEFAULT NULL;
+ALTER TABLE janela_log ADD COLUMN attatchment_other_status VARCHAR(20) DEFAULT NULL;
+
+DROP TRIGGER log_janela_update;
+DROP TRIGGER log_janela_insert;
+
+DELIMITER $$
+CREATE TRIGGER `log_janela_update` AFTER UPDATE ON `janela` FOR EACH ROW BEGIN
+    INSERT INTO janela_log (schedule_id,status,tipoVeiculo,placa_carreta,operacao,nf,doca,usuario,dataInclusao,inicio_operacao,horaChegada,fim_operacao,transportadora,placa_cavalo,peso,data_agendamento,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,nome_motorista,placa_carreta2,documento_motorista,operator,checker,attatchment_picking_status,attatchment_certificate_status,attatchment_invoice_status,attatchment_boarding_status,attatchment_other_status,action,user_action,date_time_action) 
+    VALUES(OLD.id,NEW.status,NEW.tipoVeiculo,NEW.placa_carreta,NEW.operacao,NEW.nf,NEW.doca,NEW.usuario,NEW.dataInclusao,NEW.inicio_operacao,NEW.horaChegada,NEW.fim_operacao,NEW.transportadora,NEW.placa_cavalo,NEW.peso,NEW.data_agendamento,NEW.saida,NEW.separacao,NEW.shipment_id,NEW.do_s,NEW.cidade,NEW.carga_qtde,NEW.observacao,NEW.dados_gerais,NEW.cliente,NEW.nome_motorista,NEW.placa_carreta2,NEW.documento_motorista,NEW.operator,NEW.checker,NEW.attatchment_picking_status,NEW.attatchment_certificate_status,NEW.attatchment_invoice_status,NEW.attatchment_boarding_status,NEW.attatchment_other_status,"update",NEW.last_modified_by,now()); 
+END
+$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER `log_janela_insert` AFTER INSERT ON `janela` FOR EACH ROW BEGIN
+    INSERT INTO janela_log (schedule_id,status,tipoVeiculo,placa_carreta,operacao,nf,doca,usuario,dataInclusao,inicio_operacao,horaChegada,fim_operacao,transportadora,placa_cavalo,peso,data_agendamento,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,nome_motorista,placa_carreta2,documento_motorista,operator,checker,attatchment_picking_status,attatchment_certificate_status,attatchment_invoice_status,attatchment_boarding_status,attatchment_other_status,action,user_action,date_time_action) 
+    VALUES(NEW.id,NEW.status,NEW.tipoVeiculo,NEW.placa_carreta,NEW.operacao,NEW.nf,NEW.doca,NEW.usuario,NEW.dataInclusao,NEW.inicio_operacao,NEW.horaChegada,NEW.fim_operacao,NEW.transportadora,NEW.placa_cavalo,NEW.peso,NEW.data_agendamento,NEW.saida,NEW.separacao,NEW.shipment_id,NEW.do_s,NEW.cidade,NEW.carga_qtde,NEW.observacao,NEW.dados_gerais,NEW.cliente,NEW.nome_motorista,NEW.placa_carreta2,NEW.documento_motorista,NEW.operator,NEW.checker,NEW.attatchment_picking_status,NEW.attatchment_certificate_status,NEW.attatchment_invoice_status,NEW.attatchment_boarding_status,NEW.attatchment_other_status,"save",NEW.usuario,now()); 
+END
+$$
+DELIMITER ;
+
 
 
 

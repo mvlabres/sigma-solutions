@@ -11,7 +11,7 @@ class ScheduleRepository{
     public function findAll(){
 
         try{
-            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta, operation_type_id,operator,checker,last_modified_by,last_modified_date,attatchment_picking_status,attatchment_invoice_status,attatchment_certificate_status,attatchment_boarding_status
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta, operation_type_id,operator,checker,last_modified_by,last_modified_date,attatchment_picking_status,attatchment_invoice_status,attatchment_certificate_status,attatchment_boarding_status,attatchment_other_status
                     FROM janela";  
 
             $result = $this->mySql->query($sql);
@@ -26,7 +26,7 @@ class ScheduleRepository{
     public function findByClient($client){
 
         try{
-            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta, operation_type_id,operator,checker,last_modified_by,last_modified_date,attatchment_picking_status,attatchment_invoice_status,attatchment_certificate_status,attatchment_boarding_status
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta, operation_type_id,operator,checker,last_modified_by,last_modified_date,attatchment_picking_status,attatchment_invoice_status,attatchment_certificate_status,attatchment_boarding_status,attatchment_other_status
                     FROM janela
                     WHERE cliente = '".$client."'
                     ORDER BY data_agendamento";  
@@ -41,7 +41,7 @@ class ScheduleRepository{
     public function findByClientStartDateAndEndDate($client, $startDate, $endDate){
 
         try{
-            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta, operation_type_id,operator,checker,last_modified_by,last_modified_date,attatchment_picking_status,attatchment_invoice_status,attatchment_certificate_status,attatchment_boarding_status
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta, operation_type_id,operator,checker,last_modified_by,last_modified_date,attatchment_picking_status,attatchment_invoice_status,attatchment_certificate_status,attatchment_boarding_status,attatchment_other_status
                     FROM janela
                     WHERE cliente = '".$client."'
                     AND data_agendamento >= '".$startDate."'
@@ -58,7 +58,7 @@ class ScheduleRepository{
     public function findByClientStatusStartDateAndEndDate($client, $status, $startDate, $endDate){
 
         try{
-            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta, operation_type_id,operator,checker,last_modified_by,last_modified_date,attatchment_picking_status,attatchment_invoice_status,attatchment_certificate_status,attatchment_boarding_status
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta, operation_type_id,operator,checker,last_modified_by,last_modified_date,attatchment_picking_status,attatchment_invoice_status,attatchment_certificate_status,attatchment_boarding_status,attatchment_other_status
                     FROM janela
                     WHERE cliente = '".$client."'
                     AND status = '".$status."' 
@@ -76,7 +76,7 @@ class ScheduleRepository{
     public function findById($id){
 
         try{
-            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta, operation_type_id,operator,checker,last_modified_by,last_modified_date,attatchment_picking_status,attatchment_invoice_status,attatchment_certificate_status,attatchment_boarding_status
+            $sql = "SELECT id,data_agendamento,transportadora,status,tipoVeiculo,placa_cavalo,operacao,nf,horaChegada,inicio_operacao,fim_operacao,usuario,dataInclusao,peso,saida,separacao,shipment_id,do_s,cidade,carga_qtde,observacao,dados_gerais,cliente,doca, nome_motorista, placa_carreta2, documento_motorista, placa_carreta, operation_type_id,operator,checker,last_modified_by,last_modified_date,attatchment_picking_status,attatchment_invoice_status,attatchment_certificate_status,attatchment_boarding_status,attatchment_other_status
                     FROM janela
                     WHERE id = '".$id."'";  
 
@@ -138,6 +138,7 @@ class ScheduleRepository{
             $sql .= "attatchment_invoice_status = '".$schedule->getAttInvoiceStatus()."', ";
             $sql .= "attatchment_certificate_status = '".$schedule->getAttCertificateStatus()."', ";
             $sql .= "attatchment_boarding_status = '".$schedule->getAttBoardingStatus()."', ";
+            $sql .= "attatchment_other_status = '".$schedule->getAttOtherStatus()."', ";
 
             $sql .= "checker = '".$schedule->getChecker()."'";
 
@@ -207,6 +208,7 @@ class ScheduleRepository{
             $sql .= "attatchment_invoice_status = '".$schedule->getAttInvoiceStatus()."', ";
             $sql .= "attatchment_certificate_status = '".$schedule->getAttCertificateStatus()."', ";
             $sql .= "attatchment_boarding_status = '".$schedule->getAttBoardingStatus()."', ";
+            $sql .= "attatchment_other_status = '".$schedule->getAttOtherStatus()."', ";
 
             $sql .= "checker = '".$schedule->getChecker()."'";
             $sql .= " WHERE ID = ".$id;  

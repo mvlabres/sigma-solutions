@@ -30,6 +30,10 @@ switch ($actionType) {
         $field = 'attatchment_boarding_status';
         break;
     }
+    case 'other':{
+        $field = 'attatchment_other_status';
+        break;
+    }
 }
 
 $result = $repository->updateAttAction($scheduleId, $field, $actionValue); 

@@ -40,6 +40,7 @@ class Schedule{
     private $lastModifiedBy;
     private $lastModifiedDate;
     private $attPickingStatus;
+    private $attOtherStatus;
 
 
     public function setId($id){
@@ -300,6 +301,12 @@ class Schedule{
         return $this->attBoardingStatus;
     }
 
+    public function setAttOtherStatus($attOtherStatus){
+        $this->attOtherStatus = $attOtherStatus;
+    }
+    public function getAttOtherStatus(){
+        return $this->attOtherStatus;
+    }
 }
 
 ?>

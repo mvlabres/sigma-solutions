@@ -65,7 +65,7 @@ if (isset($_SESSION['username'])) {
                     </form>
                 </div>
             </div>
-            <a class="dev-link" href="http://labsoft.tech/" target="_blank" ><p style="text-align:center; width:100%;" class="text-muted">&nbsp Desenvolvido por <span class="text-primary" style="font-size:1.2em"><b>LAB</b>soft</span></p></a>
+            <a class="dev-link" href="https://labsoftsistemas.com.br/" target="_blank" ><p style="text-align:center; width:100%;" class="text-muted">&nbsp Desenvolvido por <span class="text-primary" style="font-size:1.2em"><b>LAB</b>soft</span></p></a>
         </div>
         <div class="login-background">
             <img class="backgroud-image" src="images/sigma_background.png">

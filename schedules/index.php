@@ -6,7 +6,7 @@ require_once('../controller/customerController.php');
 require_once('../utils.php');
 
 //controla versão de arquivos css e javascript para forçar o carregamento da versão atualizada
-define('Version', '3');
+define('Version', '4');
 
 if($_SESSION['nome'] == null){
 	header('LOCATION:../index.php');
@@ -241,7 +241,7 @@ if(isset($_GET['conteudo'])) {
                 include($conteudo);
             ?>
         </div>
-        <a class="dev-fixed-bottom" href="http://labsoft.tech/" target="_blank" ><p class="text-muted">&nbsp Desenvolvido por <span class="text-primary" style="font-size:1.2em"><b>LAB</b>soft</span></p></a>
+        <a class="dev-fixed-bottom" href="https://labsoftsistemas.com.br/" target="_blank" ><p class="text-muted">&nbsp Desenvolvido por <span class="text-primary" style="font-size:1.2em"><b>LAB</b>soft</span></p></a>
         
     </div>
 

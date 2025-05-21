@@ -139,7 +139,7 @@ class ScheduleController{
 
     public function saveFiles($scheduleId, $action){
 
-        $files = ['picking'=> $_FILES['file-picking'], 'invoice' => $_FILES['file-invoice'], 'certificate' => $_FILES['file-certificate'], 'boarding' => $_FILES['file-boarding']];
+        $files = ['picking'=> $_FILES['file-picking'], 'invoice' => $_FILES['file-invoice'], 'certificate' => $_FILES['file-certificate'], 'boarding' => $_FILES['file-boarding'],'other' => $_FILES['file-other']];
         try {
 
             foreach ($files as $key => $value) {
@@ -324,6 +324,7 @@ class ScheduleController{
         $schedule->setAttInvoiceStatus($post['invoice-status']);
         $schedule->setAttCertificateStatus($post['certificate-status']);
         $schedule->setAttBoardingStatus($post['boarding-status']);
+        $schedule->setAttOtherStatus($post['other-status']);
 
         return $schedule;
     }
@@ -447,6 +448,7 @@ class ScheduleController{
             $schedule->setAttInvoiceStatus($data['attatchment_invoice_status']);
             $schedule->setAttCertificateStatus($data['attatchment_certificate_status']);
             $schedule->setAttBoardingStatus($data['attatchment_boarding_status']);
+            $schedule->setAttOtherStatus($data['attatchment_other_status']);
     
             array_push($schedules, $schedule);
         }

@@ -219,6 +219,11 @@ html, body {
 }
 
 /* table column width */
+.td-05{
+    width: 5px !important;
+    min-width: 5px !important;
+    max-width: 5px !important
+}
 
 .td-30{
     width: 30px !important;

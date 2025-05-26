@@ -197,7 +197,6 @@ END
 $$
 DELIMITER ;
 
-#################################################
 
 ALTER TABLE janela ADD COLUMN attatchment_other_status VARCHAR(20) DEFAULT NULL;
 ALTER TABLE janela_log ADD COLUMN attatchment_other_status VARCHAR(20) DEFAULT NULL;
@@ -220,6 +219,23 @@ CREATE TRIGGER `log_janela_insert` AFTER INSERT ON `janela` FOR EACH ROW BEGIN
 END
 $$
 DELIMITER ;
+
+INSERT INTO `user_access` (`userType`, `functionName`) VALUES ('adm', 'tracking');
+
+#################################################
+
+
+DELIMITER $$
+CREATE TRIGGER `log_attachment_insert` AFTER INSERT ON `attachment` FOR EACH ROW BEGIN
+    SET @shipmentid = (SELECT shipment_id FROM janela WHERE Id = NEW.scheduleId LIMIT 1);
+
+    INSERT INTO attachment_log (path,created_date,type,shipmentId,user_action,action,date_time_action) 
+    VALUES(NEW.path,NEW.created_date,NEW.type,@shipmentid,NEW.created_by,"insert",created_date); 
+END
+$$
+DELIMITER ;
+
+
 
 
 

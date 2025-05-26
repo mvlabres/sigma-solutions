@@ -711,3 +711,32 @@ const navigateToSearch = (scheduleStatus) => {
 const backHistory = () => {
     history.back()
 }
+
+const handleKeyupDisableFields = (component, ...args) => {
+
+    args.forEach(element => {
+        if(component.value){
+            document.querySelector(`#${element}`).disabled = true;
+        }else{
+            document.querySelector(`#${element}`).disabled = false;
+        }
+    });
+}
+
+const checkToDisableFileds = (elementId, ...args) => {
+    const elementValue = document.querySelector(`#${elementId}`).value;
+
+    args.forEach(element => {
+        if(elementValue){
+            document.querySelector(`#${element}`).disabled = true;
+        }else{
+            document.querySelector(`#${element}`).disabled = false;
+        }
+    });
+}
+
+const handleExport = () => {
+    document.querySelector(`#tableString`).value = document.querySelector(`#table-export`).innerHTML;
+    return;
+}
+

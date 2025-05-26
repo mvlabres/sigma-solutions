@@ -29,7 +29,7 @@ function sec_session_start() {
     
 }
 
-$pagesNotClearPost = ['searchSchedule.php', 'newSchedule.php', 'searchDailyInfo.php', 'newDailyInfo.php'];
+$pagesNotClearPost = ['searchSchedule.php', 'newSchedule.php', 'searchDailyInfo.php', 'newDailyInfo.php','tracking/attTrackingView.php'];
 
 sec_session_start();
 
@@ -123,7 +123,8 @@ function getAccess($mysqli){
         'register_log'=> 'hidden',
         'register_report'=> 'hidden',
         'register_operation_source' => 'hidden',
-        'register_employee' => 'hidden'
+        'register_employee' => 'hidden',
+        'tracking' => 'hidden'
     ];
 
     $sql = "SELECT id, userType, functionName

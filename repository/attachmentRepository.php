@@ -24,6 +24,38 @@ class AttachmentRepository{
         }
     }
 
+    public function findByShipmentId($shipmentId){
+
+        try{
+            $sql = "SELECT at.id, type, path, scheduleId, created_by, at.created_date, j.shipment_id AS shipment_id 
+                    FROM attachment AS at 
+                    INNER JOIN janela AS j ON j.id = scheduleId
+                    WHERE j.shipment_id = '".$shipmentId."'
+                    ORDER BY created_date ASC";
+
+            $result = $this->mySql->query($sql);
+            return $result;
+        }catch(Exception $e){
+            return false;
+        }
+    }
+
+    public function findByStartDateAndEndDate($startDate, $endDate){
+
+        try{
+            $sql = "SELECT at.id, type, path, scheduleId, created_by, at.created_date, j.shipment_id AS shipment_id 
+                    FROM attachment AS at 
+                    INNER JOIN janela AS j ON j.id = scheduleId
+                    WHERE j.created_date >= '".$startDate."' AND j.created_date <= '".$endDate."' 
+                    ORDER BY at.id, at.created_date ASC";
+
+            $result = $this->mySql->query($sql);
+            return $result;
+        }catch(Exception $e){
+            return false;
+        }
+    }
+
     public function save($scheduleId, $path, $type){
 
         try{

@@ -6,7 +6,7 @@ require_once('../controller/customerController.php');
 require_once('../utils.php');
 
 //controla versão de arquivos css e javascript para forçar o carregamento da versão atualizada
-define('Version', '4');
+define('Version', '7');
 
 if($_SESSION['nome'] == null){
 	header('LOCATION:../index.php');
@@ -216,8 +216,13 @@ if(isset($_GET['conteudo'])) {
                                 </li>
                             </ul>
                         </li>
-                       <li <?=$_SESSION['FUNCTION_ACCESS']['register_log'] ?>>
-                            <a href="#"><i></i> LOG sistema  </a>
+                       <li <?=$_SESSION['FUNCTION_ACCESS']['tracking'] ?>>
+                            <a href="#"><i></i> Tracking de registros  </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="index.php?conteudo=tracking/attTrackingView.php">Anexos</a>
+                                </li>
+                            </ul>
                         </li>
                         <li <?=$_SESSION['FUNCTION_ACCESS']['register_report'] ?>>
                             <a href="#"><i></i> Relatórios </a>
